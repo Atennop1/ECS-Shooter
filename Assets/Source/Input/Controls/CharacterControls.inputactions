@@ -1,25 +1,25 @@
 {
-    "name": "PlayerControls",
+    "name": "CharacterControls",
     "maps": [
         {
-            "name": "CharacterMovement",
+            "name": "Character",
             "id": "ac0795bc-e822-47fe-93a9-b180389179f8",
             "actions": [
                 {
                     "name": "Movement",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "cc6c79bf-6c66-4ab4-b0b7-498e38322e3f",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "WASD",
                     "id": "07af32ca-9028-4b50-92ab-0c2b02497bbc",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -24,24 +24,24 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
     ""name"": ""CharacterControls"",
     ""maps"": [
         {
-            ""name"": ""CharacterMovement"",
+            ""name"": ""Character"",
             ""id"": ""ac0795bc-e822-47fe-93a9-b180389179f8"",
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""cc6c79bf-6c66-4ab4-b0b7-498e38322e3f"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": ""WASD"",
                     ""id"": ""07af32ca-9028-4b50-92ab-0c2b02497bbc"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -98,9 +98,9 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // CharacterMovement
-        m_CharacterMovement = asset.FindActionMap("CharacterMovement", throwIfNotFound: true);
-        m_CharacterMovement_Movement = m_CharacterMovement.FindAction("Movement", throwIfNotFound: true);
+        // Character
+        m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
+        m_Character_Movement = m_Character.FindAction("Movement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -157,29 +157,29 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // CharacterMovement
-    private readonly InputActionMap m_CharacterMovement;
-    private ICharacterMovementActions m_CharacterMovementActionsCallbackInterface;
-    private readonly InputAction m_CharacterMovement_Movement;
-    public struct CharacterMovementActions
+    // Character
+    private readonly InputActionMap m_Character;
+    private ICharacterActions m_CharacterActionsCallbackInterface;
+    private readonly InputAction m_Character_Movement;
+    public struct CharacterActions
     {
         private @CharacterControls m_Wrapper;
-        public CharacterMovementActions(@CharacterControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_CharacterMovement_Movement;
-        public InputActionMap Get() { return m_Wrapper.m_CharacterMovement; }
+        public CharacterActions(@CharacterControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Character_Movement;
+        public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(CharacterMovementActions set) { return set.Get(); }
-        public void SetCallbacks(ICharacterMovementActions instance)
+        public static implicit operator InputActionMap(CharacterActions set) { return set.Get(); }
+        public void SetCallbacks(ICharacterActions instance)
         {
-            if (m_Wrapper.m_CharacterMovementActionsCallbackInterface != null)
+            if (m_Wrapper.m_CharacterActionsCallbackInterface != null)
             {
-                @Movement.started -= m_Wrapper.m_CharacterMovementActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_CharacterMovementActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_CharacterMovementActionsCallbackInterface.OnMovement;
+                @Movement.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMovement;
             }
-            m_Wrapper.m_CharacterMovementActionsCallbackInterface = instance;
+            m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Movement.started += instance.OnMovement;
@@ -188,8 +188,8 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
             }
         }
     }
-    public CharacterMovementActions @CharacterMovement => new CharacterMovementActions(this);
-    public interface ICharacterMovementActions
+    public CharacterActions @Character => new CharacterActions(this);
+    public interface ICharacterActions
     {
         void OnMovement(InputAction.CallbackContext context);
     }
