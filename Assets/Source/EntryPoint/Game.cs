@@ -1,6 +1,5 @@
 ﻿using Leopotam.EcsLite;
 using Sirenix.OdinInspector;
-using UnityEngine;
 
 namespace Shooter.EntryPoint
 {
