@@ -6,14 +6,14 @@ using UnityEngine.InputSystem;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterRotationSystem : IEcsInitSystem, IEcsRunSystem
+    public sealed class CharacterRotatingSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly Transform _characterTransform;
         private readonly Transform _cameraTransform;
 
         private float _xRotation;
 
-        public CharacterRotationSystem(Transform characterTransform, Transform cameraTransform)
+        public CharacterRotatingSystem(Transform characterTransform, Transform cameraTransform)
         {
             _characterTransform = characterTransform ?? throw new ArgumentNullException(nameof(characterTransform));
             _cameraTransform = cameraTransform ?? throw new ArgumentNullException(nameof(cameraTransform));
@@ -25,13 +25,13 @@ namespace Shooter.Character
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var pool = world.GetPool<InputData>();
-            var filter = world.Filter<InputData>().End();
+            var pool = world.GetPool<CharacterMovementData>();
+            var filter = world.Filter<CharacterMovementData>().End();
 
             foreach (var entity in filter)
             {
-                ref var inputData = ref pool.Get(entity);
-                var rotatingDirection = Mouse.current.delta.ReadValue() * inputData.MouseSensitivity * Time.deltaTime;
+                ref var movementData = ref pool.Get(entity);
+                var rotatingDirection = Mouse.current.delta.ReadValue() * movementData.MouseSensitivity * Time.deltaTime;
 
                 _xRotation -= rotatingDirection.y;
                 _xRotation = Mathf.Clamp(_xRotation, -90, 90);
