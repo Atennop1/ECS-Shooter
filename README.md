@@ -1,2 +1,2 @@
 # ECS-Shooter
-Project for deep learning of ECS approach
+A shooter that is being made for deep learning of the ECS approach
