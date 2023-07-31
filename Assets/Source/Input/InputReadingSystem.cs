@@ -23,9 +23,8 @@ namespace Shooter.Input
             {
                 _characterControls.Character.Movement.performed += context =>
                 {
-                    var changedDirection = context.ReadValue<Vector2>();
-                    pool.Get(entity).MovingDirection.x = changedDirection.x;
-                    pool.Get(entity).MovingDirection.y = changedDirection.y;
+                    var movingDirection = context.ReadValue<Vector2>();
+                    pool.Get(entity).MovingDirection = movingDirection;
                 };
             }
         }
