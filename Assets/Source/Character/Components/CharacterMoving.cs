@@ -1,6 +1,6 @@
 ﻿namespace Shooter.Character
 {
-    public struct CharacterMoving
+    public class CharacterMoving
     {
         public float Speed;
     }

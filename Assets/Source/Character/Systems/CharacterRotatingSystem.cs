@@ -1,6 +1,5 @@
 using System;
 using Leopotam.EcsLite;
-using Shooter.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,13 +24,13 @@ namespace Shooter.Character
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterCameraRotating>();
-            var filter = world.Filter<CharacterCameraRotating>().End();
+            var pool = world.GetPool<Character>();
+            var filter = world.Filter<Character>().End();
 
             foreach (var entity in filter)
             {
-                ref var rotating = ref pool.Get(entity);
-                var rotatingDirection = Mouse.current.delta.ReadValue() * rotating.MouseSensitivity * Time.deltaTime;
+                ref var character = ref pool.Get(entity);
+                var rotatingDirection = Mouse.current.delta.ReadValue() * character.CameraMoving.MouseSensitivity * Time.deltaTime;
 
                 _xRotation -= rotatingDirection.y;
                 _xRotation = Mathf.Clamp(_xRotation, -90, 90);

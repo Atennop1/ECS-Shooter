@@ -1,5 +1,4 @@
-﻿using Leopotam.EcsLite;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Shooter.Character
 {
@@ -8,15 +7,13 @@ namespace Shooter.Character
         [SerializeField] private float _jumpHeight;
         [SerializeField] private float _gravitationalConstant;
 
-        public CharacterJumping Create(IEcsSystems systems, int entity)
+        public CharacterJumping Create()
         {
-            var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterJumping>();
-            pool.Add(entity);
-
-            ref var createdJumping = ref pool.Get(entity);
-            createdJumping.JumpHeight = _jumpHeight;
-            createdJumping.GravitationalConstant = _gravitationalConstant;
+            var createdJumping = new CharacterJumping
+            {
+                JumpHeight = _jumpHeight,
+                GravitationalConstant = _gravitationalConstant
+            };
 
             return createdJumping;
         }

@@ -20,8 +20,8 @@ namespace Shooter.Character
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterJumping>();
-            var filter = world.Filter<CharacterJumping>().End();
+            var pool = world.GetPool<Character>();
+            var filter = world.Filter<Character>().End();
 
             foreach (var entity in filter)
                 pool.Get(entity).IsGrounded = Physics.CheckSphere(_characterFeetTransform.position, _checkingSphereRadius, _groundLayerMask);

@@ -15,21 +15,21 @@ namespace Shooter.Character
         {
             var world = systems.GetWorld();
             
-            var characterMovingPool = world.GetPool<CharacterMoving>();
-            var playerInputPool = world.GetPool<PlayerInput>();
+            var characterPool = world.GetPool<Character>();
+            var characterFilter = world.Filter<Character>().End();
             
+            var playerInputPool = world.GetPool<PlayerInput>();
             var playerInputFilter = world.Filter<PlayerInput>().End();
-            var characterMovingFilter = world.Filter<CharacterMoving>().End();
 
             foreach (var playerInputEntity in playerInputFilter)
             {
-                foreach (var characterMovementEntity in characterMovingFilter)
+                foreach (var characterMovementEntity in characterFilter)
                 {
                     var playerInput = playerInputPool.Get(playerInputEntity);
-                    var characterMoving = characterMovingPool.Get(characterMovementEntity);
+                    var character = characterPool.Get(characterMovementEntity);
 
                     var movementDirection = _characterController.transform.right * playerInput.MovementInput.x + _characterController.transform.forward * playerInput.MovementInput.y;
-                    _characterController.Move(movementDirection * characterMoving.Speed * Time.deltaTime);
+                    _characterController.Move(movementDirection * character.Moving.Speed * Time.deltaTime);
                 }
             }
         }

@@ -1,5 +1,4 @@
-﻿using Leopotam.EcsLite;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Shooter.Character
 {
@@ -7,14 +6,12 @@ namespace Shooter.Character
     {
         [SerializeField] private float _speed;
 
-        public CharacterMoving Create(IEcsSystems systems, int entity)
+        public CharacterMoving Create()
         {
-            var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterMoving>();
-            pool.Add(entity);
-
-            ref var createdMoving = ref pool.Get(entity);
-            createdMoving.Speed = _speed;
+            var createdMoving = new CharacterMoving
+            {
+                Speed = _speed
+            };
 
             return createdMoving;
         }

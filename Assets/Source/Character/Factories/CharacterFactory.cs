@@ -1,5 +1,6 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Shooter.Character
 {
@@ -11,7 +12,7 @@ namespace Shooter.Character
         [Space]
         [SerializeField] private CharacterMovingFactory _characterMovingFactory;
         [SerializeField] private CharacterJumpingFactory _characterJumpingFactory;
-        [SerializeField] private CharacterCameraRotatingFactory _characterCameraRotatingFactory;
+        [SerializeField] private CharacterCameraMovingFactory characterCameraMovingFactory;
         
         [Space] 
         [SerializeField] private CharacterController _characterController;
@@ -21,10 +22,14 @@ namespace Shooter.Character
         {
             var world = ecsSystems.GetWorld();
             var entity = world.NewEntity();
+            
+            var characterPool = world.GetPool<Character>();
+            characterPool.Add(entity);
 
-            _characterMovingFactory.Create(ecsSystems, entity);
-            _characterJumpingFactory.Create(ecsSystems, entity);
-            _characterCameraRotatingFactory.Create(ecsSystems, entity);
+            ref var character = ref characterPool.Get(entity);
+            character.Moving = _characterMovingFactory.Create();
+            character.Jumping = _characterJumpingFactory.Create();
+            character.CameraMoving = characterCameraMovingFactory.Create();
 
             ecsSystems.Add(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
             ecsSystems.Add(new CharacterMovingSystem(_characterController));

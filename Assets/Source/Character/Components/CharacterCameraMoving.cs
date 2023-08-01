@@ -1,6 +1,6 @@
 ﻿namespace Shooter.Character
 {
-    public struct CharacterCameraRotating
+    public class CharacterCameraMoving
     {
         public float MouseSensitivity;
     }

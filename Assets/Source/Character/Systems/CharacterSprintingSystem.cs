@@ -14,30 +14,30 @@ namespace Shooter.Character
         public void Init(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterMoving>();
-            var filter = world.Filter<CharacterMoving>().End();
+            var pool = world.GetPool<Character>();
+            var filter = world.Filter<Character>().End();
 
             foreach (var entity in filter) 
-                _walkingSpeed = pool.Get(entity).Speed;
+                _walkingSpeed = pool.Get(entity).Moving.Speed;
         }
 
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
             
-            var characterMovingPool = world.GetPool<CharacterMoving>();
-            var playerInputPool = world.GetPool<PlayerInput>();
+            var characterPool = world.GetPool<Character>();
+            var characterFilter = world.Filter<Character>().End();
             
+            var playerInputPool = world.GetPool<PlayerInput>();
             var playerInputFilter = world.Filter<PlayerInput>().End();
-            var characterMovingFilter = world.Filter<CharacterMoving>().End();
 
             foreach (var playerInputEntity in playerInputFilter)
             {
-                foreach (var characterMovementEntity in characterMovingFilter)
+                foreach (var characterMovementEntity in characterFilter)
                 {
                     var playerInput = playerInputPool.Get(playerInputEntity);
-                    ref var characterMoving = ref characterMovingPool.Get(characterMovementEntity);
-                    characterMoving.Speed = playerInput.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
+                    ref var character = ref characterPool.Get(characterMovementEntity);
+                    character.Moving.Speed = playerInput.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
                 }
             }
         }

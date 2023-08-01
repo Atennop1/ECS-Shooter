@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 898356960}
   - component: {fileID: 898356961}
   m_Layer: 0
-  m_Name: CharacterCameraRotatingFactory
+  m_Name: CharacterJumpingFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,7 +781,7 @@ GameObject:
   - component: {fileID: 1760241099}
   - component: {fileID: 1760241100}
   m_Layer: 0
-  m_Name: CameraRotatingFactory
+  m_Name: CharacterCameraMovementFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1061,6 +1061,6 @@ MonoBehaviour:
   _characterSprintingSystemFactory: {fileID: 1158980893}
   _characterMovingFactory: {fileID: 945416895}
   _characterJumpingFactory: {fileID: 898356961}
-  _characterCameraRotatingFactory: {fileID: 1760241100}
+  characterCameraMovingFactory: {fileID: 1760241100}
   _characterController: {fileID: 1249881129}
   _cameraTransform: {fileID: 1727005987}
