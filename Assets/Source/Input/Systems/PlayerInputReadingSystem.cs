@@ -26,6 +26,12 @@ namespace Shooter.Input
                     var movementInput = context.ReadValue<Vector2>();
                     pool.Get(entity).MovementInput = movementInput;
                 };
+                
+                _characterControls.Character.Jump.performed += context =>
+                {
+                    var isJumpKeyDown = context.ReadValue<float>() > 0.1f;
+                    pool.Get(entity).IsJumpKeyPressed = isJumpKeyDown;
+                };
             }
         }
         

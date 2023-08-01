@@ -1,10 +1,16 @@
-﻿namespace Shooter.Character
+﻿using UnityEngine;
+
+namespace Shooter.Character
 {
     public struct CharacterMovement
     {
         public bool IsGrounded;
+        public Vector3 Velocity;
         
-        public float MouseSensitivity;
+        public float JumpHeight;
+        public float GravitationalConstant;
+        
         public float Speed;
+        public float MouseSensitivity;
     }
 }

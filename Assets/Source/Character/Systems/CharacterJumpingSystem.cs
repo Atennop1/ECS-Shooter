@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterMovingSystem : IEcsRunSystem
+    public sealed class CharacterJumpingSystem : IEcsRunSystem
     {
         private readonly CharacterController _characterController;
 
-        public CharacterMovingSystem(CharacterController characterController) 
+        public CharacterJumpingSystem(CharacterController characterController)
             => _characterController = characterController;
 
         public void Run(IEcsSystems systems)
@@ -20,11 +20,14 @@ namespace Shooter.Character
 
             foreach (var entity in filter)
             {
-                var movementInput = playerInputPool.Get(entity).MovementInput;
-                var characterMovementSpeed = characterMovementPool.Get(entity).Speed;
+                ref var movement = ref characterMovementPool.Get(entity);
+                ref var input = ref playerInputPool.Get(entity);
+
+                if (!movement.IsGrounded || !input.IsJumpKeyPressed) 
+                    continue;
                 
-                var movementDirection = _characterController.transform.right * movementInput.x + _characterController.transform.forward * movementInput.y;
-                _characterController.Move(movementDirection * characterMovementSpeed * Time.deltaTime);
+                movement.Velocity.y = Mathf.Sqrt(-2 * movement.JumpHeight * movement.GravitationalConstant);
+                _characterController.Move(movement.Velocity * Time.deltaTime);
             }
         }
     }
