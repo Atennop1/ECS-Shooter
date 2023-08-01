@@ -6,6 +6,7 @@ namespace Shooter.Character
     public sealed class CharacterFactory : MonoBehaviour
     {
         [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
+        [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
         
         [Space]
         [SerializeField] private CharacterMovingFactory _characterMovingFactory;
@@ -27,6 +28,7 @@ namespace Shooter.Character
 
             ecsSystems.Add(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
             ecsSystems.Add(new CharacterMovingSystem(_characterController));
+            ecsSystems.Add(_characterSprintingSystemFactory.Create());
             ecsSystems.Add(_characterGroundingSystemFactory.Create());
             ecsSystems.Add(new CharacterGravitationSystem(_characterController));
             ecsSystems.Add(new CharacterJumpingSystem(_characterController));

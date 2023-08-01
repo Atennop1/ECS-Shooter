@@ -25,11 +25,11 @@ namespace Shooter.Character
             {
                 foreach (var characterMovementEntity in characterMovingFilter)
                 {
-                    var movementInput = playerInputPool.Get(playerInputEntity).MovementInput;
-                    var characterMovementSpeed = characterMovingPool.Get(characterMovementEntity).Speed;
+                    var playerInput = playerInputPool.Get(playerInputEntity);
+                    var characterMoving = characterMovingPool.Get(characterMovementEntity);
 
-                    var movementDirection = _characterController.transform.right * movementInput.x + _characterController.transform.forward * movementInput.y;
-                    _characterController.Move(movementDirection * characterMovementSpeed * Time.deltaTime);
+                    var movementDirection = _characterController.transform.right * playerInput.MovementInput.x + _characterController.transform.forward * playerInput.MovementInput.y;
+                    _characterController.Move(movementDirection * characterMoving.Speed * Time.deltaTime);
                 }
             }
         }

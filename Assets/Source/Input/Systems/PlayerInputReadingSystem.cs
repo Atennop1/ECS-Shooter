@@ -32,6 +32,12 @@ namespace Shooter.Input
                     var isJumpKeyDown = context.ReadValue<float>() > 0.1f;
                     pool.Get(entity).IsJumpKeyPressed = isJumpKeyDown;
                 };
+                
+                _characterControls.Character.Sprint.performed += context =>
+                {
+                    var isShiftPressed = context.ReadValue<float>() > 0.1f;
+                    pool.Get(entity).IsShiftPressed = isShiftPressed;
+                };
             }
         }
         
