@@ -197,7 +197,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2069732688}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &628270872
 MonoBehaviour:
@@ -407,6 +407,52 @@ Transform:
   m_Father: {fileID: 2033565229}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 37.39, y: 2.743, z: 21.834}
+--- !u!1 &898356959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 898356960}
+  - component: {fileID: 898356961}
+  m_Layer: 0
+  m_Name: CharacterCameraRotatingFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &898356960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898356959}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1790905255}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &898356961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898356959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de81a136dd63469984b7d4102d8ed75c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpHeight: 1.5
+  _gravitationalConstant: -9.81
 --- !u!1 &945416893
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +464,7 @@ GameObject:
   - component: {fileID: 945416894}
   - component: {fileID: 945416895}
   m_Layer: 0
-  m_Name: CharacterMovementFactory
+  m_Name: CharacterMovingFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -431,12 +477,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945416893}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2069732688}
+  m_Father: {fileID: 1790905255}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &945416895
@@ -451,10 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a645a18cac44514a60f41d602fd26e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpHeight: 1.5
-  _gravitationalConstant: -9.81
   _speed: 7
-  _mouseSensitivity: 100
 --- !u!1 &977247528
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,6 +725,85 @@ MonoBehaviour:
     SerializationNodes: []
   _playerInputFactory: {fileID: 205734946}
   _characterFactory: {fileID: 2069732689}
+--- !u!1 &1760241098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1760241099}
+  - component: {fileID: 1760241100}
+  m_Layer: 0
+  m_Name: CameraRotatingFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1760241099
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760241098}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1790905255}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1760241100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760241098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e57a8dcc604cffb4d2e51cd0359f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mouseSensitivity: 100
+--- !u!1 &1790905254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1790905255}
+  m_Layer: 0
+  m_Name: Movement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1790905255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790905254}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 945416894}
+  - {fileID: 898356960}
+  - {fileID: 1760241099}
+  m_Father: {fileID: 2069732688}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1809111256
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,8 +994,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 945416894}
   - {fileID: 628270871}
+  - {fileID: 1790905255}
   m_Father: {fileID: 1730108820}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -889,7 +1011,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bf81d043b4c48f6ae761399ccafd3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterMovementFactory: {fileID: 945416895}
-  characterGroundingSystemFactory: {fileID: 628270872}
+  _characterGroundingSystemFactory: {fileID: 628270872}
+  _characterMovingFactory: {fileID: 945416895}
+  _characterJumpingFactory: {fileID: 898356961}
+  _characterCameraRotatingFactory: {fileID: 1760241100}
   _characterController: {fileID: 1249881129}
   _cameraTransform: {fileID: 1727005987}

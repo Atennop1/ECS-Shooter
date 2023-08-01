@@ -13,18 +13,18 @@ namespace Shooter.Character
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterMovement>();
-            var filter = world.Filter<CharacterMovement>().End();
+            var pool = world.GetPool<CharacterJumping>();
+            var filter = world.Filter<CharacterJumping>().End();
 
             foreach (var entity in filter)
             {
-                ref var movement = ref pool.Get(entity);
+                ref var jumping = ref pool.Get(entity);
 
-                if (movement is { IsGrounded: true, Velocity: { y: < 0 } }) 
-                    movement.Velocity.y = -2f;
+                if (jumping is { IsGrounded: true, VerticalVelocity: < 0 }) 
+                    jumping.VerticalVelocity = -2f;
 
-                movement.Velocity.y += movement.GravitationalConstant * Time.deltaTime;
-                _characterController.Move(movement.Velocity * Time.deltaTime);
+                jumping.VerticalVelocity += jumping.GravitationalConstant * Time.deltaTime;
+                _characterController.Move(new Vector3(0, jumping.VerticalVelocity, 0) * Time.deltaTime);
             }
         }
     }

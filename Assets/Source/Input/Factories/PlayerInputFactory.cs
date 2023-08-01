@@ -5,9 +5,10 @@ namespace Shooter.Input
 {
     public sealed class PlayerInputFactory : MonoBehaviour
     {
-        public PlayerInput Create(IEcsSystems ecsSystems, int entity)
+        public PlayerInput Create(IEcsSystems ecsSystems)
         {
             var world = ecsSystems.GetWorld();
+            var entity = world.NewEntity();
             var pool = world.GetPool<PlayerInput>();
             
             pool.Add(entity);

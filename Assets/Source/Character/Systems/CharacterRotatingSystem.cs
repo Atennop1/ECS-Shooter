@@ -25,13 +25,13 @@ namespace Shooter.Character
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterMovement>();
-            var filter = world.Filter<CharacterMovement>().End();
+            var pool = world.GetPool<CharacterCameraRotating>();
+            var filter = world.Filter<CharacterCameraRotating>().End();
 
             foreach (var entity in filter)
             {
-                ref var movementData = ref pool.Get(entity);
-                var rotatingDirection = Mouse.current.delta.ReadValue() * movementData.MouseSensitivity * Time.deltaTime;
+                ref var rotating = ref pool.Get(entity);
+                var rotatingDirection = Mouse.current.delta.ReadValue() * rotating.MouseSensitivity * Time.deltaTime;
 
                 _xRotation -= rotatingDirection.y;
                 _xRotation = Mathf.Clamp(_xRotation, -90, 90);

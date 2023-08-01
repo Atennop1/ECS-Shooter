@@ -21,8 +21,8 @@ namespace Shooter.EntryPoint
             _ecsSystems = new EcsSystems(_ecsWorld);
             _fixedEcsSystems = new EcsSystems(_ecsWorld);
 
-            var characterEntity = _characterFactory.Create(_ecsSystems);
-            _playerInputFactory.Create(_ecsSystems, characterEntity);
+            _playerInputFactory.Create(_ecsSystems);
+            _characterFactory.Create(_ecsSystems);
 
             _ecsSystems.Init();
             _fixedEcsSystems.Init();

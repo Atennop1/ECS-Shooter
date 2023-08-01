@@ -14,17 +14,23 @@ namespace Shooter.Character
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var characterMovementPool = world.GetPool<CharacterMovement>();
+            
+            var characterMovingPool = world.GetPool<CharacterMoving>();
             var playerInputPool = world.GetPool<PlayerInput>();
-            var filter = world.Filter<CharacterMovement>().Inc<PlayerInput>().End();
+            
+            var playerInputFilter = world.Filter<PlayerInput>().End();
+            var characterMovingFilter = world.Filter<CharacterMoving>().End();
 
-            foreach (var entity in filter)
+            foreach (var playerInputEntity in playerInputFilter)
             {
-                var movementInput = playerInputPool.Get(entity).MovementInput;
-                var characterMovementSpeed = characterMovementPool.Get(entity).Speed;
-                
-                var movementDirection = _characterController.transform.right * movementInput.x + _characterController.transform.forward * movementInput.y;
-                _characterController.Move(movementDirection * characterMovementSpeed * Time.deltaTime);
+                foreach (var characterMovementEntity in characterMovingFilter)
+                {
+                    var movementInput = playerInputPool.Get(playerInputEntity).MovementInput;
+                    var characterMovementSpeed = characterMovingPool.Get(characterMovementEntity).Speed;
+
+                    var movementDirection = _characterController.transform.right * movementInput.x + _characterController.transform.forward * movementInput.y;
+                    _characterController.Move(movementDirection * characterMovementSpeed * Time.deltaTime);
+                }
             }
         }
     }
