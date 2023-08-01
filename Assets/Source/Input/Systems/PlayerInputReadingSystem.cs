@@ -16,8 +16,8 @@ namespace Shooter.Input
             _characterControls.Enable();
             
             var world = systems.GetWorld();
-            var filter = world.Filter<PlayerInputData>().End();
-            var pool = world.GetPool<PlayerInputData>();
+            var filter = world.Filter<PlayerInput>().End();
+            var pool = world.GetPool<PlayerInput>();
 
             foreach (var entity in filter)
             {
@@ -25,8 +25,6 @@ namespace Shooter.Input
                 {
                     var movementInput = context.ReadValue<Vector2>();
                     pool.Get(entity).MovementInput = movementInput;
-                    
-                    Debug.Log(movementInput);
                 };
             }
         }

@@ -14,9 +14,9 @@ namespace Shooter.Character
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var characterMovementPool = world.GetPool<CharacterMovementData>();
-            var playerInputPool = world.GetPool<PlayerInputData>();
-            var filter = world.Filter<CharacterMovementData>().Inc<PlayerInputData>().End();
+            var characterMovementPool = world.GetPool<CharacterMovement>();
+            var playerInputPool = world.GetPool<PlayerInput>();
+            var filter = world.Filter<CharacterMovement>().Inc<PlayerInput>().End();
 
             foreach (var entity in filter)
             {

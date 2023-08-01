@@ -2,7 +2,7 @@
 
 namespace Shooter.Input
 {
-    public struct PlayerInputData
+    public struct PlayerInput
     {
         public Vector2 MovementInput;
     }

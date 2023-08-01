@@ -1,5 +1,6 @@
 ﻿using Leopotam.EcsLite;
 using Shooter.Character;
+using Shooter.Input;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Shooter.EntryPoint
 {
     public sealed class Game : SerializedMonoBehaviour
     {
+        [SerializeField] private PlayerInputFactory _playerInputFactory;
         [SerializeField] private CharacterFactory _characterFactory;
         
         private EcsWorld _ecsWorld;
@@ -19,7 +21,8 @@ namespace Shooter.EntryPoint
             _ecsSystems = new EcsSystems(_ecsWorld);
             _fixedEcsSystems = new EcsSystems(_ecsWorld);
 
-            _characterFactory.Create(_ecsSystems);
+            var characterEntity = _characterFactory.Create(_ecsSystems);
+            _playerInputFactory.Create(_ecsSystems, characterEntity);
 
             _ecsSystems.Init();
             _fixedEcsSystems.Init();
