@@ -1,6 +1,6 @@
 ﻿namespace Shooter.Character
 {
-    public class CharacterCameraMoving
+    public class CharacterHeadMovingData
     {
         public float MouseSensitivity;
     }

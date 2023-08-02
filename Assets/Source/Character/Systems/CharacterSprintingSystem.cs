@@ -18,7 +18,7 @@ namespace Shooter.Character
             var filter = world.Filter<Character>().End();
 
             foreach (var entity in filter) 
-                _walkingSpeed = pool.Get(entity).Moving.Speed;
+                _walkingSpeed = pool.Get(entity).MovingData.Speed;
         }
 
         public void Run(IEcsSystems systems)
@@ -37,7 +37,7 @@ namespace Shooter.Character
                 {
                     var playerInput = playerInputPool.Get(playerInputEntity);
                     ref var character = ref characterPool.Get(characterMovementEntity);
-                    character.Moving.Speed = playerInput.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
+                    character.MovingData.Speed = playerInput.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
                 }
             }
         }

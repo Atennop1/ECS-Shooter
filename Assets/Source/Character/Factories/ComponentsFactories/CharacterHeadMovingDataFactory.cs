@@ -2,13 +2,13 @@
 
 namespace Shooter.Character
 {
-    public sealed class CharacterCameraMovingFactory : MonoBehaviour
+    public sealed class CharacterHeadMovingDataFactory : MonoBehaviour
     {
         [SerializeField] private float _mouseSensitivity;
 
-        public CharacterCameraMoving Create()
+        public CharacterHeadMovingData Create()
         {
-            var createdMoving = new CharacterCameraMoving
+            var createdMoving = new CharacterHeadMovingData
             {
                 MouseSensitivity = _mouseSensitivity
             };

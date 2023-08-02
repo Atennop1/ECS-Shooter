@@ -10,9 +10,9 @@ namespace Shooter.Character
         [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
         
         [Space]
-        [SerializeField] private CharacterMovingFactory _characterMovingFactory;
-        [SerializeField] private CharacterJumpingFactory _characterJumpingFactory;
-        [SerializeField] private CharacterCameraMovingFactory characterCameraMovingFactory;
+        [SerializeField] private CharacterMovingDataFactory _characterMovingDataFactory;
+        [SerializeField] private CharacterJumpingDataFactory _characterJumpingDataFactory;
+        [SerializeField] private CharacterHeadMovingDataFactory _characterHeadMovingDataFactory;
         
         [Space] 
         [SerializeField] private CharacterController _characterController;
@@ -27,9 +27,9 @@ namespace Shooter.Character
             characterPool.Add(entity);
 
             ref var character = ref characterPool.Get(entity);
-            character.Moving = _characterMovingFactory.Create();
-            character.Jumping = _characterJumpingFactory.Create();
-            character.CameraMoving = characterCameraMovingFactory.Create();
+            character.MovingData = _characterMovingDataFactory.Create();
+            character.JumpingData = _characterJumpingDataFactory.Create();
+            character.HeadMovingData = _characterHeadMovingDataFactory.Create();
 
             ecsSystems.Add(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
             ecsSystems.Add(new CharacterMovingSystem(_characterController));

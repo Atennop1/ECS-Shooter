@@ -2,13 +2,13 @@
 
 namespace Shooter.Character
 {
-    public sealed class CharacterMovingFactory : MonoBehaviour
+    public sealed class CharacterMovingDataFactory : MonoBehaviour
     {
         [SerializeField] private float _speed;
 
-        public CharacterMoving Create()
+        public CharacterMovingData Create()
         {
-            var createdMoving = new CharacterMoving
+            var createdMoving = new CharacterMovingData
             {
                 Speed = _speed
             };

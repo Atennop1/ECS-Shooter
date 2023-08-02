@@ -29,7 +29,7 @@ namespace Shooter.Character
                     var character = characterPool.Get(characterMovementEntity);
 
                     var movementDirection = _characterController.transform.right * playerInput.MovementInput.x + _characterController.transform.forward * playerInput.MovementInput.y;
-                    _characterController.Move(movementDirection * character.Moving.Speed * Time.deltaTime);
+                    _characterController.Move(movementDirection * character.MovingData.Speed * Time.deltaTime);
                 }
             }
         }

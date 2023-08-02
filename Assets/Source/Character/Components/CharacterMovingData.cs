@@ -1,6 +1,6 @@
 ﻿namespace Shooter.Character
 {
-    public class CharacterMoving
+    public class CharacterMovingData
     {
         public float Speed;
     }

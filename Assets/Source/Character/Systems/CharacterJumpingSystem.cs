@@ -31,8 +31,8 @@ namespace Shooter.Character
                     if (!character.IsGrounded || !input.IsJumpKeyPressed) 
                         continue;
                 
-                    character.Jumping.VerticalVelocity = Mathf.Sqrt(-2 * character.Jumping.JumpHeight * character.Jumping.GravitationalConstant);
-                    _characterController.Move(new Vector3(0, character.Jumping.VerticalVelocity, 0) * Time.deltaTime);
+                    character.JumpingData.VerticalVelocity = Mathf.Sqrt(-2 * character.JumpingData.JumpHeight * character.JumpingData.GravitationalConstant);
+                    _characterController.Move(new Vector3(0, character.JumpingData.VerticalVelocity, 0) * Time.deltaTime);
                 }
             }
         }

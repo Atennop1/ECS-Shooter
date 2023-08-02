@@ -4,8 +4,8 @@
     {
         public bool IsGrounded;
 
-        public CharacterMoving Moving;
-        public CharacterJumping Jumping;
-        public CharacterCameraMoving CameraMoving;
+        public CharacterMovingData MovingData;
+        public CharacterJumpingData JumpingData;
+        public CharacterHeadMovingData HeadMovingData;
     }
 }
