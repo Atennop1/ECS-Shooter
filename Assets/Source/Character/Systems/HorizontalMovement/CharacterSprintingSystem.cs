@@ -37,7 +37,9 @@ namespace Shooter.Character
                 {
                     var playerInput = playerInputPool.Get(playerInputEntity);
                     ref var character = ref characterPool.Get(characterMovementEntity);
+                    
                     character.MovingData.Speed = playerInput.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
+                    character.MovingData.IsSprinting = playerInput.IsShiftPressed;
                 }
             }
         }

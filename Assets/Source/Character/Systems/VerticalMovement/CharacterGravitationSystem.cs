@@ -20,11 +20,10 @@ namespace Shooter.Character
             {
                 ref var character = ref pool.Get(entity);
 
-                if (character.JumpingData.VerticalVelocity < 0 && character.IsGrounded) 
-                    character.JumpingData.VerticalVelocity = -2f;
+                if (character.IsGrounded && character.MovingData.Velocity.y < 0) 
+                    character.MovingData.Velocity.y = -2f;
 
-                character.JumpingData.VerticalVelocity += character.JumpingData.GravitationalConstant * Time.deltaTime;
-                _characterController.Move(new Vector3(0, character.JumpingData.VerticalVelocity, 0) * Time.deltaTime);
+                character.MovingData.Velocity.y += character.JumpingData.GravitationalConstant * Time.deltaTime;
             }
         }
     }

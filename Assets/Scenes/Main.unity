@@ -814,7 +814,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e57a8dcc604cffb4d2e51cd0359f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mouseSensitivity: 100
+  _mouseSensitivity: 60
+  _walkingBobData:
+    BobSpeed: 14
+    BobStrength: 0.05
+  _sprintingBobData:
+    BobSpeed: 18
+    BobStrength: 0.1
 --- !u!1 &1790905254
 GameObject:
   m_ObjectHideFlags: 0

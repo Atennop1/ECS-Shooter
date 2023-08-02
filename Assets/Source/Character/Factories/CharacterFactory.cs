@@ -1,6 +1,5 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Shooter.Character
 {
@@ -31,12 +30,17 @@ namespace Shooter.Character
             character.JumpingData = _characterJumpingDataFactory.Create();
             character.HeadMovingData = _characterHeadMovingDataFactory.Create();
 
+            ecsSystems.Add(_characterGroundingSystemFactory.Create());
+            
             ecsSystems.Add(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
+            ecsSystems.Add(new CharacterHeadbobSystem(_characterController, _cameraTransform));
+            
             ecsSystems.Add(new CharacterMovingSystem(_characterController));
             ecsSystems.Add(_characterSprintingSystemFactory.Create());
-            ecsSystems.Add(_characterGroundingSystemFactory.Create());
+
             ecsSystems.Add(new CharacterGravitationSystem(_characterController));
             ecsSystems.Add(new CharacterJumpingSystem(_characterController));
+            ecsSystems.Add(new CharacterVerticalVelocityApplyingSystem(_characterController));
         }
     }
 }

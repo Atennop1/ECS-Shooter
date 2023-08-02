@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterJumpingSystem : IEcsRunSystem
+    public sealed class CharacterMovingSystem : IEcsRunSystem
     {
         private readonly CharacterController _characterController;
 
-        public CharacterJumpingSystem(CharacterController characterController)
+        public CharacterMovingSystem(CharacterController characterController) 
             => _characterController = characterController;
 
         public void Run(IEcsSystems systems)
@@ -25,14 +25,14 @@ namespace Shooter.Character
             {
                 foreach (var characterMovementEntity in characterFilter)
                 {
-                    ref var character = ref characterPool.Get(characterMovementEntity);
-                    ref var input = ref playerInputPool.Get(playerInputEntity);
+                    var playerInput = playerInputPool.Get(playerInputEntity);
+                    var character = characterPool.Get(characterMovementEntity);
 
-                    if (!character.IsGrounded || !input.IsJumpKeyPressed) 
-                        continue;
-                
-                    character.JumpingData.VerticalVelocity = Mathf.Sqrt(-2 * character.JumpingData.JumpHeight * character.JumpingData.GravitationalConstant);
-                    _characterController.Move(new Vector3(0, character.JumpingData.VerticalVelocity, 0) * Time.deltaTime);
+                    character.MovingData.Velocity.x = playerInput.MovementInput.x * character.MovingData.Speed;
+                    character.MovingData.Velocity.z = playerInput.MovementInput.y * character.MovingData.Speed;
+                    
+                    var addedVelocity = _characterController.transform.right * playerInput.MovementInput.x + _characterController.transform.forward * playerInput.MovementInput.y;
+                    _characterController.Move(addedVelocity * character.MovingData.Speed * Time.deltaTime);
                 }
             }
         }
