@@ -31,9 +31,7 @@ namespace Shooter.Character
                 var walkingBobData = character.HeadMovingData.WalkingBobData;
                 var sprintingBobData = character.HeadMovingData.SprintingBobData;
 
-                Debug.Log(character.MovingData.Velocity.x);
-                
-                if (!character.IsGrounded || (Mathf.Abs(character.MovingData.Velocity.x) <= 0.1f && Mathf.Abs(character.MovingData.Velocity.z) <= 0.1f))
+                if (!character.IsGrounded || (!character.MovingData.IsSprinting && !character.MovingData.IsWalking))
                     continue;
 
                 _timer += Time.deltaTime * (character.MovingData.IsSprinting ? sprintingBobData.BobSpeed : walkingBobData.BobSpeed);

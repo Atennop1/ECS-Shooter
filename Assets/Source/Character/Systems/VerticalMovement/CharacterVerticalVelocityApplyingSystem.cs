@@ -17,7 +17,7 @@ namespace Shooter.Character
             var filter = world.Filter<Character>().End();
 
             foreach (var entity in filter)
-                _characterController.Move(new Vector3(0, pool.Get(entity).MovingData.Velocity.y, 0) * Time.deltaTime);
+                _characterController.Move(new Vector3(0, pool.Get(entity).JumpingData.VerticalVelocity, 0) * Time.deltaTime);
         }
     }
 }

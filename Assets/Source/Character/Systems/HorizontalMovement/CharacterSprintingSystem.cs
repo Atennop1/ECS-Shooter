@@ -40,6 +40,9 @@ namespace Shooter.Character
                     
                     character.MovingData.Speed = playerInput.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
                     character.MovingData.IsSprinting = playerInput.IsShiftPressed;
+                    
+                    if (character.MovingData.IsWalking)
+                        character.MovingData.IsWalking = !playerInput.IsShiftPressed;
                 }
             }
         }

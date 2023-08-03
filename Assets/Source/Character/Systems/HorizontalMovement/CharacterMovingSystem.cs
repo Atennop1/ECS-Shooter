@@ -28,10 +28,8 @@ namespace Shooter.Character
                     var playerInput = playerInputPool.Get(playerInputEntity);
                     var character = characterPool.Get(characterMovementEntity);
 
-                    character.MovingData.Velocity.x = playerInput.MovementInput.x * character.MovingData.Speed;
-                    character.MovingData.Velocity.z = playerInput.MovementInput.y * character.MovingData.Speed;
-                    
                     var addedVelocity = _characterController.transform.right * playerInput.MovementInput.x + _characterController.transform.forward * playerInput.MovementInput.y;
+                    character.MovingData.IsWalking = addedVelocity != Vector3.zero;
                     _characterController.Move(addedVelocity * character.MovingData.Speed * Time.deltaTime);
                 }
             }

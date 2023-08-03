@@ -6,11 +6,6 @@ namespace Shooter.Character
 {
     public sealed class CharacterJumpingSystem : IEcsRunSystem
     {
-        private readonly CharacterController _characterController;
-
-        public CharacterJumpingSystem(CharacterController characterController)
-            => _characterController = characterController;
-
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
@@ -28,10 +23,10 @@ namespace Shooter.Character
                     ref var character = ref characterPool.Get(characterMovementEntity);
                     ref var input = ref playerInputPool.Get(playerInputEntity);
 
-                    if (!character.IsGrounded || !input.IsJumpKeyPressed) 
+                    if (!character.IsGrounded || !input.IsJumpKeyPressed || character.MovingData.IsSliding) 
                         continue;
                 
-                    character.MovingData.Velocity.y = Mathf.Sqrt(-2 * character.JumpingData.JumpHeight * character.JumpingData.GravitationalConstant);
+                    character.JumpingData.VerticalVelocity = Mathf.Sqrt(-2 * character.JumpingData.JumpHeight * character.JumpingData.GravitationalConstant);
                 }
             }
         }

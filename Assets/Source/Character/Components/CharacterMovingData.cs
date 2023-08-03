@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-
-namespace Shooter.Character
+﻿namespace Shooter.Character
 {
     public sealed class CharacterMovingData
     {
-        public Vector3 Velocity;
+        public bool IsWalking;
+        public bool IsSprinting;
+        public bool IsSliding;
         
         public float Speed;
-        public bool IsSprinting;
+        public float SlopSpeed;
     }
 }

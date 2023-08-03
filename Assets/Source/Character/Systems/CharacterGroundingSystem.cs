@@ -9,7 +9,7 @@ namespace Shooter.Character
         private readonly Transform _characterFeetTransform;
         private readonly LayerMask _groundLayerMask;
         
-        private const float _checkingSphereRadius = 0.4f;
+        private const float _checkingSphereRadius = 1;
 
         public CharacterGroundingSystem(Transform characterFeetTransform, LayerMask groundLayerMask)
         {
@@ -24,7 +24,7 @@ namespace Shooter.Character
             var filter = world.Filter<Character>().End();
 
             foreach (var entity in filter)
-                pool.Get(entity).IsGrounded = Physics.CheckSphere(_characterFeetTransform.position, _checkingSphereRadius, _groundLayerMask);
+                pool.Get(entity).IsGrounded = Physics.CheckBox(_characterFeetTransform.position, new Vector3(0.5f, 0.3f, 0.5f), Quaternion.identity, _groundLayerMask);
         }
     }
 }

@@ -5,11 +5,6 @@ namespace Shooter.Character
 {
     public sealed class CharacterGravitationSystem : IEcsRunSystem
     {
-        private readonly CharacterController _characterController;
-
-        public CharacterGravitationSystem(CharacterController characterController)
-            => _characterController = characterController;
-        
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
@@ -20,10 +15,10 @@ namespace Shooter.Character
             {
                 ref var character = ref pool.Get(entity);
 
-                if (character.IsGrounded && character.MovingData.Velocity.y < 0) 
-                    character.MovingData.Velocity.y = -2f;
+                if (character.IsGrounded && character.JumpingData.VerticalVelocity < 0) 
+                    character.JumpingData.VerticalVelocity = -2f;
 
-                character.MovingData.Velocity.y += character.JumpingData.GravitationalConstant * Time.deltaTime;
+                character.JumpingData.VerticalVelocity += character.JumpingData.GravitationalConstant * Time.deltaTime;
             }
         }
     }
