@@ -7,6 +7,7 @@ namespace Shooter.Character
     public sealed class CharacterSlopingSystem : IEcsRunSystem
     {
         private readonly CharacterController _characterController;
+        private readonly LayerMask _layerMask = LayerMask.GetMask($"Ground");
         
         public CharacterSlopingSystem(CharacterController characterController) 
             => _characterController = characterController ?? throw new ArgumentNullException(nameof(characterController));
@@ -21,19 +22,25 @@ namespace Shooter.Character
             {
                 ref var character = ref pool.Get(entity);
 
-                if (!character.IsGrounded || !Physics.Raycast(_characterController.transform.position, Vector3.down, out var raycastHit, 4f)) 
+                Debug.Log("Update");
+                if (!character.IsGrounded) 
                     continue;
-                
-                var hitPointNormal = raycastHit.normal;
 
-                if (!(Vector3.Angle(hitPointNormal, Vector3.up) > _characterController.slopeLimit))
-                {
-                    character.MovingData.IsSliding = false;
+                var sphereCastOffsetY = _characterController.height / 2 - _characterController.radius;
+                var sphereCastPosition = _characterController.transform.position - new Vector3(0, sphereCastOffsetY, 0);
+
+                Debug.Log("Grounded");
+                if (!Physics.SphereCast(sphereCastPosition, _characterController.radius - 0.01f, Vector3.down, out var sphereHit, 0.05f, _layerMask, QueryTriggerInteraction.Ignore))
                     continue;
-                }
+
+                Debug.Log(sphereHit.collider.gameObject.name);
+                character.MovingData.IsSliding = Vector3.Angle(Vector3.up, sphereHit.normal) > _characterController.slopeLimit;
                 
-                character.MovingData.IsSliding = true;
-                _characterController.Move(new Vector3(hitPointNormal.x, -hitPointNormal.y, hitPointNormal.z) * character.MovingData.SlopSpeed * Time.deltaTime);
+                if (!character.MovingData.IsSliding)
+                    continue;
+
+                Debug.Log("Sliding");
+                _characterController.Move(new Vector3(sphereHit.normal.x, -sphereHit.normal.y, sphereHit.normal.z) * character.MovingData.SlopSpeed * Time.deltaTime);
             }
         }
     }
