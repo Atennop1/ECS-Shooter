@@ -24,7 +24,7 @@ namespace Shooter.Character
             var filter = world.Filter<Character>().End();
             
             foreach (var entity in filter)
-                pool.Get(entity).IsGrounded = Physics.CheckSphere(_characterFeetTransform.position, _checkingSphereRadius, _groundLayerMask);
+                pool.Get(entity).IsGrounded = UnityEngine.Physics.CheckSphere(_characterFeetTransform.position, _checkingSphereRadius, _groundLayerMask);
         }
     }
 }

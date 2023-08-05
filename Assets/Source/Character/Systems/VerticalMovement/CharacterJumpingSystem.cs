@@ -23,7 +23,7 @@ namespace Shooter.Character
                     ref var character = ref characterPool.Get(characterMovementEntity);
                     ref var input = ref playerInputPool.Get(playerInputEntity);
 
-                    if (!character.IsGrounded || !input.IsJumpKeyPressed || character.MovingData.IsSliding) 
+                    if (!character.IsGrounded || !input.IsJumpKeyPressed || character.SlidingData.IsSliding) 
                         continue;
                 
                     character.JumpingData.VerticalVelocity = Mathf.Sqrt(-2 * character.JumpingData.JumpHeight * character.JumpingData.GravitationalConstant);

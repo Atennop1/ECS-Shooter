@@ -14,7 +14,9 @@ namespace Shooter.Character
             foreach (var entity in filter)
             {
                 ref var character = ref pool.Get(entity);
-                pool.Get(entity).JumpingData.VerticalVelocity += character.JumpingData.GravitationalConstant * Time.deltaTime;
+                
+                if (!character.IsGrounded)
+                    pool.Get(entity).JumpingData.VerticalVelocity += character.JumpingData.GravitationalConstant * Time.deltaTime;
             }
         }
     }

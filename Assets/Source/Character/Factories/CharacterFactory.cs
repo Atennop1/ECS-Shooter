@@ -5,6 +5,9 @@ namespace Shooter.Character
 {
     public sealed class CharacterFactory : MonoBehaviour
     {
+        [SerializeField] private CharacterCollisionDetector _characterCollisionDetector;
+        
+        [Space]
         [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
         [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
         
@@ -21,17 +24,21 @@ namespace Shooter.Character
         {
             var world = ecsSystems.GetWorld();
             var entity = world.NewEntity();
+            _characterCollisionDetector.Construct(world);
             
             var characterPool = world.GetPool<Character>();
             characterPool.Add(entity);
 
             ref var character = ref characterPool.Get(entity);
             character.MovingData = _characterMovingDataFactory.Create();
+            character.SlidingData = new CharacterSlidingData();
             character.JumpingData = _characterJumpingDataFactory.Create();
             character.HeadMovingData = _characterHeadMovingDataFactory.Create();
 
             ecsSystems.Add(_characterGroundingSystemFactory.Create());
-            ecsSystems.Add(new CharacterSlopingSystem(_characterController));
+            
+            ecsSystems.Add(new CharacterDetectingSlideSystem(_characterController));
+            ecsSystems.Add(new CharacterSlidingSystem(_characterController));
             
             ecsSystems.Add(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
             ecsSystems.Add(new CharacterHeadbobSystem(_characterController, _cameraTransform));
