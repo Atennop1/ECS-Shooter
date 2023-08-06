@@ -1,6 +1,8 @@
-﻿namespace Shooter.Character
+﻿using Scellecs.Morpeh;
+
+namespace Shooter.Character
 {
-    public struct CharacterMoving
+    public struct CharacterMovingComponent : IComponent
     {
         public float Speed;
         

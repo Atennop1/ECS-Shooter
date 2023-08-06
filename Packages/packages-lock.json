@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "com.leopotam.ecslite": {
-      "version": "https://github.com/Leopotam/ecslite.git",
+    "com.scellecs.morpeh": {
+      "version": "https://github.com/scellecs/morpeh.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "a5fc58bdcd11e3e34beb920a88a1399bc55c2c35"
+      "hash": "46f35461fba414213dae80a96e6bb527c40f92dc"
     },
     "com.unity.collab-proxy": {
       "version": "1.15.17",

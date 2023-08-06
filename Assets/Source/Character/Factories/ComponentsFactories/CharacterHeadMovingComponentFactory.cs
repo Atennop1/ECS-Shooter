@@ -1,9 +1,9 @@
-﻿using Leopotam.EcsLite;
+﻿using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterHeadMovingFactory : MonoBehaviour
+    public sealed class CharacterHeadMovingComponentFactory : MonoBehaviour
     {
         [SerializeField] private float _mouseSensitivity;
         
@@ -11,13 +11,9 @@ namespace Shooter.Character
         [SerializeField] private CharacterHeadbobData _walkingBobData;
         [SerializeField] private CharacterHeadbobData _sprintingBobData;
 
-        public void Create(IEcsSystems ecsSystems, int entity)
+        public void CreateFor(Entity entity)
         {
-            var world = ecsSystems.GetWorld();
-            var pool = world.GetPool<CharacterHeadMoving>();
-
-            pool.Add(entity);
-            ref var createdComponent = ref pool.Get(entity);
+            ref var createdComponent = ref entity.AddComponent<CharacterHeadMovingComponent>();
             
             createdComponent.MouseSensitivity = _mouseSensitivity; 
             createdComponent.WalkingBobData = _walkingBobData;

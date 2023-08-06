@@ -1,6 +1,8 @@
-﻿namespace Shooter.Character
+﻿using Scellecs.Morpeh;
+
+namespace Shooter.Character
 {
-    public struct CharacterHeadMoving
+    public struct CharacterHeadMovingComponent : IComponent
     {
         public float MouseSensitivity;
         

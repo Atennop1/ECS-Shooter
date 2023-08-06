@@ -1,38 +1,38 @@
-﻿using Leopotam.EcsLite;
+﻿using Scellecs.Morpeh;
 using Shooter.Input;
 using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterMovingSystem : IEcsRunSystem
+    public sealed class CharacterMovingSystem : ISystem
     {
         private readonly CharacterController _characterController;
 
         public CharacterMovingSystem(CharacterController characterController) 
             => _characterController = characterController;
 
-        public void Run(IEcsSystems systems)
+        public World World { get; set; }
+
+        public void OnUpdate(float deltaTime)
         {
-            var world = systems.GetWorld();
-            
-            var movingPool = world.GetPool<CharacterMoving>();
-            var movingFilter = world.Filter<CharacterMoving>().End();
-            
-            var playerInputPool = world.GetPool<PlayerInput>();
-            var playerInputFilter = world.Filter<PlayerInput>().End();
+            var movingFilter = World.Filter.With<CharacterMovingComponent>();
+            var playerInputFilter = World.Filter.With<PlayerInputComponent>();
 
-            foreach (var playerInputEntity in playerInputFilter)
-            {
-                foreach (var characterMovementEntity in movingFilter)
-                {
-                    var playerInput = playerInputPool.Get(playerInputEntity);
-                    var moving = movingPool.Get(characterMovementEntity);
+            var movingEntity = movingFilter.FirstOrDefault();
+            var inputEntity = playerInputFilter.FirstOrDefault();
 
-                    var addedVelocity = _characterController.transform.right * playerInput.MovementInput.x + _characterController.transform.forward * playerInput.MovementInput.y;
-                    moving.IsWalking = addedVelocity != Vector3.zero;
-                    _characterController.Move(addedVelocity * moving.Speed * Time.deltaTime);
-                }
-            }
+            if (movingEntity == null || inputEntity == null)
+                return;
+            
+            ref var moving = ref movingEntity.GetComponent<CharacterMovingComponent>();
+            ref var input = ref inputEntity.GetComponent<PlayerInputComponent>();
+
+            var addedVelocity = _characterController.transform.right * input.MovementInput.x + _characterController.transform.forward * input.MovementInput.y;
+            moving.IsWalking = addedVelocity != Vector3.zero;
+            _characterController.Move(addedVelocity * moving.Speed * Time.deltaTime);
         }
+
+        public void Dispose() { }
+        public void OnAwake() { }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Leopotam.EcsLite;
+﻿using System;
+using Scellecs.Morpeh;
 using Shooter.Character;
 using Shooter.Input;
 using Sirenix.OdinInspector;
@@ -10,35 +11,30 @@ namespace Shooter.EntryPoint
     {
         [SerializeField] private PlayerInputFactory _playerInputFactory;
         [SerializeField] private CharacterFactory _characterFactory;
-        
-        private EcsWorld _ecsWorld;
-        private IEcsSystems _ecsSystems;
-        private IEcsSystems _fixedEcsSystems;
+
+        private World _world;
         
         private void Awake()
         {
-            _ecsWorld = new EcsWorld();
-            _ecsSystems = new EcsSystems(_ecsWorld);
-            _fixedEcsSystems = new EcsSystems(_ecsWorld);
+            _world = World.Create();
+            _world.UpdateByUnity = false;
+            var systemsGroup = _world.CreateSystemsGroup();
 
-            _playerInputFactory.Create(_ecsSystems);
-            _characterFactory.Create(_ecsSystems);
-
-            _ecsSystems.Init();
-            _fixedEcsSystems.Init();
+            _playerInputFactory.Create(_world, systemsGroup);
+            _characterFactory.Create(_world, systemsGroup);
+        }
+        
+        private void Update()
+        {
+            _world.Update(Time.deltaTime);
+            _world.CleanupUpdate(Time.deltaTime);
+            _world.Commit();
         }
 
-        private void Update()
-            => _ecsSystems.Run();
+        private void LateUpdate()
+            => _world.LateUpdate(Time.deltaTime);
 
         private void FixedUpdate()
-            => _fixedEcsSystems.Run();
-
-        private void OnDestroy()
-        {
-            _ecsSystems.Destroy();
-            _fixedEcsSystems.Destroy();
-            _ecsWorld.Destroy();
-        }
+            => _world.FixedUpdate(Time.fixedDeltaTime);
     }
 }

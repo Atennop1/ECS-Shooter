@@ -1,19 +1,15 @@
-﻿using Leopotam.EcsLite;
+﻿using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Input
 {
     public sealed class PlayerInputFactory : MonoBehaviour
     {
-        public PlayerInput Create(IEcsSystems ecsSystems)
+        public void Create(World world, SystemsGroup systemsGroup)
         {
-            var world = ecsSystems.GetWorld();
-            var entity = world.NewEntity();
-            var pool = world.GetPool<PlayerInput>();
-            
-            pool.Add(entity);
-            ecsSystems.Add(new PlayerInputReadingSystem(new CharacterControls()));
-            return pool.Get(entity);
+            var entity = world.CreateEntity();
+            entity.AddComponent<PlayerInputComponent>();
+            systemsGroup.AddSystem(new PlayerInputReadingSystem(new CharacterControls()));
         }
     }
 }

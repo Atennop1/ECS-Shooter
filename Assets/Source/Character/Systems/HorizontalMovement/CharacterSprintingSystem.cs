@@ -1,50 +1,48 @@
-﻿using Leopotam.EcsLite;
+﻿using Scellecs.Morpeh;
 using Shooter.Input;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterSprintingSystem : IEcsInitSystem, IEcsRunSystem
+    public sealed class CharacterSprintingSystem : ISystem
     {
         private readonly float _sprintingSpeed;
         private float _walkingSpeed;
 
-        public CharacterSprintingSystem(float sprintingSpeed) 
+        public CharacterSprintingSystem(float sprintingSpeed)
             => _sprintingSpeed = sprintingSpeed;
 
-        public void Init(IEcsSystems systems)
-        {
-            var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterMoving>();
-            var filter = world.Filter<CharacterMoving>().End();
+        public World World { get; set; }
 
-            foreach (var entity in filter) 
-                _walkingSpeed = pool.Get(entity).Speed;
+        public void OnAwake()
+        {
+            var filter = World.Filter.With<CharacterMovingComponent>();
+            var movingEntity = filter.FirstOrDefault();
+
+            if (movingEntity != null)
+                _walkingSpeed = movingEntity.GetComponent<CharacterMovingComponent>().Speed;
         }
 
-        public void Run(IEcsSystems systems)
+        public void OnUpdate(float deltaTime)
         {
-            var world = systems.GetWorld();
-            
-            var movingPool = world.GetPool<CharacterMoving>();
-            var movingFilter = world.Filter<CharacterMoving>().End();
-            
-            var playerInputPool = world.GetPool<PlayerInput>();
-            var playerInputFilter = world.Filter<PlayerInput>().End();
+            var movingFilter = World.Filter.With<CharacterMovingComponent>();
+            var inputFilter = World.Filter.With<PlayerInputComponent>();
 
-            foreach (var playerInputEntity in playerInputFilter)
-            {
-                foreach (var characterMovementEntity in movingFilter)
-                {
-                    var playerInput = playerInputPool.Get(playerInputEntity);
-                    ref var moving = ref movingPool.Get(characterMovementEntity);
-                    
-                    moving.Speed = playerInput.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
-                    moving.IsSprinting = playerInput.IsShiftPressed;
-                    
-                    if (moving.IsWalking)
-                        moving.IsWalking = !playerInput.IsShiftPressed;
-                }
-            }
+            var movingEntity = movingFilter.FirstOrDefault();
+            var inputEntity = inputFilter.FirstOrDefault();
+
+            if (movingEntity == null || inputEntity == null)
+                return;
+
+            ref var moving = ref movingEntity.GetComponent<CharacterMovingComponent>();
+            ref var input = ref inputEntity.GetComponent<PlayerInputComponent>();
+
+            moving.Speed = input.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
+            moving.IsSprinting = input.IsShiftPressed;
+
+            if (moving.IsWalking)
+                moving.IsWalking = !input.IsShiftPressed;
         }
+        
+        public void Dispose()  { }
     }
 }

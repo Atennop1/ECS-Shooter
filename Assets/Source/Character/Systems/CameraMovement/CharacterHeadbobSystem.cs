@@ -1,10 +1,10 @@
 ﻿using System;
-using Leopotam.EcsLite;
+using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterHeadbobSystem : IEcsRunSystem
+    public sealed class CharacterHeadbobSystem : ISystem 
     {
         private readonly Transform _cameraTransform;
         private readonly float _defaultCameraPositionY;
@@ -16,35 +16,36 @@ namespace Shooter.Character
             _cameraTransform = cameraTransform ?? throw new ArgumentNullException(nameof(cameraTransform));
             _defaultCameraPositionY = _cameraTransform.localPosition.y;
         }
+        
+        public World World { get; set; }
 
-        public void Run(IEcsSystems systems)
+        public void OnUpdate(float deltaTime)
         {
-            var world = systems.GetWorld();
-            var filter = world.Filter<CharacterHeadMoving>().Inc<CharacterMoving>().Inc<CharacterJumping>().End();
-            
-            var headMovingPool = world.GetPool<CharacterHeadMoving>();
-            var movingPool = world.GetPool<CharacterMoving>();
-            var jumpingPool = world.GetPool<CharacterJumping>();
+            var filter = World.Filter.With<CharacterHeadMovingComponent>().With<CharacterMovingComponent>().With<CharacterJumpingComponent>();
+            var entity = filter.FirstOrDefault();
 
-            foreach (var entity in filter)
-            {
-                ref var headMoving = ref headMovingPool.Get(entity);
-                ref var moving = ref movingPool.Get(entity);
-                ref var jumping = ref jumpingPool.Get(entity);
+            if (entity == null)
+                return;
 
-                var walkingBobData = headMoving.WalkingBobData;
-                var sprintingBobData = headMoving.SprintingBobData;
+            ref var headMoving = ref entity.GetComponent<CharacterHeadMovingComponent>();
+            ref var moving = ref entity.GetComponent<CharacterMovingComponent>();
+            ref var grounded = ref entity.GetComponent<CharacterGroundedComponent>();
 
-                if (!jumping.IsGrounded || moving is { IsSprinting: false, IsWalking: false })
-                    continue;
+            var walkingBobData = headMoving.WalkingBobData;
+            var sprintingBobData = headMoving.SprintingBobData;
 
-                _timer += Time.deltaTime * (moving.IsSprinting ? sprintingBobData.BobSpeed : walkingBobData.BobSpeed);
+            if (!grounded.IsActive || moving is { IsSprinting: false, IsWalking: false })
+                return;
 
-                _cameraTransform.localPosition = new Vector3(
-                    _cameraTransform.localPosition.x,
-                   _defaultCameraPositionY + Mathf.Sin(_timer) * (moving.IsSprinting ? sprintingBobData.BobStrength : walkingBobData.BobStrength),
-                    _cameraTransform.localPosition.z);
-            }
+            _timer += Time.deltaTime * (moving.IsSprinting ? sprintingBobData.BobSpeed : walkingBobData.BobSpeed);
+
+            _cameraTransform.localPosition = new Vector3(
+                _cameraTransform.localPosition.x,
+                _defaultCameraPositionY + Mathf.Sin(_timer) * (moving.IsSprinting ? sprintingBobData.BobStrength : walkingBobData.BobStrength),
+                _cameraTransform.localPosition.z);
         }
+
+        public void Dispose() { }
+        public void OnAwake() { }
     }
 }

@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Scellecs.Morpeh;
+using UnityEngine;
 
 namespace Shooter.Character
 {
-    public struct CharacterSliding
+    public struct CharacterSlidingComponent : IComponent
     {
         public bool IsActive;
 

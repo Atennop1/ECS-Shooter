@@ -1,8 +1,9 @@
-﻿namespace Shooter.Character
+﻿using Scellecs.Morpeh;
+
+namespace Shooter.Character
 {
-    public struct CharacterJumping
+    public struct CharacterJumpingComponent : IComponent
     {
-        public bool IsGrounded;
         public float VerticalVelocity;
         
         public float JumpHeight;

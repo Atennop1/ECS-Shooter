@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Scellecs.Morpeh;
+using UnityEngine;
 
 namespace Shooter.Input
 {
-    public struct PlayerInput
+    public struct PlayerInputComponent : IComponent
     {
         public bool IsJumpKeyPressed;
         public bool IsShiftPressed;

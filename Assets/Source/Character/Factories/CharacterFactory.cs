@@ -1,4 +1,4 @@
-﻿using Leopotam.EcsLite;
+﻿using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Character
@@ -12,40 +12,39 @@ namespace Shooter.Character
         [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
         
         [Space]
-        [SerializeField] private CharacterMovingFactory _characterMovingFactory;
-        [SerializeField] private CharacterSlidingFactory _characterSlidingFactory;
-        [SerializeField] private CharacterJumpingFactory _characterJumpingFactory;
-        [SerializeField] private CharacterHeadMovingFactory _characterHeadMovingFactory;
+        [SerializeField] private CharacterMovingComponentFactory _characterMovingFactory;
+        [SerializeField] private CharacterSlidingComponentFactory _characterSlidingFactory;
+        [SerializeField] private CharacterJumpingComponentFactory _characterJumpingFactory;
+        [SerializeField] private CharacterHeadMovingComponentFactory _characterHeadMovingFactory;
         
         [Space] 
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private Transform _cameraTransform;
 
-        public void Create(IEcsSystems ecsSystems)
+        public void Create(World world, SystemsGroup systemsGroup)
         {
-            var world = ecsSystems.GetWorld();
-            var entity = world.NewEntity();
+            var entity = world.CreateEntity();
             _characterCollisionDetector.Construct(world);
 
-            _characterMovingFactory.Create(ecsSystems, entity);
-            _characterSlidingFactory.Create(ecsSystems, entity);
-            _characterJumpingFactory.Create(ecsSystems, entity);
-            _characterHeadMovingFactory.Create(ecsSystems, entity);
+            _characterMovingFactory.CreateFor(entity);
+            _characterSlidingFactory.CreateFor(entity);
+            _characterJumpingFactory.CreateFor(entity);
+            _characterHeadMovingFactory.CreateFor(entity);
 
-            ecsSystems.Add(_characterGroundingSystemFactory.Create());
+            systemsGroup.AddSystem(_characterGroundingSystemFactory.Create());
             
-            ecsSystems.Add(new CharacterDetectingSlideSystem(_characterController));
-            ecsSystems.Add(new CharacterSlidingSystem(_characterController));
+            systemsGroup.AddSystem(new CharacterDetectingSlideSystem(_characterController));
+            systemsGroup.AddSystem(new CharacterSlidingSystem(_characterController));
             
-            ecsSystems.Add(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
-            ecsSystems.Add(new CharacterHeadbobSystem(_cameraTransform));
+            systemsGroup.AddSystem(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
+            systemsGroup.AddSystem(new CharacterHeadbobSystem(_cameraTransform));
             
-            ecsSystems.Add(new CharacterMovingSystem(_characterController));
-            ecsSystems.Add(_characterSprintingSystemFactory.Create());
+            systemsGroup.AddSystem(new CharacterMovingSystem(_characterController));
+            systemsGroup.AddSystem(_characterSprintingSystemFactory.Create());
 
-            ecsSystems.Add(new CharacterGravitationSystem());
-            ecsSystems.Add(new CharacterJumpingSystem());
-            ecsSystems.Add(new CharacterVerticalVelocityApplyingSystem(_characterController));
+            systemsGroup.AddSystem(new CharacterGravitationSystem());
+            systemsGroup.AddSystem(new CharacterJumpingSystem());
+            systemsGroup.AddSystem(new CharacterVerticalVelocityApplyingSystem(_characterController));
         }
     }
 }

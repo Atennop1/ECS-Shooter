@@ -1,23 +1,28 @@
-﻿using Leopotam.EcsLite;
+﻿using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterGravitationSystem : IEcsRunSystem
+    public sealed class CharacterGravitationSystem : ISystem
     {
-        public void Run(IEcsSystems systems)
-        {
-            var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterJumping>();
-            var filter = world.Filter<CharacterJumping>().End();
+        public World World { get; set; }
 
-            foreach (var entity in filter)
-            {
-                ref var jumping = ref pool.Get(entity);
-                
-                if (!jumping.IsGrounded)
-                    jumping.VerticalVelocity += jumping.GravitationalConstant * Time.deltaTime;
-            }
+        public void OnUpdate(float deltaTime)
+        {
+            var filter = World.Filter.With<CharacterJumpingComponent>().With<CharacterGroundedComponent>();
+            var entity = filter.FirstOrDefault();
+
+            if (entity == null)
+                return;
+
+            ref var jumping = ref entity.GetComponent<CharacterJumpingComponent>();
+
+            if (!entity.GetComponent<CharacterGroundedComponent>().IsActive)
+                jumping.VerticalVelocity += jumping.GravitationalConstant * Time.deltaTime;
+
         }
+
+        public void Dispose() { }
+        public void OnAwake() { }
     }
 }

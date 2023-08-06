@@ -1,10 +1,10 @@
 ﻿using System;
-using Leopotam.EcsLite;
+using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterGroundingSystem : IEcsRunSystem
+    public sealed class CharacterGroundingSystem : ISystem
     {
         private readonly Transform _characterFeetTransform;
         private readonly LayerMask _groundLayerMask;
@@ -16,15 +16,19 @@ namespace Shooter.Character
             _characterFeetTransform = characterFeetTransform ?? throw new ArgumentNullException(nameof(characterFeetTransform));
             _groundLayerMask = groundLayerMask;
         }
-
-        public void Run(IEcsSystems systems)
+        
+        public World World { get; set; }
+        
+        public void OnUpdate(float deltaTime)
         {
-            var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterJumping>();
-            var filter = world.Filter<CharacterJumping>().End();
+            var filter = World.Filter.With<CharacterGroundedComponent>();
+            var entity = filter.FirstOrDefault();
             
-            foreach (var entity in filter)
-                pool.Get(entity).IsGrounded = UnityEngine.Physics.CheckSphere(_characterFeetTransform.position, _checkingSphereRadius, _groundLayerMask);
+            if (entity != null)
+                entity.GetComponent<CharacterGroundedComponent>().IsActive = UnityEngine.Physics.CheckSphere(_characterFeetTransform.position, _checkingSphereRadius, _groundLayerMask);
         }
+        
+        public void Dispose() { }
+        public void OnAwake() { }
     }
 }

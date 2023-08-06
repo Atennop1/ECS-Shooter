@@ -1,11 +1,11 @@
 using System;
-using Leopotam.EcsLite;
+using Scellecs.Morpeh;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterRotatingSystem : IEcsInitSystem, IEcsRunSystem
+    public sealed class CharacterRotatingSystem : ISystem
     {
         private readonly Transform _characterTransform;
         private readonly Transform _cameraTransform;
@@ -17,27 +17,28 @@ namespace Shooter.Character
             _characterTransform = characterTransform ?? throw new ArgumentNullException(nameof(characterTransform));
             _cameraTransform = cameraTransform ?? throw new ArgumentNullException(nameof(cameraTransform));
         }
+        
+        public World World { get; set; }
 
-        public void Init(IEcsSystems systems) 
-            => Cursor.lockState = CursorLockMode.Locked;
-
-        public void Run(IEcsSystems systems)
+        public void OnUpdate(float deltaTime)
         {
-            var world = systems.GetWorld();
-            var pool = world.GetPool<CharacterHeadMoving>();
-            var filter = world.Filter<CharacterHeadMoving>().End();
-
-            foreach (var entity in filter)
-            {
-                ref var headMoving = ref pool.Get(entity);
-                var rotatingDirection = Mouse.current.delta.ReadValue() * headMoving.MouseSensitivity * Time.deltaTime;
-
-                _xRotation -= rotatingDirection.y;
-                _xRotation = Mathf.Clamp(_xRotation, -90, 90);
+            var filter = World.Filter.With<CharacterHeadMovingComponent>();
+            var headMovingEntity = filter.FirstOrDefault();
+            
+            if (headMovingEntity == null)
+                return;
                 
-                _cameraTransform.localRotation = Quaternion.Euler(_xRotation, 0, 0);
-                _characterTransform.Rotate(Vector3.up * rotatingDirection.x);
-            }
+            ref var headMoving = ref headMovingEntity.GetComponent<CharacterHeadMovingComponent>();
+            var rotatingDirection = Mouse.current.delta.ReadValue() * headMoving.MouseSensitivity * Time.deltaTime;
+
+            _xRotation -= rotatingDirection.y;
+            _xRotation = Mathf.Clamp(_xRotation, -90, 90);
+
+            _cameraTransform.localRotation = Quaternion.Euler(_xRotation, 0, 0);
+            _characterTransform.Rotate(Vector3.up * rotatingDirection.x);
         }
+
+        public void Dispose() { }
+        public void OnAwake() { }
     }
 }
