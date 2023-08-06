@@ -1,11 +1,10 @@
 ﻿namespace Shooter.Character
 {
-    public sealed class CharacterMovingData
+    public struct CharacterMoving
     {
+        public float Speed;
+        
         public bool IsWalking;
         public bool IsSprinting;
-
-        public float Speed;
-        public float SlopSpeed;
     }
 }

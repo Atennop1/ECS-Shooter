@@ -13,11 +13,11 @@ namespace Shooter.Character
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var pool = world.GetPool<Character>();
-            var filter = world.Filter<Character>().End();
+            var pool = world.GetPool<CharacterJumping>();
+            var filter = world.Filter<CharacterJumping>().End();
 
             foreach (var entity in filter)
-                _characterController.Move(new Vector3(0, pool.Get(entity).JumpingData.VerticalVelocity, 0) * Time.deltaTime);
+                _characterController.Move(new Vector3(0, pool.Get(entity).VerticalVelocity, 0) * Time.deltaTime);
         }
     }
 }

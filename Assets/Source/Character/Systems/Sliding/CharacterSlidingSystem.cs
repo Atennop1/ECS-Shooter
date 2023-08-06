@@ -15,23 +15,26 @@ namespace Shooter.Character
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var pool = world.GetPool<Character>();
-            var filter = world.Filter<Character>().End();
+            var filter = world.Filter<CharacterSliding>().Inc<CharacterJumping>().End();
+            
+            var slidingPool = world.GetPool<CharacterSliding>();
+            var jumpingPool = world.GetPool<CharacterJumping>();
 
             foreach (var entity in filter)
             {
-                ref var character = ref pool.Get(entity);
+                ref var sliding = ref slidingPool.Get(entity);
+                ref var jumping = ref jumpingPool.Get(entity);
 
-                if (!character.IsGrounded) 
+                if (!jumping.IsGrounded) 
                     continue;
                 
                 //Debug.Log("Is grounded");
-                if (!character.SlidingData.IsSliding)
+                if (!sliding.IsActive)
                     continue;
 
                 //Debug.Log("Sliding");
-                var normal = character.SlidingData.SlidingSurfaceNormal;
-                _characterController.Move(new Vector3(normal.x, -normal.y, normal.z) * character.MovingData.SlopSpeed * Time.deltaTime);
+                var normal = sliding.SlidingSurfaceNormal;
+                _characterController.Move(new Vector3(normal.x, -normal.y, normal.z) * sliding.SlideSpeed * Time.deltaTime);
             }
         }
     }

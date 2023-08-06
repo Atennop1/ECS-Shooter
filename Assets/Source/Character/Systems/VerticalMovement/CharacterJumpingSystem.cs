@@ -10,23 +10,24 @@ namespace Shooter.Character
         {
             var world = systems.GetWorld();
             
-            var characterPool = world.GetPool<Character>();
-            var characterFilter = world.Filter<Character>().End();
+            var jumpingPool = world.GetPool<CharacterJumping>();
+            var slidingPool = world.GetPool<CharacterSliding>();
+            var componentsFilter = world.Filter<CharacterJumping>().Inc<CharacterSliding>().End();
             
             var playerInputPool = world.GetPool<PlayerInput>();
             var playerInputFilter = world.Filter<PlayerInput>().End();
 
             foreach (var playerInputEntity in playerInputFilter)
             {
-                foreach (var characterMovementEntity in characterFilter)
+                foreach (var characterComponentsEntity in componentsFilter)
                 {
-                    ref var character = ref characterPool.Get(characterMovementEntity);
+                    ref var jumping = ref jumpingPool.Get(characterComponentsEntity);
                     ref var input = ref playerInputPool.Get(playerInputEntity);
 
-                    if (!character.IsGrounded || !input.IsJumpKeyPressed || character.SlidingData.IsSliding) 
+                    if (!jumping.IsGrounded || !input.IsJumpKeyPressed || slidingPool.Get(characterComponentsEntity).IsActive) 
                         continue;
                 
-                    character.JumpingData.VerticalVelocity = Mathf.Sqrt(-2 * character.JumpingData.JumpHeight * character.JumpingData.GravitationalConstant);
+                    jumping.VerticalVelocity = Mathf.Sqrt(-2 * jumping.JumpHeight * jumping.GravitationalConstant);
                 }
             }
         }

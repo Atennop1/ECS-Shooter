@@ -14,35 +14,35 @@ namespace Shooter.Character
         public void Init(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var pool = world.GetPool<Character>();
-            var filter = world.Filter<Character>().End();
+            var pool = world.GetPool<CharacterMoving>();
+            var filter = world.Filter<CharacterMoving>().End();
 
             foreach (var entity in filter) 
-                _walkingSpeed = pool.Get(entity).MovingData.Speed;
+                _walkingSpeed = pool.Get(entity).Speed;
         }
 
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
             
-            var characterPool = world.GetPool<Character>();
-            var characterFilter = world.Filter<Character>().End();
+            var movingPool = world.GetPool<CharacterMoving>();
+            var movingFilter = world.Filter<CharacterMoving>().End();
             
             var playerInputPool = world.GetPool<PlayerInput>();
             var playerInputFilter = world.Filter<PlayerInput>().End();
 
             foreach (var playerInputEntity in playerInputFilter)
             {
-                foreach (var characterMovementEntity in characterFilter)
+                foreach (var characterMovementEntity in movingFilter)
                 {
                     var playerInput = playerInputPool.Get(playerInputEntity);
-                    ref var character = ref characterPool.Get(characterMovementEntity);
+                    ref var moving = ref movingPool.Get(characterMovementEntity);
                     
-                    character.MovingData.Speed = playerInput.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
-                    character.MovingData.IsSprinting = playerInput.IsShiftPressed;
+                    moving.Speed = playerInput.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
+                    moving.IsSprinting = playerInput.IsShiftPressed;
                     
-                    if (character.MovingData.IsWalking)
-                        character.MovingData.IsWalking = !playerInput.IsShiftPressed;
+                    if (moving.IsWalking)
+                        moving.IsWalking = !playerInput.IsShiftPressed;
                 }
             }
         }

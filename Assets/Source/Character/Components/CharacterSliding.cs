@@ -2,9 +2,11 @@
 
 namespace Shooter.Character
 {
-    public sealed class CharacterSlidingData
+    public struct CharacterSliding
     {
-        public bool IsSliding;
+        public bool IsActive;
+
+        public float SlideSpeed;
         public Vector3 SlidingSurfaceNormal;
     }
 }

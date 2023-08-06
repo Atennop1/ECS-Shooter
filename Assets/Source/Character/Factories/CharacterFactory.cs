@@ -12,9 +12,10 @@ namespace Shooter.Character
         [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
         
         [Space]
-        [SerializeField] private CharacterMovingDataFactory _characterMovingDataFactory;
-        [SerializeField] private CharacterJumpingDataFactory _characterJumpingDataFactory;
-        [SerializeField] private CharacterHeadMovingDataFactory _characterHeadMovingDataFactory;
+        [SerializeField] private CharacterMovingFactory _characterMovingFactory;
+        [SerializeField] private CharacterSlidingFactory _characterSlidingFactory;
+        [SerializeField] private CharacterJumpingFactory _characterJumpingFactory;
+        [SerializeField] private CharacterHeadMovingFactory _characterHeadMovingFactory;
         
         [Space] 
         [SerializeField] private CharacterController _characterController;
@@ -25,15 +26,11 @@ namespace Shooter.Character
             var world = ecsSystems.GetWorld();
             var entity = world.NewEntity();
             _characterCollisionDetector.Construct(world);
-            
-            var characterPool = world.GetPool<Character>();
-            characterPool.Add(entity);
 
-            ref var character = ref characterPool.Get(entity);
-            character.MovingData = _characterMovingDataFactory.Create();
-            character.SlidingData = new CharacterSlidingData();
-            character.JumpingData = _characterJumpingDataFactory.Create();
-            character.HeadMovingData = _characterHeadMovingDataFactory.Create();
+            _characterMovingFactory.Create(ecsSystems, entity);
+            _characterSlidingFactory.Create(ecsSystems, entity);
+            _characterJumpingFactory.Create(ecsSystems, entity);
+            _characterHeadMovingFactory.Create(ecsSystems, entity);
 
             ecsSystems.Add(_characterGroundingSystemFactory.Create());
             
@@ -41,7 +38,7 @@ namespace Shooter.Character
             ecsSystems.Add(new CharacterSlidingSystem(_characterController));
             
             ecsSystems.Add(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
-            ecsSystems.Add(new CharacterHeadbobSystem(_characterController, _cameraTransform));
+            ecsSystems.Add(new CharacterHeadbobSystem(_cameraTransform));
             
             ecsSystems.Add(new CharacterMovingSystem(_characterController));
             ecsSystems.Add(_characterSprintingSystemFactory.Create());

@@ -15,16 +15,16 @@ namespace Shooter.Character
         {
             var world = systems.GetWorld();
             
-            var characterPool = world.GetPool<Character>();
-            var characterFilter = world.Filter<Character>().End();
+            var slidingPool = world.GetPool<CharacterSliding>();
+            var slidingFilter = world.Filter<CharacterSliding>().End();
 
             var collisionStayPool = world.GetPool<OnCollisionStay>();
             var collisionStayFilter = world.Filter<OnCollisionStay>().End();
 
-            foreach (var characterEntity in characterFilter)
+            foreach (var characterEntity in slidingFilter)
             {
-                ref var character = ref characterPool.Get(characterEntity);
-                character.SlidingData.IsSliding = false;
+                ref var sliding = ref slidingPool.Get(characterEntity);
+                sliding.IsActive = false;
                 
                 foreach (var collisionStayEntity in collisionStayFilter)
                 {
@@ -41,8 +41,8 @@ namespace Shooter.Character
                     if (collisionStay.Collision.collider.Raycast(new Ray(collisionPoint - collisionDirection, collisionDirection), out var raycastHit, 2))
                     {
                         Debug.Log("Need to slide");
-                        character.SlidingData.IsSliding = Vector3.Angle(Vector3.up, raycastHit.normal) > _characterController.slopeLimit;
-                        character.SlidingData.SlidingSurfaceNormal = raycastHit.normal;
+                        sliding.IsActive = Vector3.Angle(Vector3.up, raycastHit.normal) > _characterController.slopeLimit;
+                        sliding.SlidingSurfaceNormal = raycastHit.normal;
                     }
                         
                     Debug.Log("Deleted");

@@ -1,7 +1,8 @@
 ﻿namespace Shooter.Character
 {
-    public sealed class CharacterJumpingData
+    public struct CharacterJumping
     {
+        public bool IsGrounded;
         public float VerticalVelocity;
         
         public float JumpHeight;

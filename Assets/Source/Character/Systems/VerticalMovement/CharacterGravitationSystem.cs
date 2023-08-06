@@ -8,15 +8,15 @@ namespace Shooter.Character
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            var pool = world.GetPool<Character>();
-            var filter = world.Filter<Character>().End();
+            var pool = world.GetPool<CharacterJumping>();
+            var filter = world.Filter<CharacterJumping>().End();
 
             foreach (var entity in filter)
             {
-                ref var character = ref pool.Get(entity);
+                ref var jumping = ref pool.Get(entity);
                 
-                if (!character.IsGrounded)
-                    pool.Get(entity).JumpingData.VerticalVelocity += character.JumpingData.GravitationalConstant * Time.deltaTime;
+                if (!jumping.IsGrounded)
+                    jumping.VerticalVelocity += jumping.GravitationalConstant * Time.deltaTime;
             }
         }
     }
