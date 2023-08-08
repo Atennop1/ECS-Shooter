@@ -20,6 +20,9 @@ namespace Shooter.Character
         
         public World World { get; set; }
 
+        public void OnAwake()
+            => Cursor.lockState = CursorLockMode.Locked;
+
         public void OnUpdate(float deltaTime)
         {
             var filter = World.Filter.With<CharacterHeadMovingComponent>();
@@ -39,6 +42,5 @@ namespace Shooter.Character
         }
 
         public void Dispose() { }
-        public void OnAwake() { }
     }
 }

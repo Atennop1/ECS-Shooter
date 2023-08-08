@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 205734945}
-  - component: {fileID: 205734946}
+  - component: {fileID: 205734947}
   m_Layer: 0
   m_Name: PlayerInputFactory
   m_TagString: Untagged
@@ -155,7 +155,7 @@ Transform:
   m_Father: {fileID: 1730108820}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &205734946
+--- !u!114 &205734947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 205734944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8ecab4b1ff44770a630b7a9445b5ec3, type: 3}
+  m_Script: {fileID: 11500000, guid: e9ce7502a134483ca99153ffbc8e2143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &251320816
@@ -3782,7 +3782,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1730108820}
-  - component: {fileID: 1730108821}
+  - component: {fileID: 1730108822}
+  - component: {fileID: 1730108824}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -3792,7 +3793,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &1730108820
 Transform:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3807,7 +3808,7 @@ Transform:
   m_Father: {fileID: 2033565229}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1730108821
+--- !u!114 &1730108822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3816,20 +3817,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1730108819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbbb6c3122064d2c8352a44176f56b08, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f040e2f08dd459f868b236000f8bb6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  _playerInputFactory: {fileID: 205734946}
-  _characterFactory: {fileID: 2069732689}
+--- !u!114 &1730108824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730108819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 1730108822}
+  - {fileID: 205734947}
+  - {fileID: 2069732690}
+  _installerPrefabs: []
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames: []
+  _parentContractNames: []
 --- !u!1 &1760241098
 GameObject:
   m_ObjectHideFlags: 0
@@ -6370,7 +6394,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2069732688}
-  - component: {fileID: 2069732689}
+  - component: {fileID: 2069732690}
   m_Layer: 0
   m_Name: CharacterFactory
   m_TagString: Untagged
@@ -6395,7 +6419,7 @@ Transform:
   m_Father: {fileID: 1730108820}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2069732689
+--- !u!114 &2069732690
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6404,7 +6428,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2069732687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bf81d043b4c48f6ae761399ccafd3f9, type: 3}
+  m_Script: {fileID: 11500000, guid: b940a3262d0c4ca5a0894d6da68abf23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _characterCollisionDetector: {fileID: 642879361}
