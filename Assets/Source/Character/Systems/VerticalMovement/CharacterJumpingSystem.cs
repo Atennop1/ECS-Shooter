@@ -1,4 +1,5 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using Scellecs.Morpeh;
 using Shooter.Input;
 using UnityEngine;
 
@@ -6,29 +7,34 @@ namespace Shooter.Character
 {
     public sealed class CharacterJumpingSystem : ISystem
     {
+        private Entity _characterEntity;
+        private Entity _inputEntity;
+        
         public World World { get; set; }
 
-        public void OnUpdate(float deltaTime)
+        public void OnAwake()
         {
             var characterFilter = World.Filter.With<CharacterJumpingComponent>().With<CharacterSlidingComponent>().With<CharacterGroundedComponent>();
-            var inputFilter = World.Filter.With<PlayerInputComponent>();
+            var playerInputFilter = World.Filter.With<PlayerInputComponent>();
 
-            var characterEntity = characterFilter.FirstOrDefault();
-            var inputEntity = inputFilter.FirstOrDefault();
+            _characterEntity = characterFilter.FirstOrDefault();
+            _inputEntity = playerInputFilter.FirstOrDefault();
+            
+            if (_characterEntity == null || _inputEntity == null)
+                throw new InvalidOperationException("This system can't work without character or input on scene");
+        }
+        
+        public void OnUpdate(float deltaTime)
+        {
+            ref var jumping = ref _characterEntity.GetComponent<CharacterJumpingComponent>();
+            ref var input = ref _inputEntity.GetComponent<PlayerInputComponent>();
 
-            if (characterEntity == null || inputEntity == null)
-                return;
-
-            ref var jumping = ref characterEntity.GetComponent<CharacterJumpingComponent>();
-            ref var input = ref inputEntity.GetComponent<PlayerInputComponent>();
-
-            if (!characterEntity.GetComponent<CharacterGroundedComponent>().IsActive || !input.IsJumpKeyPressed || characterEntity.GetComponent<CharacterSlidingComponent>().IsActive)
+            if (!_characterEntity.GetComponent<CharacterGroundedComponent>().IsActive || !input.IsJumpKeyPressed || _characterEntity.GetComponent<CharacterSlidingComponent>().IsActive)
                 return;
 
             jumping.VerticalVelocity = Mathf.Sqrt(-2 * jumping.JumpHeight * jumping.GravitationalConstant);
         }
 
         public void Dispose() { }
-        public void OnAwake() { }
     }
 }

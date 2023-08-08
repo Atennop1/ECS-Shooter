@@ -7,22 +7,26 @@ namespace Shooter.Character
     public sealed class CharacterSlidingSystem : ISystem
     {
         private readonly CharacterController _characterController;
+        private Entity _characterEntity;
         
         public CharacterSlidingSystem(CharacterController characterController) 
             => _characterController = characterController ?? throw new ArgumentNullException(nameof(characterController));
 
         public World World { get; set; }
+        
+        public void OnAwake()
+        {
+            var filter = World.Filter.With<CharacterHeadMovingComponent>().With<CharacterMovingComponent>().With<CharacterJumpingComponent>();
+            _characterEntity = filter.FirstOrDefault();
+
+            if (_characterEntity == null)
+                throw new InvalidOperationException("This system can't work without character on scene");
+        }
 
         public void OnUpdate(float deltaTime)
         {
-            var filter = World.Filter.With<CharacterSlidingComponent>().With<CharacterGroundedComponent>();
-            var entity = filter.FirstOrDefault();
-
-            if (entity == null)
-                return;
-
-            ref var sliding = ref entity.GetComponent<CharacterSlidingComponent>();
-            ref var grounded = ref entity.GetComponent<CharacterGroundedComponent>();
+            ref var sliding = ref _characterEntity.GetComponent<CharacterSlidingComponent>();
+            ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
 
             if (!grounded.IsActive || !sliding.IsActive)
                 return;
@@ -32,6 +36,5 @@ namespace Shooter.Character
         }
 
         public void Dispose() { }
-        public void OnAwake()  { }
     }
 }

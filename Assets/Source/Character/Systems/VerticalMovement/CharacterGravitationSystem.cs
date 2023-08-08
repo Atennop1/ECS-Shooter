@@ -1,28 +1,32 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Character
 {
     public sealed class CharacterGravitationSystem : ISystem
     {
+        private Entity _characterEntity;
+        
         public World World { get; set; }
+        
+        public void OnAwake()
+        {
+            var filter = World.Filter.With<CharacterHeadMovingComponent>().With<CharacterMovingComponent>().With<CharacterJumpingComponent>();
+            _characterEntity = filter.FirstOrDefault();
+
+            if (_characterEntity == null)
+                throw new InvalidOperationException("This system can't work without character on scene");
+        }
 
         public void OnUpdate(float deltaTime)
         {
-            var filter = World.Filter.With<CharacterJumpingComponent>().With<CharacterGroundedComponent>();
-            var entity = filter.FirstOrDefault();
+            ref var jumping = ref _characterEntity.GetComponent<CharacterJumpingComponent>();
 
-            if (entity == null)
-                return;
-
-            ref var jumping = ref entity.GetComponent<CharacterJumpingComponent>();
-
-            if (!entity.GetComponent<CharacterGroundedComponent>().IsActive)
+            if (!_characterEntity.GetComponent<CharacterGroundedComponent>().IsActive)
                 jumping.VerticalVelocity += jumping.GravitationalConstant * Time.deltaTime;
-
         }
 
         public void Dispose() { }
-        public void OnAwake() { }
     }
 }

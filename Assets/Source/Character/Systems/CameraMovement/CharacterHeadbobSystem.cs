@@ -10,6 +10,7 @@ namespace Shooter.Character
         private readonly float _defaultCameraPositionY;
         
         private float _timer;
+        private Entity _characterEntity;
 
         public CharacterHeadbobSystem(Transform cameraTransform)
         {
@@ -19,17 +20,20 @@ namespace Shooter.Character
         
         public World World { get; set; }
 
-        public void OnUpdate(float deltaTime)
+        public void OnAwake()
         {
             var filter = World.Filter.With<CharacterHeadMovingComponent>().With<CharacterMovingComponent>().With<CharacterJumpingComponent>();
-            var entity = filter.FirstOrDefault();
+            _characterEntity = filter.FirstOrDefault();
 
-            if (entity == null)
-                return;
+            if (_characterEntity == null)
+                throw new InvalidOperationException("This system can't work without character on scene");
+        }
 
-            ref var headMoving = ref entity.GetComponent<CharacterHeadMovingComponent>();
-            ref var moving = ref entity.GetComponent<CharacterMovingComponent>();
-            ref var grounded = ref entity.GetComponent<CharacterGroundedComponent>();
+        public void OnUpdate(float deltaTime)
+        {
+            ref var headMoving = ref _characterEntity.GetComponent<CharacterHeadMovingComponent>();
+            ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
+            ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
 
             var walkingBobData = headMoving.WalkingBobData;
             var sprintingBobData = headMoving.SprintingBobData;
@@ -46,6 +50,5 @@ namespace Shooter.Character
         }
 
         public void Dispose() { }
-        public void OnAwake() { }
     }
 }

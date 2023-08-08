@@ -1,4 +1,5 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using Scellecs.Morpeh;
 using Shooter.Input;
 using UnityEngine;
 
@@ -8,24 +9,30 @@ namespace Shooter.Character
     {
         private readonly CharacterController _characterController;
 
+        private Entity _characterEntity;
+        private Entity _inputEntity;
+
         public CharacterMovingSystem(CharacterController characterController) 
             => _characterController = characterController;
 
         public World World { get; set; }
 
-        public void OnUpdate(float deltaTime)
+        public void OnAwake()
         {
-            var movingFilter = World.Filter.With<CharacterMovingComponent>();
+            var characterFilter = World.Filter.With<CharacterMovingComponent>();
             var playerInputFilter = World.Filter.With<PlayerInputComponent>();
 
-            var movingEntity = movingFilter.FirstOrDefault();
-            var inputEntity = playerInputFilter.FirstOrDefault();
-
-            if (movingEntity == null || inputEntity == null)
-                return;
+            _characterEntity = characterFilter.FirstOrDefault();
+            _inputEntity = playerInputFilter.FirstOrDefault();
             
-            ref var moving = ref movingEntity.GetComponent<CharacterMovingComponent>();
-            ref var input = ref inputEntity.GetComponent<PlayerInputComponent>();
+            if (_characterEntity == null || _inputEntity == null)
+                throw new InvalidOperationException("This system can't work without character or input on scene");
+        }
+
+        public void OnUpdate(float deltaTime)
+        {
+            ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
+            ref var input = ref _inputEntity.GetComponent<PlayerInputComponent>();
 
             var addedVelocity = _characterController.transform.right * input.MovementInput.x + _characterController.transform.forward * input.MovementInput.y;
             moving.IsWalking = addedVelocity != Vector3.zero;
@@ -33,6 +40,5 @@ namespace Shooter.Character
         }
 
         public void Dispose() { }
-        public void OnAwake() { }
     }
 }

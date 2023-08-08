@@ -1,4 +1,5 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using Scellecs.Morpeh;
 using Shooter.Input;
 
 namespace Shooter.Character
@@ -7,6 +8,9 @@ namespace Shooter.Character
     {
         private readonly float _sprintingSpeed;
         private float _walkingSpeed;
+        
+        private Entity _characterEntity;
+        private Entity _inputEntity;
 
         public CharacterSprintingSystem(float sprintingSpeed)
             => _sprintingSpeed = sprintingSpeed;
@@ -15,26 +19,22 @@ namespace Shooter.Character
 
         public void OnAwake()
         {
-            var filter = World.Filter.With<CharacterMovingComponent>();
-            var movingEntity = filter.FirstOrDefault();
+            var characterFilter = World.Filter.With<CharacterMovingComponent>();
+            var playerInputFilter = World.Filter.With<PlayerInputComponent>();
 
-            if (movingEntity != null)
-                _walkingSpeed = movingEntity.GetComponent<CharacterMovingComponent>().Speed;
+            _characterEntity = characterFilter.FirstOrDefault();
+            _inputEntity = playerInputFilter.FirstOrDefault();
+            
+            if (_characterEntity == null || _inputEntity == null)
+                throw new InvalidOperationException("This system can't work without character or input on scene");
+            
+            _walkingSpeed = _characterEntity.GetComponent<CharacterMovingComponent>().Speed;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            var movingFilter = World.Filter.With<CharacterMovingComponent>();
-            var inputFilter = World.Filter.With<PlayerInputComponent>();
-
-            var movingEntity = movingFilter.FirstOrDefault();
-            var inputEntity = inputFilter.FirstOrDefault();
-
-            if (movingEntity == null || inputEntity == null)
-                return;
-
-            ref var moving = ref movingEntity.GetComponent<CharacterMovingComponent>();
-            ref var input = ref inputEntity.GetComponent<PlayerInputComponent>();
+            ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
+            ref var input = ref _inputEntity.GetComponent<PlayerInputComponent>();
 
             moving.Speed = input.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
             moving.IsSprinting = input.IsShiftPressed;

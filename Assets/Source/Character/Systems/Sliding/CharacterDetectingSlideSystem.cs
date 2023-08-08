@@ -1,4 +1,5 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using Scellecs.Morpeh;
 using Shooter.Physics;
 using UnityEngine;
 
@@ -8,24 +9,30 @@ namespace Shooter.Character
     {
         private readonly CharacterController _characterController;
 
+        private Entity _characterEntity;
+        private Filter _collisionStayFilter;
+
         public CharacterDetectingSlideSystem(CharacterController characterController)
             => _characterController = characterController;
 
         public World World { get; set; }
 
+        public void OnAwake()
+        {
+            var characterFilter = World.Filter.With<CharacterMovingComponent>();
+            _collisionStayFilter = World.Filter.With<OnCollisionStay>();
+
+            _characterEntity = characterFilter.FirstOrDefault();
+            if (_characterEntity == null)
+                throw new InvalidOperationException("This system can't work without character on scene");
+        }
+
         public void OnUpdate(float deltaTime)
         {
-            var slidingFilter = World.Filter.With<CharacterSlidingComponent>();
-            var slidingEntity = slidingFilter.FirstOrDefault();
-
-            if (slidingEntity == null)
-                return;
-
-            ref var sliding = ref slidingEntity.GetComponent<CharacterSlidingComponent>();
+            ref var sliding = ref _characterEntity.GetComponent<CharacterSlidingComponent>();
             sliding.IsActive = false;
 
-            var collisionStayFilter = World.Filter.With<OnCollisionStay>();
-            foreach (var collisionStayEntity in collisionStayFilter)
+            foreach (var collisionStayEntity in _collisionStayFilter)
             {
                 ref var collisionStay = ref collisionStayEntity.GetComponent<OnCollisionStay>();
 
@@ -51,6 +58,5 @@ namespace Shooter.Character
         }
 
         public void Dispose() { }
-        public void OnAwake() { }
     }
 }

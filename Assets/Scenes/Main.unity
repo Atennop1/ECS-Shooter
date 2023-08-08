@@ -6431,7 +6431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b940a3262d0c4ca5a0894d6da68abf23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterCollisionDetector: {fileID: 642879361}
+  _collisionDetector: {fileID: 642879361}
   _characterGroundingSystemFactory: {fileID: 628270872}
   _characterSprintingSystemFactory: {fileID: 1158980893}
   _characterMovingFactory: {fileID: 945416895}

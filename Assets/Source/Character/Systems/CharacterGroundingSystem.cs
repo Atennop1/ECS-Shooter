@@ -8,6 +8,7 @@ namespace Shooter.Character
     {
         private readonly Transform _characterFeetTransform;
         private readonly LayerMask _groundLayerMask;
+        private Entity _characterEntity;
         
         private const float _checkingSphereRadius = 0.5f;
 
@@ -19,16 +20,21 @@ namespace Shooter.Character
         
         public World World { get; set; }
         
+        public void OnAwake()
+        {
+            var filter = World.Filter.With<CharacterJumpingComponent>();
+            _characterEntity = filter.FirstOrDefault();
+            
+            if (_characterEntity == null)
+                throw new InvalidOperationException("This system can't work without character on scene");
+        }
+        
         public void OnUpdate(float deltaTime)
         {
-            var filter = World.Filter.With<CharacterGroundedComponent>();
-            var entity = filter.FirstOrDefault();
-            
-            if (entity != null)
-                entity.GetComponent<CharacterGroundedComponent>().IsActive = UnityEngine.Physics.CheckSphere(_characterFeetTransform.position, _checkingSphereRadius, _groundLayerMask);
+            ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
+            grounded.IsActive = UnityEngine.Physics.CheckSphere(_characterFeetTransform.position, _checkingSphereRadius, _groundLayerMask);
         }
         
         public void Dispose() { }
-        public void OnAwake() { }
     }
 }

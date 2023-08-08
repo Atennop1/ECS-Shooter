@@ -1,6 +1,7 @@
 ﻿using Scellecs.Morpeh;
 using Shooter.Character;
 using Shooter.GameLoop;
+using Shooter.Physics;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +9,7 @@ namespace Shooter.EntryPoint
 {
     public sealed class CharacterInstaller : MonoInstaller
     {
-        [SerializeField] private CharacterCollisionDetector _characterCollisionDetector;
+        [SerializeField] private CollisionDetector _collisionDetector;
         
         [Space]
         [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
@@ -30,7 +31,7 @@ namespace Shooter.EntryPoint
         public override void InstallBindings()
         {
             var entity = _world.CreateEntity();
-            _characterCollisionDetector.Construct(_world);
+            _collisionDetector.Construct(_world);
 
             _characterMovingFactory.CreateFor(entity);
             _characterSlidingFactory.CreateFor(entity);

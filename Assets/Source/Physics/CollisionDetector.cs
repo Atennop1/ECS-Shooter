@@ -1,11 +1,10 @@
 ﻿using System;
 using Scellecs.Morpeh;
-using Shooter.Physics;
 using UnityEngine;
 
-namespace Shooter.Character
+namespace Shooter.Physics
 {
-    public sealed class CharacterCollisionDetector : MonoBehaviour
+    public sealed class CollisionDetector : MonoBehaviour
     {
         private World _ecsWorld;
 

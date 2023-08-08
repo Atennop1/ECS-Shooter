@@ -11,6 +11,7 @@ namespace Shooter.Character
         private readonly Transform _cameraTransform;
 
         private float _xRotation;
+        private Entity _characterEntity;
 
         public CharacterRotatingSystem(Transform characterTransform, Transform cameraTransform)
         {
@@ -21,17 +22,19 @@ namespace Shooter.Character
         public World World { get; set; }
 
         public void OnAwake()
-            => Cursor.lockState = CursorLockMode.Locked;
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            
+            var filter = World.Filter.With<CharacterHeadMovingComponent>();
+            _characterEntity = filter.FirstOrDefault();
+
+            if (_characterEntity == null)
+                throw new InvalidOperationException("This system can't work without character on scene");
+        }
 
         public void OnUpdate(float deltaTime)
         {
-            var filter = World.Filter.With<CharacterHeadMovingComponent>();
-            var headMovingEntity = filter.FirstOrDefault();
-            
-            if (headMovingEntity == null)
-                return;
-                
-            ref var headMoving = ref headMovingEntity.GetComponent<CharacterHeadMovingComponent>();
+            ref var headMoving = ref _characterEntity.GetComponent<CharacterHeadMovingComponent>();
             var rotatingDirection = Mouse.current.delta.ReadValue() * headMoving.MouseSensitivity * Time.deltaTime;
 
             _xRotation -= rotatingDirection.y;
