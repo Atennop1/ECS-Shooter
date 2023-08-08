@@ -21,14 +21,14 @@ namespace Shooter.Character
         {
             var characterFilter = World.Filter.With<CharacterMovingComponent>();
             _collisionStayFilter = World.Filter.With<OnCollisionStay>();
-
             _characterEntity = characterFilter.FirstOrDefault();
-            if (_characterEntity == null)
-                throw new InvalidOperationException("This system can't work without character on scene");
         }
 
         public void OnUpdate(float deltaTime)
         {
+            if (_characterEntity == null)
+                return;
+            
             ref var sliding = ref _characterEntity.GetComponent<CharacterSlidingComponent>();
             sliding.IsActive = false;
 

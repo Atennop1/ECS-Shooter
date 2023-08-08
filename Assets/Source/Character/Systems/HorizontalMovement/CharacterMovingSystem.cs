@@ -24,13 +24,13 @@ namespace Shooter.Character
 
             _characterEntity = characterFilter.FirstOrDefault();
             _inputEntity = playerInputFilter.FirstOrDefault();
-            
-            if (_characterEntity == null || _inputEntity == null)
-                throw new InvalidOperationException("This system can't work without character or input on scene");
         }
 
         public void OnUpdate(float deltaTime)
         {
+            if (_characterEntity == null || _inputEntity == null)
+                return;
+
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
             ref var input = ref _inputEntity.GetComponent<PlayerInputComponent>();
 

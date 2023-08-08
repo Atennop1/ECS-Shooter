@@ -27,13 +27,13 @@ namespace Shooter.Character
             
             var filter = World.Filter.With<CharacterHeadMovingComponent>();
             _characterEntity = filter.FirstOrDefault();
-
-            if (_characterEntity == null)
-                throw new InvalidOperationException("This system can't work without character on scene");
         }
 
         public void OnUpdate(float deltaTime)
         {
+            if (_characterEntity == null)
+                return;
+            
             ref var headMoving = ref _characterEntity.GetComponent<CharacterHeadMovingComponent>();
             var rotatingDirection = Mouse.current.delta.ReadValue() * headMoving.MouseSensitivity * Time.deltaTime;
 

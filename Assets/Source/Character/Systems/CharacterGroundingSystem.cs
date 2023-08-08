@@ -24,13 +24,13 @@ namespace Shooter.Character
         {
             var filter = World.Filter.With<CharacterJumpingComponent>();
             _characterEntity = filter.FirstOrDefault();
-            
-            if (_characterEntity == null)
-                throw new InvalidOperationException("This system can't work without character on scene");
         }
         
         public void OnUpdate(float deltaTime)
         {
+            if (_characterEntity == null)
+                return;
+            
             ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
             grounded.IsActive = UnityEngine.Physics.CheckSphere(_characterFeetTransform.position, _checkingSphereRadius, _groundLayerMask);
         }

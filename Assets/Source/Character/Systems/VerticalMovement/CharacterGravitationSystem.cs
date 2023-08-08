@@ -14,13 +14,13 @@ namespace Shooter.Character
         {
             var filter = World.Filter.With<CharacterHeadMovingComponent>().With<CharacterMovingComponent>().With<CharacterJumpingComponent>();
             _characterEntity = filter.FirstOrDefault();
-
-            if (_characterEntity == null)
-                throw new InvalidOperationException("This system can't work without character on scene");
         }
 
         public void OnUpdate(float deltaTime)
         {
+            if (_characterEntity == null)
+                return;
+            
             ref var jumping = ref _characterEntity.GetComponent<CharacterJumpingComponent>();
 
             if (!_characterEntity.GetComponent<CharacterGroundedComponent>().IsActive)
