@@ -1,6 +1,4 @@
-﻿using System;
-using Scellecs.Morpeh;
-using Shooter.Physics;
+﻿using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Character
@@ -20,7 +18,7 @@ namespace Shooter.Character
         public void OnAwake()
         {
             var characterFilter = World.Filter.With<CharacterMovingComponent>();
-            _collisionStayFilter = World.Filter.With<OnCollisionStay>();
+            _collisionStayFilter = World.Filter.With<CharacterOnCollisionStay>();
             _characterEntity = characterFilter.FirstOrDefault();
         }
 
@@ -34,17 +32,17 @@ namespace Shooter.Character
 
             foreach (var collisionStayEntity in _collisionStayFilter)
             {
-                ref var collisionStay = ref collisionStayEntity.GetComponent<OnCollisionStay>();
+                ref var collisionStay = ref collisionStayEntity.GetComponent<CharacterOnCollisionStay>();
 
                 Debug.Log("Update");
                 if (collisionStay.OriginGameObject.GetComponentInParent<CharacterController>() == null)
                     continue;
 
                 Debug.Log("Collision stayed");
-                var collisionPoint = collisionStay.Collision.contacts[0].point;
-                var collisionDirection = -collisionStay.Collision.contacts[0].normal;
+                var collisionPoint = collisionStay.Hit.point;
+                var collisionDirection = -collisionStay.Hit.normal;
 
-                if (collisionStay.Collision.collider.Raycast(new Ray(collisionPoint - collisionDirection, collisionDirection), out var raycastHit, 2))
+                if (collisionStay.Hit.collider.Raycast(new Ray(collisionPoint - collisionDirection, collisionDirection), out var raycastHit, 2))
                 {
                     Debug.Log("Need to slide");
                     sliding.IsActive = Vector3.Angle(Vector3.up, raycastHit.normal) > _characterController.slopeLimit;
@@ -54,7 +52,6 @@ namespace Shooter.Character
                 Debug.Log("Deleted");
                 World.RemoveEntity(collisionStayEntity);
             }
-
         }
 
         public void Dispose() { }

@@ -1,12 +1,12 @@
 ﻿using System;
 using Scellecs.Morpeh;
-using Shooter.Character;
+using Shooter.Physics;
 using UnityEngine;
 using Zenject;
 
-namespace Shooter.Physics
+namespace Shooter.Character
 {
-    public sealed class CollisionDetector : MonoBehaviour
+    public sealed class CharacterCollisionDetector : MonoBehaviour
     {
         private World _ecsWorld;
 
@@ -14,13 +14,15 @@ namespace Shooter.Physics
         public void Construct(World world)
             => _ecsWorld = world ?? throw new ArgumentNullException(nameof(world));
 
-        private void OnCollisionStay(Collision other)
+        public void OnControllerColliderHit(ControllerColliderHit hit)
         {
+            Debug.Log("CollisionStay");
+            
             var entity = _ecsWorld.CreateEntity();
-            ref var createdStay = ref entity.AddComponent<OnCollisionStay>();
+            ref var createdStay = ref entity.AddComponent<CharacterOnCollisionStay>();
 
             createdStay.OriginGameObject = gameObject;
-            createdStay.Collision = other;
+            createdStay.Hit = hit;
         }
     }
 }
