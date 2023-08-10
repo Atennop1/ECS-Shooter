@@ -33,6 +33,9 @@ namespace Shooter.Character
 
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
             ref var input = ref _inputEntity.GetComponent<PlayerInputComponent>();
+            
+            if (_characterEntity.GetComponent<CharacterSlidingComponent>().IsActive)
+                return;
 
             var addedVelocity = _characterController.transform.right * input.MovementInput.x + _characterController.transform.forward * input.MovementInput.y;
             moving.IsWalking = addedVelocity != Vector3.zero;

@@ -33,9 +33,7 @@ namespace Shooter.Character
             var origin = _characterController.transform.position - difference;
             var radius = _characterController.radius + 0.04f;
             
-            Debug.Log(grounded.IsActive);
-            
-            if (!grounded.IsActive || !UnityEngine.Physics.SphereCast(origin, radius, Vector3.down, out var sphereHit, 0.05f, _layerMask, QueryTriggerInteraction.Ignore))
+            if (!grounded.IsActive || !UnityEngine.Physics.SphereCast(origin, radius, Vector3.down, out var sphereHit, 1f, _layerMask, QueryTriggerInteraction.Ignore))
                 return;
                 
             var raycastOrigin = new Vector3(sphereHit.point.x, sphereHit.point.y + 1f, sphereHit.point.z);
@@ -44,10 +42,11 @@ namespace Shooter.Character
                 return;
             
             var hitPointNormal = raycastHit.normal;
-            sliding.IsActive = Vector3.Angle(hitPointNormal, Vector3.up) > _characterController.slopeLimit;
+            var angle = Vector3.Angle(hitPointNormal, Vector3.up);
+            sliding.IsActive = angle > _characterController.slopeLimit;
             
             if (sliding.IsActive)
-                _characterController.Move(new Vector3(hitPointNormal.x, -hitPointNormal.y * 3, hitPointNormal.z) * sliding.SlideSpeed * Time.deltaTime);
+                _characterController.Move(new Vector3(hitPointNormal.x, -hitPointNormal.y * 3, hitPointNormal.z) * sliding.SlideSpeed * Time.deltaTime * (angle / 45));
         }
 
         public void Dispose() { }

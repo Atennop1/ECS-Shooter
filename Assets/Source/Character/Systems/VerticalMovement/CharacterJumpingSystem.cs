@@ -26,10 +26,16 @@ namespace Shooter.Character
             if (_characterEntity == null || _inputEntity == null)
                 return;
             
-            ref var jumping = ref _characterEntity.GetComponent<CharacterJumpingComponent>();
             ref var input = ref _inputEntity.GetComponent<PlayerInputComponent>();
+            ref var jumping = ref _characterEntity.GetComponent<CharacterJumpingComponent>();
+            ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
+            ref var sliding = ref _characterEntity.GetComponent<CharacterSlidingComponent>();
 
-            if (!_characterEntity.GetComponent<CharacterGroundedComponent>().IsActive || _characterEntity.GetComponent<CharacterSlidingComponent>().IsActive || !input.IsJumpKeyPressed)
+            Debug.Log($"Jumping: {grounded.IsActive && !sliding.IsActive && input.IsJumpKeyPressed}" +
+                    $"\nGrounded: {grounded.IsActive}" +
+                    $"\nSliding: {sliding.IsActive}");
+
+            if (!grounded.IsActive || sliding.IsActive || !input.IsJumpKeyPressed)
                 return;
 
             jumping.VerticalVelocity = Mathf.Sqrt(-2 * jumping.JumpHeight * jumping.GravitationalConstant);
