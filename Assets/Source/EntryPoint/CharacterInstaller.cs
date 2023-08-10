@@ -35,8 +35,6 @@ namespace Shooter.EntryPoint
             _characterHeadMovingFactory.CreateFor(entity);
 
             _gameLoop.AddSystem(_characterGroundingSystemFactory.Create());
-            
-            _gameLoop.AddSystem(new CharacterDetectingSlideSystem(_characterController));
             _gameLoop.AddSystem(new CharacterSlidingSystem(_characterController));
             
             _gameLoop.AddSystem(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
