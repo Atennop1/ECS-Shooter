@@ -1,6 +1,5 @@
 ﻿using System;
 using Scellecs.Morpeh;
-using Shooter.Character;
 using UnityEngine;
 using Zenject;
 

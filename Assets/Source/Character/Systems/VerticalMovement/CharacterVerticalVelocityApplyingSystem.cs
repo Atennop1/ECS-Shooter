@@ -1,5 +1,4 @@
-﻿using System;
-using Scellecs.Morpeh;
+﻿using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Character

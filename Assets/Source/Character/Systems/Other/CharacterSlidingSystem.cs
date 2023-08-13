@@ -27,13 +27,13 @@ namespace Shooter.Character
                 return;
             
             ref var sliding = ref _characterEntity.GetComponent<CharacterSlidingComponent>();
-            ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
+            sliding.IsActive = false;
 
             var difference = new Vector3(0, _characterController.height / 2 - _characterController.radius, 0);
             var origin = _characterController.transform.position - difference;
             var radius = _characterController.radius + 0.04f;
             
-            if (!grounded.IsActive || !UnityEngine.Physics.SphereCast(origin, radius, Vector3.down, out var sphereHit, 1f, _layerMask, QueryTriggerInteraction.Ignore))
+            if (!UnityEngine.Physics.SphereCast(origin, radius, Vector3.down, out var sphereHit, 1f, _layerMask, QueryTriggerInteraction.Ignore))
                 return;
                 
             var raycastOrigin = new Vector3(sphereHit.point.x, sphereHit.point.y + 1f, sphereHit.point.z);

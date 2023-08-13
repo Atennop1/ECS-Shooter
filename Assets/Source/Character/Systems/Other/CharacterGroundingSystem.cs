@@ -10,7 +10,7 @@ namespace Shooter.Character
         private readonly LayerMask _groundLayerMask;
         private Entity _characterEntity;
         
-        private const float _checkingSphereRadius = 0.5f;
+        private const float _checkingSphereRadius = 0.475f;
 
         public CharacterGroundingSystem(Transform characterFeetTransform, LayerMask groundLayerMask)
         {

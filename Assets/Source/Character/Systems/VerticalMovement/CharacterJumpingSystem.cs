@@ -1,5 +1,4 @@
-﻿using System;
-using Scellecs.Morpeh;
+﻿using Scellecs.Morpeh;
 using Shooter.Input;
 using UnityEngine;
 
@@ -30,10 +29,6 @@ namespace Shooter.Character
             ref var jumping = ref _characterEntity.GetComponent<CharacterJumpingComponent>();
             ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
             ref var sliding = ref _characterEntity.GetComponent<CharacterSlidingComponent>();
-
-            Debug.Log($"Jumping: {grounded.IsActive && !sliding.IsActive && input.IsJumpKeyPressed}" +
-                    $"\nGrounded: {grounded.IsActive}" +
-                    $"\nSliding: {sliding.IsActive}");
 
             if (!grounded.IsActive || sliding.IsActive || !input.IsJumpKeyPressed)
                 return;

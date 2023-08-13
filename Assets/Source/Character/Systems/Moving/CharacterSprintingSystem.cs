@@ -1,5 +1,4 @@
-﻿using System;
-using Scellecs.Morpeh;
+﻿using Scellecs.Morpeh;
 using Shooter.Input;
 
 namespace Shooter.Character
@@ -38,7 +37,7 @@ namespace Shooter.Character
             ref var input = ref _inputEntity.GetComponent<PlayerInputComponent>();
 
             moving.Speed = input.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
-            moving.IsSprinting = input.IsShiftPressed;
+            moving.IsSprinting = input.IsShiftPressed && moving.IsWalking;
 
             if (moving.IsWalking)
                 moving.IsWalking = !input.IsShiftPressed;

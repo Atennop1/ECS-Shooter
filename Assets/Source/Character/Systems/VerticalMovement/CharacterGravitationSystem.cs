@@ -1,5 +1,4 @@
-﻿using System;
-using Scellecs.Morpeh;
+﻿using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Character
@@ -20,10 +19,12 @@ namespace Shooter.Character
         {
             if (_characterEntity == null)
                 return;
-            
+
+            ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
+            ref var sliding = ref _characterEntity.GetComponent<CharacterSlidingComponent>();
             ref var jumping = ref _characterEntity.GetComponent<CharacterJumpingComponent>();
 
-            if (!_characterEntity.GetComponent<CharacterGroundedComponent>().IsActive)
+            if (!grounded.IsActive || sliding.IsActive)
                 jumping.VerticalVelocity += jumping.GravitationalConstant * Time.deltaTime;
         }
 
