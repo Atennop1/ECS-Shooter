@@ -31,12 +31,12 @@ namespace Shooter.Character
             if (_characterEntity == null)
                 return;
             
-            ref var headMoving = ref _characterEntity.GetComponent<CharacterHeadMovingComponent>();
+            ref var headBob = ref _characterEntity.GetComponent<CharacterHeadBobComponent>();
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
             ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
 
-            var walkingBobData = headMoving.WalkingBobData;
-            var sprintingBobData = headMoving.SprintingBobData;
+            var walkingBobData = headBob.WalkingBobData;
+            var sprintingBobData = headBob.SprintingBobData;
 
             if (!grounded.IsActive || moving is { IsSprinting: false, IsWalking: false })
                 return;

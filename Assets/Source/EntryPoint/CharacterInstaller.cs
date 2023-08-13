@@ -8,19 +8,20 @@ namespace Shooter.EntryPoint
 {
     public sealed class CharacterInstaller : MonoInstaller
     {
-        [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
-        [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
+        [SerializeField] private CharacterController _characterController;
+        [SerializeField] private Transform _cameraTransform;
         
         [Space]
         [SerializeField] private CharacterMovingComponentFactory _characterMovingFactory;
         [SerializeField] private CharacterSlidingComponentFactory _characterSlidingFactory;
         [SerializeField] private CharacterJumpingComponentFactory _characterJumpingFactory;
         [SerializeField] private CharacterHeadMovingComponentFactory _characterHeadMovingFactory;
+        [SerializeField] private CharacterHeadBobComponentFactory _characterHeadBobFactory;
         
-        [Space] 
-        [SerializeField] private CharacterController _characterController;
-        [SerializeField] private Transform _cameraTransform;
-        
+        [Space]
+        [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
+        [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
+
         [Inject] private World _world;
         [Inject] private IGameLoop _gameLoop;
 
@@ -30,9 +31,11 @@ namespace Shooter.EntryPoint
 
             _characterMovingFactory.CreateFor(entity);
             _characterSlidingFactory.CreateFor(entity);
-            entity.AddComponent<CharacterGroundedComponent>();
             _characterJumpingFactory.CreateFor(entity);
+            
+            entity.AddComponent<CharacterGroundedComponent>();
             _characterHeadMovingFactory.CreateFor(entity);
+            _characterHeadBobFactory.CreateFor(entity);
 
             _gameLoop.AddSystem(_characterGroundingSystemFactory.Create());
             _gameLoop.AddSystem(new CharacterSlidingSystem(_characterController));
