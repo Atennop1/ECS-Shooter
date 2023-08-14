@@ -1,4 +1,5 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using Scellecs.Morpeh;
 using Shooter.GameLoop;
 using Shooter.Input;
 using Zenject;
@@ -7,8 +8,15 @@ namespace Shooter.EntryPoint
 {
     public sealed class InputInstaller : MonoInstaller
     {
-        [Inject] private World _world;
-        [Inject] private IGameLoop _gameLoop;
+        private World _world;
+        private IGameLoop _gameLoop;
+
+        [Inject]
+        public void Construct(World world, IGameLoop gameLoop)
+        {
+            _world = world ?? throw new ArgumentNullException(nameof(world));
+            _gameLoop = gameLoop ?? throw new ArgumentNullException(nameof(gameLoop));
+        }
 
         public override void InstallBindings()
         {

@@ -1,4 +1,5 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using Scellecs.Morpeh;
 using Shooter.Character;
 using Shooter.GameLoop;
 using UnityEngine;
@@ -22,8 +23,15 @@ namespace Shooter.EntryPoint
         [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
         [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
 
-        [Inject] private World _world;
-        [Inject] private IGameLoop _gameLoop;
+        private World _world;
+        private IGameLoop _gameLoop;
+
+        [Inject]
+        public void Construct(World world, IGameLoop gameLoop)
+        {
+            _world = world ?? throw new ArgumentNullException(nameof(world));
+            _gameLoop = gameLoop ?? throw new ArgumentNullException(nameof(gameLoop));
+        }
 
         public override void InstallBindings()
         {
