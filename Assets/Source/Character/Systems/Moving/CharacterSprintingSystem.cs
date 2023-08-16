@@ -19,10 +19,10 @@ namespace Shooter.Character
         public void OnAwake()
         {
             var characterFilter = World.Filter.With<CharacterMovingComponent>();
-            var playerInputFilter = World.Filter.With<PlayerInputComponent>();
+            var movementInputFilter = World.Filter.With<MovementInputComponent>();
 
             _characterEntity = characterFilter.FirstOrDefault();
-            _inputEntity = playerInputFilter.FirstOrDefault();
+            _inputEntity = movementInputFilter.FirstOrDefault();
             
             if (_characterEntity != null)
                 _walkingSpeed = _characterEntity.GetComponent<CharacterMovingComponent>().Speed;
@@ -34,13 +34,13 @@ namespace Shooter.Character
                 return;
             
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
-            ref var input = ref _inputEntity.GetComponent<PlayerInputComponent>();
+            ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
 
-            moving.Speed = input.IsShiftPressed ? _sprintingSpeed : _walkingSpeed;
-            moving.IsSprinting = input.IsShiftPressed && moving.IsWalking;
+            moving.Speed = input.IsSprintPressed ? _sprintingSpeed : _walkingSpeed;
+            moving.IsSprinting = input.IsSprintPressed && moving.IsWalking;
 
             if (moving.IsWalking)
-                moving.IsWalking = !input.IsShiftPressed;
+                moving.IsWalking = !input.IsSprintPressed;
         }
         
         public void Dispose()  { }

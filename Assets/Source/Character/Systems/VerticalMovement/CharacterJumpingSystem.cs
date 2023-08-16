@@ -14,10 +14,10 @@ namespace Shooter.Character
         public void OnAwake()
         {
             var characterFilter = World.Filter.With<CharacterJumpingComponent>().With<CharacterSlidingComponent>().With<CharacterGroundedComponent>();
-            var playerInputFilter = World.Filter.With<PlayerInputComponent>();
+            var jumpingInputFilter = World.Filter.With<JumpingInputComponent>();
 
             _characterEntity = characterFilter.FirstOrDefault();
-            _inputEntity = playerInputFilter.FirstOrDefault();
+            _inputEntity = jumpingInputFilter.FirstOrDefault();
         }
         
         public void OnUpdate(float deltaTime)
@@ -25,12 +25,12 @@ namespace Shooter.Character
             if (_characterEntity == null || _inputEntity == null)
                 return;
             
-            ref var input = ref _inputEntity.GetComponent<PlayerInputComponent>();
+            ref var input = ref _inputEntity.GetComponent<JumpingInputComponent>();
             ref var jumping = ref _characterEntity.GetComponent<CharacterJumpingComponent>();
             ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
             ref var sliding = ref _characterEntity.GetComponent<CharacterSlidingComponent>();
 
-            if (!grounded.IsActive || sliding.IsActive || !input.IsJumpKeyPressed)
+            if (!grounded.IsActive || sliding.IsActive || !input.IsJumpKeyPressedNow)
                 return;
 
             jumping.VerticalVelocity = Mathf.Sqrt(-2 * jumping.JumpHeight * jumping.GravitationalConstant);

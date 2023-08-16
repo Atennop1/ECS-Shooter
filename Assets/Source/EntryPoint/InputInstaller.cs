@@ -21,8 +21,13 @@ namespace Shooter.EntryPoint
         public override void InstallBindings()
         {
             var entity = _world.CreateEntity();
-            entity.AddComponent<PlayerInputComponent>();
-            _gameLoop.AddSystem(new PlayerInputReadingSystem(new CharacterControls()));
-        }
+            
+            entity.AddComponent<MovementInputComponent>();
+            entity.AddComponent<CrouchingInputComponent>();
+            entity.AddComponent<JumpingInputComponent>();
+            
+            _gameLoop.AddSystem(new MovementInputReadingSystem(new CharacterControls()));
+            _gameLoop.AddSystem(new CrouchingInputReadingSystem(new CharacterControls()));
+            _gameLoop.AddSystem(new JumpingInputReadingSystem(new CharacterControls())); }
     }
 }

@@ -19,10 +19,10 @@ namespace Shooter.Character
         public void OnAwake()
         {
             var characterFilter = World.Filter.With<CharacterMovingComponent>();
-            var playerInputFilter = World.Filter.With<PlayerInputComponent>();
+            var movementInputFilter = World.Filter.With<MovementInputComponent>();
 
             _characterEntity = characterFilter.FirstOrDefault();
-            _inputEntity = playerInputFilter.FirstOrDefault();
+            _inputEntity = movementInputFilter.FirstOrDefault();
         }
 
         public void OnUpdate(float deltaTime)
@@ -31,9 +31,9 @@ namespace Shooter.Character
                 return;
 
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
-            ref var input = ref _inputEntity.GetComponent<PlayerInputComponent>();
+            ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
             
-            var addedVelocity = _characterController.transform.right * input.MovementInput.x + _characterController.transform.forward * input.MovementInput.y;
+            var addedVelocity = _characterController.transform.right * input.Vector.x + _characterController.transform.forward * input.Vector.y;
             moving.IsWalking = addedVelocity != Vector3.zero;
             _characterController.Move(addedVelocity * moving.Speed * Time.deltaTime);
         }
