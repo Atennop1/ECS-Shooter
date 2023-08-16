@@ -6,7 +6,7 @@ namespace Shooter.Character
     {
         public bool IsActive;
         
-        public CharacterCrouchingStateData StandingData;
-        public CharacterCrouchingStateData CrouchingData;
+        public CharacterCrouchingStateData StandingStateData;
+        public CharacterCrouchingStateData CrouchingStateData;
     }
 }

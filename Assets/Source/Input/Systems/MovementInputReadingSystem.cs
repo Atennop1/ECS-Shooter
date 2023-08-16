@@ -32,7 +32,7 @@ namespace Shooter.Input
                 _characterControls.Character.Sprint.performed += context =>
                 {
                     var isShiftPressed = context.ReadValue<float>() > 0.1f;
-                    entity.GetComponent<MovementInputComponent>().IsSprintPressed = isShiftPressed;
+                    entity.GetComponent<MovementInputComponent>().IsSprintKeyPressed = isShiftPressed;
                 };
             }
         }

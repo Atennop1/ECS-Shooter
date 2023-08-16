@@ -36,11 +36,11 @@ namespace Shooter.Character
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
             ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
 
-            moving.Speed = input.IsSprintPressed ? _sprintingSpeed : _walkingSpeed;
-            moving.IsSprinting = input.IsSprintPressed && moving.IsWalking;
+            moving.Speed = input.IsSprintKeyPressed ? _sprintingSpeed : _walkingSpeed;
+            moving.IsSprinting = input.IsSprintKeyPressed && moving.IsWalking;
 
             if (moving.IsWalking)
-                moving.IsWalking = !input.IsSprintPressed;
+                moving.IsWalking = !input.IsSprintKeyPressed;
         }
         
         public void Dispose()  { }
