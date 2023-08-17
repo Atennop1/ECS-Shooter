@@ -33,7 +33,7 @@ namespace Shooter.Character
             if (!grounded.IsActive || sliding.IsActive || !input.IsJumpKeyPressedNow)
                 return;
 
-            jumping.VerticalVelocity = Mathf.Sqrt(-2 * jumping.JumpHeight * jumping.GravitationalConstant);
+            jumping.VerticalVelocity = Mathf.Sqrt(-2 * jumping.JumpHeight * Physics.Constants.GravityAcceleration);
         }
 
         public void Dispose() { }

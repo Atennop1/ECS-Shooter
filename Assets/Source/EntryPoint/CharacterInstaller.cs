@@ -56,9 +56,10 @@ namespace Shooter.EntryPoint
             _gameLoop.AddSystem(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
             _gameLoop.AddSystem(new CharacterHeadbobSystem(_cameraTransform));
             
-            _gameLoop.AddSystem(new CharacterMovingSystem(_characterController));
+            _gameLoop.AddSystem(new CharacterIsMovingSettingSystem());
             _gameLoop.AddSystem(_characterSprintingSystemFactory.Create());
             _gameLoop.AddSystem(_characterCrouchingSpeedSetSystemFactory.Create());
+            _gameLoop.AddSystem(new CharacterMovingSystem(_characterController));
 
             _gameLoop.AddSystem(new CharacterGravitationSystem());
             _gameLoop.AddSystem(new CharacterJumpingSystem());

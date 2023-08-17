@@ -25,7 +25,7 @@ namespace Shooter.Character
             ref var jumping = ref _characterEntity.GetComponent<CharacterJumpingComponent>();
 
             if (!grounded.IsActive || sliding.IsActive)
-                jumping.VerticalVelocity += jumping.GravitationalConstant * Time.deltaTime;
+                jumping.VerticalVelocity += Physics.Constants.GravityAcceleration * Time.deltaTime;
         }
 
         public void Dispose() { }
