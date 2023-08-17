@@ -2,12 +2,12 @@
 
 namespace Shooter.Character
 {
-    public sealed class CharacterCrouchingSpeedSettingSystem : ISystem
+    public sealed class CharacterCrouchingSpeedSetSystem : ISystem
     {
         private readonly float _crouchingSpeed;
         private Entity _characterEntity;
 
-        public CharacterCrouchingSpeedSettingSystem(float crouchingSpeed) 
+        public CharacterCrouchingSpeedSetSystem(float crouchingSpeed) 
             => _crouchingSpeed = crouchingSpeed;
 
         public World World { get; set; }
@@ -23,8 +23,8 @@ namespace Shooter.Character
             if (_characterEntity == null)
                 return;
 
-            var crouching = _characterEntity.GetComponent<CharacterCrouchingComponent>();
-            var moving = _characterEntity.GetComponent<CharacterMovingComponent>();
+            ref var crouching = ref _characterEntity.GetComponent<CharacterCrouchingComponent>();
+            ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
 
             if (crouching.IsActive)
                 moving.Speed = _crouchingSpeed;
