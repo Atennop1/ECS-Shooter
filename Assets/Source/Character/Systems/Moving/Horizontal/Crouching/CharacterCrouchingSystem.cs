@@ -25,7 +25,7 @@ namespace Shooter.Character
         
         public void OnAwake()
         {
-            var characterFilter = World.Filter.With<CharacterCrouchingComponent>();
+            var characterFilter = World.Filter.With<CharacterCrouchingComponent>().With<CharacterGroundedComponent>();
             var inputFilter = World.Filter.With<CrouchingInputComponent>();
             
             _characterEntity = characterFilter.FirstOrDefault();
@@ -37,8 +37,12 @@ namespace Shooter.Character
             if (_characterEntity == null || _inputEntity == null)
                 return;
 
+            var crouching = _characterEntity.GetComponent<CharacterCrouchingComponent>();
+            var grounded = _characterEntity.GetComponent<CharacterGroundedComponent>();
+            var crouchingInput = _inputEntity.GetComponent<CrouchingInputComponent>();
+            
             var checkingRaycastPosition = _characterController.transform.position + new Vector3(0, _characterController.height / 2 - _characterController.radius, 0);
-            if (_isChanging || !_inputEntity.GetComponent<CrouchingInputComponent>().IsCrouchKeyPressedNow || (_characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive && UnityEngine.Physics.Raycast(checkingRaycastPosition, Vector3.up, 1f)))
+            if (_isChanging || !grounded.IsActive || !crouchingInput.IsCrouchKeyPressedNow || (crouching.IsActive && UnityEngine.Physics.Raycast(checkingRaycastPosition, Vector3.up, 1f)))
                 return;
 
             await ChangeState();
@@ -48,17 +52,21 @@ namespace Shooter.Character
 
         private async UniTask ChangeState()
         {
+            Debug.Log("Started");
+            
+            var crouching = _characterEntity.GetComponent<CharacterCrouchingComponent>();
             var elapsedTime = 0f;
             _isChanging = true;
-
-            var targetHeight = _characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive ? _characterEntity.GetComponent<CharacterCrouchingComponent>().StandingStateData.Height : _characterEntity.GetComponent<CharacterCrouchingComponent>().CrouchingStateData.Height;
+            
+            var targetHeight = crouching.IsActive ? crouching.StandingStateData.Height : crouching.CrouchingStateData.Height;
             var currentHeight = _characterController.height;
             
-            var targetCenter = _characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive ? _characterEntity.GetComponent<CharacterCrouchingComponent>().StandingStateData.Center : _characterEntity.GetComponent<CharacterCrouchingComponent>().CrouchingStateData.Center;
+            var targetCenter = crouching.IsActive ? crouching.StandingStateData.Center : crouching.CrouchingStateData.Center;
             var currentCenter = _characterController.center;
 
             while (elapsedTime < _timeToCrouch)
             {
+                Debug.Log("Going");
                 _characterController.height = Mathf.Lerp(currentHeight, targetHeight, elapsedTime / _timeToCrouch);
                 _characterController.center = Vector3.Lerp(currentCenter, targetCenter, elapsedTime / _timeToCrouch);
 
@@ -69,6 +77,7 @@ namespace Shooter.Character
             _characterController.height = targetHeight;
             _characterController.center = targetCenter;
 
+            Debug.Log("Ended");
             _characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive = !_characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive;
             _isChanging = false;
         }

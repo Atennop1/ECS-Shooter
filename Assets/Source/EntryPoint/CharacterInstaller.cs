@@ -18,6 +18,7 @@ namespace Shooter.EntryPoint
         [SerializeField] private CharacterJumpingComponentFactory _characterJumpingFactory;
         [SerializeField] private CharacterHeadMovingComponentFactory _characterHeadMovingFactory;
         [SerializeField] private CharacterHeadBobComponentFactory _characterHeadBobFactory;
+        [SerializeField] private CharacterCrouchingComponentFactory _characterCrouchingFactory;
         
         [Space]
         [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
@@ -40,12 +41,13 @@ namespace Shooter.EntryPoint
             var entity = _world.CreateEntity();
 
             _characterMovingFactory.CreateFor(entity);
-            _characterSlidingFactory.CreateFor(entity);
             _characterJumpingFactory.CreateFor(entity);
+            _characterCrouchingFactory.CreateFor(entity);
+            _characterSlidingFactory.CreateFor(entity);
             
-            entity.AddComponent<CharacterGroundedComponent>();
             _characterHeadMovingFactory.CreateFor(entity);
             _characterHeadBobFactory.CreateFor(entity);
+            entity.AddComponent<CharacterGroundedComponent>();
 
             _gameLoop.AddSystem(_characterGroundingSystemFactory.Create());
             _gameLoop.AddSystem(new CharacterSlidingSystem(_characterController));
