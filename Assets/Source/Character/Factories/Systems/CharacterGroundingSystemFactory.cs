@@ -4,10 +4,10 @@ namespace Shooter.Character
 {
     public sealed class CharacterGroundingSystemFactory : MonoBehaviour
     {
-        [SerializeField] private Transform _characterFeetTransform;
+        [SerializeField] private CharacterController _characterController;
         [SerializeField] private LayerMask _groundLayerMask;
 
         public CharacterGroundingSystem Create() 
-            => new(_characterFeetTransform, _groundLayerMask);
+            => new(_characterController, _groundLayerMask);
     }
 }
