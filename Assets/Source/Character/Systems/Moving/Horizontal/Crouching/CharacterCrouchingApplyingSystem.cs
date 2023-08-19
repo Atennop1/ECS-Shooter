@@ -33,9 +33,8 @@ namespace Shooter.Character
 
             if (!moving.IsWalking) 
                 return;
-            
+
             moving.Speed = crouching.IsActive ? _crouchingSpeed : _walkingSpeed;
-            _characterEntity.GetComponent<CharacterMovingComponent>().IsWalking = !crouching.IsActive;
         }
         
         public void Dispose() { }

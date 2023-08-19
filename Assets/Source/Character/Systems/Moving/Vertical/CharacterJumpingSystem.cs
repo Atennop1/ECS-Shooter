@@ -29,8 +29,9 @@ namespace Shooter.Character
             ref var jumping = ref _characterEntity.GetComponent<CharacterJumpingComponent>();
             ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
             ref var sliding = ref _characterEntity.GetComponent<CharacterSlidingComponent>();
+            ref var crouching = ref _characterEntity.GetComponent<CharacterCrouchingComponent>();
 
-            if (!grounded.IsActive || sliding.IsActive || !input.IsJumpKeyPressedNow)
+            if (!grounded.IsActive || sliding.IsActive || crouching.IsActive || crouching.IsTransiting || !input.IsJumpKeyPressedNow)
                 return;
 
             jumping.VerticalVelocity = Mathf.Sqrt(-2 * jumping.JumpHeight * Physics.Constants.GravityAcceleration);

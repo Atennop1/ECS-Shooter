@@ -9,6 +9,9 @@ namespace Shooter.Character
         [SerializeField] private float _timeToCrouch;
 
         public CharacterCrouchingSystem Create()
-            => new(_characterController, _timeToCrouch);
+        {
+            var stateSwitcher = new CharacterCrouchingStateSwitcher(_characterController, _timeToCrouch);
+            return new CharacterCrouchingSystem(_characterController, stateSwitcher);
+        }
     }
 }

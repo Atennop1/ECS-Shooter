@@ -34,8 +34,12 @@ namespace Shooter.Character
                 return;
             
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
+            ref var crouching = ref _characterEntity.GetComponent<CharacterCrouchingComponent>();
             ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
 
+            if (crouching.IsActive || crouching.IsTransiting)
+                return;
+            
             moving.Speed = input.IsSprintKeyPressed ? _sprintingSpeed : _walkingSpeed;
             moving.IsSprinting = input.IsSprintKeyPressed && moving.IsWalking;
 
