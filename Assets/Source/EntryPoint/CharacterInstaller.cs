@@ -3,6 +3,7 @@ using Scellecs.Morpeh;
 using Shooter.Character;
 using Shooter.GameLoop;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Shooter.EntryPoint
@@ -24,7 +25,7 @@ namespace Shooter.EntryPoint
         [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
         [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
         [SerializeField] private CharacterCrouchingSystemFactory _characterCrouchingSystemFactory;
-        [SerializeField] private CharacterCrouchingSpeedSetSystemFactory _characterCrouchingSpeedSetSystemFactory;
+        [SerializeField] private CharacterCrouchingApplyingSystemFactory _characterCrouchingApplyingSystemFactory;
 
         private World _world;
         private IGameLoop _gameLoop;
@@ -56,10 +57,9 @@ namespace Shooter.EntryPoint
             _gameLoop.AddSystem(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
             _gameLoop.AddSystem(new CharacterHeadbobSystem(_cameraTransform));
             
-            _gameLoop.AddSystem(new CharacterIsMovingSettingSystem());
-            _gameLoop.AddSystem(_characterSprintingSystemFactory.Create());
-            _gameLoop.AddSystem(_characterCrouchingSpeedSetSystemFactory.Create());
             _gameLoop.AddSystem(new CharacterMovingSystem(_characterController));
+            _gameLoop.AddSystem(_characterSprintingSystemFactory.Create());
+            _gameLoop.AddSystem(_characterCrouchingApplyingSystemFactory.Create());
 
             _gameLoop.AddSystem(new CharacterGravitationSystem());
             _gameLoop.AddSystem(new CharacterJumpingSystem());

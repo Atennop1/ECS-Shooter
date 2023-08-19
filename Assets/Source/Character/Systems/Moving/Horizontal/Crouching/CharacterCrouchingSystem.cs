@@ -52,8 +52,6 @@ namespace Shooter.Character
 
         private async UniTask ChangeState()
         {
-            Debug.Log("Started");
-            
             var crouching = _characterEntity.GetComponent<CharacterCrouchingComponent>();
             var elapsedTime = 0f;
             _isChanging = true;
@@ -66,7 +64,6 @@ namespace Shooter.Character
 
             while (elapsedTime < _timeToCrouch)
             {
-                Debug.Log("Going");
                 _characterController.height = Mathf.Lerp(currentHeight, targetHeight, elapsedTime / _timeToCrouch);
                 _characterController.center = Vector3.Lerp(currentCenter, targetCenter, elapsedTime / _timeToCrouch);
 
@@ -77,7 +74,6 @@ namespace Shooter.Character
             _characterController.height = targetHeight;
             _characterController.center = targetCenter;
 
-            Debug.Log("Ended");
             _characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive = !_characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive;
             _isChanging = false;
         }

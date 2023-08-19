@@ -33,6 +33,7 @@ namespace Shooter.Character
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
             ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
             
+            moving.IsWalking = input.Vector != Vector2.zero;
             var addedVelocity = _characterController.transform.right * input.Vector.x + _characterController.transform.forward * input.Vector.y;
             _characterController.Move(addedVelocity * moving.Speed * Time.deltaTime);
         }

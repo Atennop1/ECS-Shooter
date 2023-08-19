@@ -39,7 +39,7 @@ namespace Shooter.Character
             var walkingBobData = headBob.WalkingBobData;
             var sprintingBobData = headBob.SprintingBobData;
 
-            if (!grounded.IsActive || moving is { IsSprinting: false, IsWalking: false })
+            if (!grounded.IsActive || (moving is { IsSprinting: false, IsWalking: false } && !crouching.IsActive))
                 return;
 
             _timer += Time.deltaTime * (crouching.IsActive ? headBob.CrouchingBobData.BobSpeed : (moving.IsSprinting ? sprintingBobData.BobSpeed : walkingBobData.BobSpeed));

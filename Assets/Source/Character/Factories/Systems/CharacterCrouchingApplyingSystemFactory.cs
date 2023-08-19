@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterCrouchingSpeedSetSystemFactory : SerializedMonoBehaviour
+    public sealed class CharacterCrouchingApplyingSystemFactory : SerializedMonoBehaviour
     {
         [SerializeField] private float _crouchingSpeed;
 
-        public CharacterCrouchingSpeedSetSystem Create()
+        public CharacterCrouchingApplyingSystem Create()
             => new(_crouchingSpeed);
     }
 }
