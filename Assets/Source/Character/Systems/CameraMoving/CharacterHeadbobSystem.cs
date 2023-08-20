@@ -33,17 +33,18 @@ namespace Shooter.Character
             
             ref var headBob = ref _characterEntity.GetComponent<CharacterHeadBobComponent>();
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
+            ref var sprinting = ref _characterEntity.GetComponent<CharacterSprintingComponent>();
             ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
             ref var crouching = ref _characterEntity.GetComponent<CharacterCrouchingComponent>();
 
             var walkingBobData = headBob.WalkingBobData;
             var sprintingBobData = headBob.SprintingBobData;
 
-            if (!grounded.IsActive || moving is { IsSprinting: false, IsWalking: false } || crouching.IsTransiting)
+            if (!grounded.IsActive || crouching.IsTransiting || (!moving.IsWalking && !sprinting.IsActive))
                 return;
 
-            _timer += Time.deltaTime * (crouching.IsActive ? headBob.CrouchingBobData.BobSpeed : (moving.IsSprinting ? sprintingBobData.BobSpeed : walkingBobData.BobSpeed));
-            var strength = crouching.IsActive ? headBob.CrouchingBobData.BobStrength : (moving.IsSprinting ? sprintingBobData.BobStrength : walkingBobData.BobStrength);
+            _timer += Time.deltaTime * (crouching.IsActive ? headBob.CrouchingBobData.BobSpeed : (sprinting.IsActive ? sprintingBobData.BobSpeed : walkingBobData.BobSpeed));
+            var strength = crouching.IsActive ? headBob.CrouchingBobData.BobStrength : (sprinting.IsActive ? sprintingBobData.BobStrength : walkingBobData.BobStrength);
 
             _cameraTransform.localPosition = new Vector3(
                 _cameraTransform.localPosition.x,

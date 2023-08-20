@@ -34,17 +34,20 @@ namespace Shooter.Character
                 return;
             
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
+            ref var sprinting = ref _characterEntity.GetComponent<CharacterSprintingComponent>();
             ref var crouching = ref _characterEntity.GetComponent<CharacterCrouchingComponent>();
             ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
 
+            sprinting.IsActive = false;
+            
             if (crouching.IsActive || crouching.IsTransiting)
                 return;
             
-            moving.Speed = input.IsSprintKeyPressed ? _sprintingSpeed : _walkingSpeed;
-            moving.IsSprinting = input.IsSprintKeyPressed && moving.IsWalking;
+            moving.Speed = input.IsSprintKeyPressed && sprinting.CanSprint ? _sprintingSpeed : _walkingSpeed;
+            sprinting.IsActive = input.IsSprintKeyPressed && sprinting.CanSprint && moving.IsWalking;
 
             if (moving.IsWalking)
-                moving.IsWalking = !input.IsSprintKeyPressed;
+                moving.IsWalking = !sprinting.IsActive;
         }
         
         public void Dispose()  { }
