@@ -33,10 +33,10 @@ namespace Shooter.Character
             if (_characterEntity == null || _inputEntity == null)
                 return;
             
+            ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
             ref var sprinting = ref _characterEntity.GetComponent<CharacterSprintingComponent>();
             ref var crouching = ref _characterEntity.GetComponent<CharacterCrouchingComponent>();
-            ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
 
             sprinting.IsActive = false;
             

@@ -26,9 +26,9 @@ namespace Shooter.EntryPoint
             entity.AddComponent<CrouchingInputComponent>();
             entity.AddComponent<JumpingInputComponent>();
             
-            _gameLoop.AddSystem(new MovementInputReadingSystem(new CharacterControls()));
-            _gameLoop.AddSystem(new JumpingInputReadingSystem(new CharacterControls())); 
             _gameLoop.AddSystem(new CrouchingInputReadingSystem());
+            _gameLoop.AddSystem(new MovementInputReadingSystem(new CharacterControls()));
+            _gameLoop.AddSystem(new JumpingInputReadingSystem(new CharacterControls()));
         }
     }
 }
