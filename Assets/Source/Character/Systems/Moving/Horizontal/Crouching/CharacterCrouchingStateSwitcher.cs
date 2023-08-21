@@ -30,8 +30,8 @@ namespace Shooter.Character
 
             while (elapsedTime < _timeToCrouch)
             {
-                _characterController.height = Mathf.Lerp(currentHeight, targetHeight, elapsedTime / _timeToCrouch);
                 _characterController.center = Vector3.Lerp(currentCenter, targetCenter, elapsedTime / _timeToCrouch);
+                _characterController.height = Mathf.Lerp(currentHeight, targetHeight, elapsedTime / _timeToCrouch);
 
                 elapsedTime += Time.deltaTime;
                 await UniTask.Yield();

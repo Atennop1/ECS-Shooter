@@ -1,35 +1,23 @@
-﻿using System;
-using Scellecs.Morpeh;
+﻿using Scellecs.Morpeh;
+using UnityEngine.InputSystem;
 
 namespace Shooter.Input
 {
     public sealed class CrouchingInputReadingSystem : ISystem
     {
-        private readonly CharacterControls _characterControls;
+        private Filter _filter;
 
-        public CrouchingInputReadingSystem(CharacterControls characterControls)
-            => _characterControls = characterControls ?? throw new ArgumentNullException(nameof(characterControls));
-        
         public World World { get; set; }
-        
-        public void Dispose() 
-            => _characterControls.Dispose();
 
-        public void OnAwake()
+        public void OnAwake() 
+            => _filter = World.Filter.With<CrouchingInputComponent>();
+
+        public void OnUpdate(float deltaTime)
         {
-            _characterControls.Enable();
-            var filter = World.Filter.With<CrouchingInputComponent>();
-
-            foreach (var entity in filter)
-            {
-                _characterControls.Character.Crouch.performed += context =>
-                {
-                    var isControlPressed = context.ReadValue<float>() > 0.1f;
-                    entity.GetComponent<CrouchingInputComponent>().IsCrouchKeyPressedNow = isControlPressed;
-                };
-            }
+            foreach (var entity in _filter)
+                entity.GetComponent<CrouchingInputComponent>().IsCrouchKeyPressedNow = Keyboard.current.leftCtrlKey.wasPressedThisFrame;
         }
-
-        public void OnUpdate(float deltaTime) { }
+        
+        public void Dispose() { }
     }
 }

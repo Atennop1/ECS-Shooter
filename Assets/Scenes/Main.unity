@@ -269,7 +269,7 @@ MonoBehaviour:
     Height: 2
     Center: {x: 0, y: 0, z: 0}
   _crouchingStateData:
-    Height: 1.2
+    Height: 1.05
     Center: {x: 0, y: 0.4, z: 0}
 --- !u!1 &435389025
 GameObject:
@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 449578055}
   - component: {fileID: 449578060}
   m_Layer: 7
-  m_Name: Slob 1
+  m_Name: Slob 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,6 +419,7 @@ MonoBehaviour:
     RefIds:
     - rid: 8917933283034529816
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &449578058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,14 +644,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449578053}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.0150566, y: 0.8631396, z: -20.99752}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -10.978, y: 0.8631401, z: -16.987}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1706553718}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!54 &449578060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -961,7 +962,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.88189405, b: 0.5613208, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.73
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1285,7 +1286,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _characterController: {fileID: 1249881129}
-  _timeToCrouch: 0.5
+  _timeToCrouch: 0.2
 --- !u!1 &1158980891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,8 +1356,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1249881127}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -5.510248, y: 1.976, z: 10.489912}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 1.19, y: 1.976, z: -7.66}
   m_LocalScale: {x: 1, y: 1.1172, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1364,7 +1365,7 @@ Transform:
   - {fileID: 816465905}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!143 &1249881129
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1376,13 +1377,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.7891029
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.7
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.08879878, z: 0}
 --- !u!850595691 &1295262956
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -1679,7 +1680,7 @@ GameObject:
   - component: {fileID: 1428337281}
   - component: {fileID: 1428337286}
   m_Layer: 7
-  m_Name: Slob 3
+  m_Name: Slob 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1776,6 +1777,7 @@ MonoBehaviour:
     RefIds:
     - rid: 8917933283034529818
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &1428337284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2000,14 +2002,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428337279}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.023607, y: 0.8631401, z: -23.041607}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -12.978, y: 0.8631401, z: -22.984}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1706553718}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!54 &1428337286
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2137,6 +2139,7 @@ MonoBehaviour:
     RefIds:
     - rid: 8917933283034529817
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &1500239222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2361,14 +2364,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500239217}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.006336, y: 0.8631401, z: -23.003414}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -12.983, y: 0.8631401, z: -19.972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1706553718}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!54 &1500239224
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2614,6 +2617,7 @@ MonoBehaviour:
     RefIds:
     - rid: 8917933283034529802
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &1706553717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4043,10 +4047,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1941580954}
-  - {fileID: 449578059}
-  - {fileID: 1500239223}
   - {fileID: 1428337285}
+  - {fileID: 1500239223}
+  - {fileID: 449578059}
+  - {fileID: 1941580954}
   m_Father: {fileID: 977247529}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4076,7 +4080,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1727005986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.86, z: 0}
+  m_LocalPosition: {x: 0, y: 0.754, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6344,14 +6348,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941580948}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.98, y: 0.86314106, z: -21.94}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -7.09, y: 0.86314106, z: -8.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1706553718}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!43 &1944878280
 Mesh:
   m_ObjectHideFlags: 0
