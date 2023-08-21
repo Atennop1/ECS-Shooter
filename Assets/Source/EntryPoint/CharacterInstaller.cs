@@ -9,21 +9,25 @@ namespace Shooter.EntryPoint
 {
     public sealed class CharacterInstaller : MonoInstaller
     {
-        [SerializeField] private CharacterController _characterController;
         [SerializeField] private Transform _cameraTransform;
-        
-        [Space]
+        [SerializeField] private CharacterController _characterController;
+
+        [Header("Components")]
         [SerializeField] private CharacterMovingComponentFactory _characterMovingFactory;
         [SerializeField] private CharacterJumpingComponentFactory _characterJumpingFactory;
         [SerializeField] private CharacterCrouchingComponentFactory _characterCrouchingFactory;
         [SerializeField] private CharacterSlidingComponentFactory _characterSlidingFactory;
         [SerializeField] private CharacterSprintingComponentFactory _characterSprintingFactory;
         
+        [Space]
         [SerializeField] private CharacterStaminaComponentFactory _characterStaminaFactory;
+        [SerializeField] private CharacterStaminaRegeneratingComponentFactory _characterStaminaRegeneratingFactory;
+        
+        [Space]
         [SerializeField] private CharacterHeadMovingComponentFactory _characterHeadMovingFactory;
         [SerializeField] private CharacterHeadBobComponentFactory _characterHeadBobFactory;
         
-        [Space]
+        [Header("Systems")]
         [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
         [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
         [SerializeField] private CharacterCrouchingSystemFactory _characterCrouchingSystemFactory;
@@ -51,6 +55,8 @@ namespace Shooter.EntryPoint
             _characterSprintingFactory.CreateFor(entity);
             
             _characterStaminaFactory.CreateFor(entity);
+            _characterStaminaRegeneratingFactory.CreateFor(entity);
+            
             _characterHeadMovingFactory.CreateFor(entity);
             _characterHeadBobFactory.CreateFor(entity);
 
@@ -58,6 +64,7 @@ namespace Shooter.EntryPoint
             _gameLoop.AddSystem(_characterGroundingSystemFactory.Create());
 
             _gameLoop.AddSystem(new CharacterStaminaUsingSystem());
+            _gameLoop.AddSystem(new CharacterStaminaRegeneratingSystem());
             _gameLoop.AddSystem(_characterStaminaDisplayingSystemFactory.Create());
             
             _gameLoop.AddSystem(new CharacterMovingSystem(_characterController));
