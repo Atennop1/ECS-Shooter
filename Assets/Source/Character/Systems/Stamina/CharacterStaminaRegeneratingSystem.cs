@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Scellecs.Morpeh;
 using UnityEngine;
 
@@ -10,8 +10,8 @@ namespace Shooter.Character
         private Entity _characterEntity;
         
         private float _lastStaminaValue;
-        private CancellationTokenSource _cancellationTokenSource = new();
-        
+        private CancellationTokenSource _cancellationTokenSource;
+
         public World World { get; set; }
         
         public void OnAwake()
@@ -22,7 +22,7 @@ namespace Shooter.Character
             if (_characterEntity != null)
                 _lastStaminaValue = _characterEntity.GetComponent<CharacterStaminaComponent>().CurrentValue;
         }
-        
+
         public async void OnUpdate(float deltaTime)
         {
             if (_characterEntity == null)
@@ -32,30 +32,35 @@ namespace Shooter.Character
 
             if (_lastStaminaValue > stamina.CurrentValue)
             {
-                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource?.Cancel();
                 _cancellationTokenSource = new CancellationTokenSource();
-                await RegenerateStamina(_cancellationTokenSource.Token);
+                
+                try { await RegenerateStamina(_cancellationTokenSource.Token); }
+                catch { /*IGNORED*/ }
             }
 
             _lastStaminaValue = stamina.CurrentValue;
         }
-        
-        public void Dispose() { }
 
-        private async UniTask RegenerateStamina(CancellationToken cancellationToken)
+        public void Dispose() 
+            => _cancellationTokenSource.Dispose();
+
+        private async Task RegenerateStamina(CancellationToken cancellationToken)
         {
             var regeneratingStamina = _characterEntity.GetComponent<CharacterStaminaRegeneratingComponent>();
             var stamina = _characterEntity.GetComponent<CharacterStaminaComponent>();
             
-            await UniTask.Delay(regeneratingStamina.TimeBeforeRegeneratingInMilliseconds, cancellationToken: cancellationToken);
-
-            while (stamina.CurrentValue < stamina.MaxValue)
+            await Task.Delay(regeneratingStamina.TimeBeforeRegeneratingInMilliseconds, cancellationToken: cancellationToken); 
+            
+            while (_characterEntity.GetComponent<CharacterStaminaComponent>().CurrentValue < stamina.MaxValue)
             {
-                if (cancellationToken.IsCancellationRequested)
-                    return;
-
+                cancellationToken.ThrowIfCancellationRequested();
                 _characterEntity.GetComponent<CharacterStaminaComponent>().CurrentValue += regeneratingStamina.RegeneratingPerSecondAmount * Time.deltaTime;
-                await UniTask.Yield();
+
+                if (_characterEntity.GetComponent<CharacterStaminaComponent>().CurrentValue > stamina.MaxValue)
+                    _characterEntity.GetComponent<CharacterStaminaComponent>().CurrentValue = stamina.MaxValue;
+
+                await Task.Delay((int)(Time.deltaTime * 1000));
             }
         }
     }

@@ -22,6 +22,8 @@ namespace Shooter.Character
             ref var sprinting = ref _characterEntity.GetComponent<CharacterSprintingComponent>();
             ref var stamina = ref _characterEntity.GetComponent<CharacterStaminaComponent>();
             
+            sprinting.CanSprint = stamina.CurrentValue > 0;
+            
             if (!sprinting.IsActive)
                 return;
 
@@ -29,8 +31,6 @@ namespace Shooter.Character
 
             if (stamina.CurrentValue < 0)
                 stamina.CurrentValue = 0;
-
-            sprinting.CanSprint = stamina.CurrentValue > 0;
         }
         
         public void Dispose() { }
