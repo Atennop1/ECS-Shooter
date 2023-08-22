@@ -29,8 +29,8 @@ namespace Shooter.EntryPoint
         
         [Header("Systems")]
         [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
-        [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
-        [SerializeField] private CharacterCrouchingSystemFactory _characterCrouchingSystemFactory;
+        [SerializeField] private CharacterSprintingApplyingSystemFactory _characterSprintingApplyingSystemFactory;
+        [SerializeField] private CharacterCrouchingActivatingSystemFactory _characterCrouchingActivatingSystemFactory;
         [SerializeField] private CharacterCrouchingApplyingSystemFactory _characterCrouchingApplyingSystemFactory;
         [SerializeField] private CharacterStaminaDisplayingSystemFactory _characterStaminaDisplayingSystemFactory;
 
@@ -67,14 +67,16 @@ namespace Shooter.EntryPoint
             _gameLoop.AddSystem(new CharacterStaminaRegeneratingSystem());
             _gameLoop.AddSystem(_characterStaminaDisplayingSystemFactory.Create());
             
+            _gameLoop.AddSystem(new CharacterSprintingActivatingSystem());
+            _gameLoop.AddSystem(_characterSprintingApplyingSystemFactory.Create());
+
+            _gameLoop.AddSystem(_characterCrouchingActivatingSystemFactory.Create());
+            _gameLoop.AddSystem(_characterCrouchingApplyingSystemFactory.Create());
+            
             _gameLoop.AddSystem(new CharacterMovingSystem(_characterController));
-            _gameLoop.AddSystem(_characterSprintingSystemFactory.Create());
             _gameLoop.AddSystem(new CharacterJumpingSystem());
             _gameLoop.AddSystem(new CharacterSlidingSystem(_characterController));
             
-            _gameLoop.AddSystem(_characterCrouchingSystemFactory.Create());
-            _gameLoop.AddSystem(_characterCrouchingApplyingSystemFactory.Create());
-
             _gameLoop.AddSystem(new CharacterGravitationSystem());
             _gameLoop.AddSystem(new CharacterVerticalVelocityApplyingSystem(_characterController));
             

@@ -5,7 +5,9 @@ namespace Shooter.Input
 {
     public struct MovementInputComponent : IComponent
     {
-        public bool IsSprintKeyPressed;
         public Vector2 Vector;
+        
+        public bool IsSprintKeyPressed;
+        public bool IsSprintedKeyReleasedThisFrame;
     }
 }

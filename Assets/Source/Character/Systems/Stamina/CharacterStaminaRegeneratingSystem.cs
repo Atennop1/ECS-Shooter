@@ -43,7 +43,7 @@ namespace Shooter.Character
         }
 
         public void Dispose() 
-            => _cancellationTokenSource.Dispose();
+            => _cancellationTokenSource?.Dispose();
 
         private async Task RegenerateStamina(CancellationToken cancellationToken)
         {

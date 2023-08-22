@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterCrouchingSystem : ISystem
+    public sealed class CharacterCrouchingActivatingSystem : ISystem
     {
         private readonly CharacterController _characterController;
         private readonly CharacterCrouchingStateSwitcher _characterCrouchingStateSwitcher;
@@ -13,7 +13,7 @@ namespace Shooter.Character
         private Entity _characterEntity;
         private Entity _inputEntity;
 
-        public CharacterCrouchingSystem(CharacterController characterController, CharacterCrouchingStateSwitcher characterCrouchingStateSwitcher)
+        public CharacterCrouchingActivatingSystem(CharacterController characterController, CharacterCrouchingStateSwitcher characterCrouchingStateSwitcher)
         {
             _characterController = characterController ?? throw new ArgumentNullException(nameof(characterController));
             _characterCrouchingStateSwitcher = characterCrouchingStateSwitcher ?? throw new ArgumentNullException(nameof(characterCrouchingStateSwitcher));

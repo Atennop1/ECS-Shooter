@@ -1584,7 +1584,7 @@ GameObject:
   - component: {fileID: 1127301017}
   - component: {fileID: 1127301018}
   m_Layer: 0
-  m_Name: CharacterCrouchingSystemFactory
+  m_Name: CharacterCrouchingActivatingSystemFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1639,7 +1639,7 @@ GameObject:
   - component: {fileID: 1158980892}
   - component: {fileID: 1158980893}
   m_Layer: 0
-  m_Name: CharacterSprintingSystemFactory
+  m_Name: CharacterSprintingApplyingSystemFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7463,8 +7463,8 @@ MonoBehaviour:
   _characterHeadMovingFactory: {fileID: 1760241100}
   _characterHeadBobFactory: {fileID: 1650201539}
   _characterGroundingSystemFactory: {fileID: 628270872}
-  _characterSprintingSystemFactory: {fileID: 1158980893}
-  _characterCrouchingSystemFactory: {fileID: 1127301018}
+  _characterSprintingApplyingSystemFactory: {fileID: 1158980893}
+  _characterCrouchingActivatingSystemFactory: {fileID: 1127301018}
   _characterCrouchingApplyingSystemFactory: {fileID: 1412052355}
   _characterStaminaDisplayingSystemFactory: {fileID: 466815872}
 --- !u!1 &2087880322

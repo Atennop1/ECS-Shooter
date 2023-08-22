@@ -4,10 +4,8 @@ namespace Shooter.Character
 {
     public sealed class CharacterCrouchingApplyingSystem : ISystem
     {
-        private readonly float _crouchingSpeed;
-        private float _walkingSpeed;
-        
         private Entity _characterEntity;
+        private readonly float _crouchingSpeed;
 
         public CharacterCrouchingApplyingSystem(float crouchingSpeed) 
             => _crouchingSpeed = crouchingSpeed;
@@ -18,9 +16,6 @@ namespace Shooter.Character
         {
             var characterFilter = World.Filter.With<CharacterMovingComponent>().With<CharacterCrouchingComponent>();
             _characterEntity = characterFilter.FirstOrDefault();
-            
-            if (_characterEntity != null)
-                _walkingSpeed = _characterEntity.GetComponent<CharacterMovingComponent>().Speed;
         }
         
         public void OnUpdate(float deltaTime)
@@ -30,11 +25,12 @@ namespace Shooter.Character
 
             ref var crouching = ref _characterEntity.GetComponent<CharacterCrouchingComponent>();
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
+            ref var sprinting = ref _characterEntity.GetComponent<CharacterSprintingComponent>();
 
-            if (!moving.IsWalking) 
-                return;
-
-            moving.Speed = crouching.IsActive ? _crouchingSpeed : _walkingSpeed;
+            sprinting.CanSprint = sprinting.CanSprint && !crouching.IsActive;
+            
+            if (crouching.IsActive)
+                moving.Speed = _crouchingSpeed;
         }
         
         public void Dispose() { }

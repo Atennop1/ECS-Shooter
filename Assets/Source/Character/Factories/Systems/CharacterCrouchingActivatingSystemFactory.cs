@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterCrouchingSystemFactory : SerializedMonoBehaviour
+    public sealed class CharacterCrouchingActivatingSystemFactory : SerializedMonoBehaviour
     {
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _timeToCrouch;
 
-        public CharacterCrouchingSystem Create()
+        public CharacterCrouchingActivatingSystem Create()
         {
             var stateSwitcher = new CharacterCrouchingStateSwitcher(_characterController, _timeToCrouch);
-            return new CharacterCrouchingSystem(_characterController, stateSwitcher);
+            return new CharacterCrouchingActivatingSystem(_characterController, stateSwitcher);
         }
     }
 }

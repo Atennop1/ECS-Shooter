@@ -19,6 +19,8 @@ namespace Shooter.Character
         public async UniTask SwitchFor(Entity characterEntity)
         {
             characterEntity.GetComponent<CharacterCrouchingComponent>().IsTransiting = true;
+            characterEntity.GetComponent<CharacterSprintingComponent>().CanSprint = false;
+            
             var crouching = characterEntity.GetComponent<CharacterCrouchingComponent>();
             var elapsedTime = 0f;
 
@@ -39,9 +41,10 @@ namespace Shooter.Character
 
             _characterController.height = targetHeight;
             _characterController.center = targetCenter;
-
-            characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive = !characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive;
+            
             characterEntity.GetComponent<CharacterCrouchingComponent>().IsTransiting = false;
+            characterEntity.GetComponent<CharacterSprintingComponent>().CanSprint = true;
+            characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive = !characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive;
         }
     }
 }
