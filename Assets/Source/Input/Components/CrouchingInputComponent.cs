@@ -4,6 +4,6 @@ namespace Shooter.Input
 {
     public struct CrouchingInputComponent : IComponent
     {
-        public bool IsCrouchKeyPressedNow;
+        public bool IsCrouchKeyPressedThisFrame;
     }
 }

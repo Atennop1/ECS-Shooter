@@ -4,6 +4,6 @@ namespace Shooter.Input
 {
     public struct JumpingInputComponent : IComponent
     {
-        public bool IsJumpKeyPressedNow;
+        public bool IsJumpKeyPressedThisFrame;
     }
 }

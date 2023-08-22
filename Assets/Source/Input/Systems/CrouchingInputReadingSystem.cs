@@ -15,7 +15,7 @@ namespace Shooter.Input
         public void OnUpdate(float deltaTime)
         {
             foreach (var entity in _filter)
-                entity.GetComponent<CrouchingInputComponent>().IsCrouchKeyPressedNow = Keyboard.current.leftCtrlKey.wasPressedThisFrame;
+                entity.GetComponent<CrouchingInputComponent>().IsCrouchKeyPressedThisFrame = Keyboard.current.leftCtrlKey.wasPressedThisFrame;
         }
         
         public void Dispose() { }
