@@ -14,10 +14,10 @@ namespace Shooter.Character
         public void OnAwake()
         {
             var characterFilter = World.Filter.With<CharacterMovingComponent>();
-            var movementInputFilter = World.Filter.With<MovementInputComponent>();
+            var sprintingInputFilter = World.Filter.With<SprintingInputComponent>();
 
             _characterEntity = characterFilter.FirstOrDefault();
-            _inputEntity = movementInputFilter.FirstOrDefault();
+            _inputEntity = sprintingInputFilter.FirstOrDefault();
         }
 
         public void OnUpdate(float deltaTime)
@@ -27,12 +27,13 @@ namespace Shooter.Character
             
             ref var sprinting = ref _characterEntity.GetComponent<CharacterSprintingComponent>();
             ref var grounded = ref _characterEntity.GetComponent<CharacterGroundedComponent>();
-            ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
+            ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
+            ref var input = ref _inputEntity.GetComponent<SprintingInputComponent>();
 
-            if (input.IsSprintKeyPressed && sprinting.CanSprint && grounded.IsActive && input.Vector != Vector2.zero)
+            if (input.IsSprintKeyPressed && sprinting.CanSprint && grounded.IsActive && moving.IsWalking)
                 sprinting.IsActive = true;
 
-            if (input.IsSprintedKeyReleasedThisFrame || !sprinting.CanSprint) 
+            if (input.IsSprintedKeyReleasedThisFrame || !sprinting.CanSprint || !moving.IsWalking) 
                 sprinting.IsActive = false;
         }
         

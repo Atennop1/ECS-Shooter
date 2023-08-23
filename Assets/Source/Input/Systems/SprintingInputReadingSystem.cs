@@ -1,9 +1,10 @@
 ﻿using Scellecs.Morpeh;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Shooter.Input
 {
-    public sealed class JumpingInputReadingSystem : ISystem
+    public sealed class SprintingInputReadingSystem : ISystem
     {
         private Entity _inputEntity;
 
@@ -11,7 +12,7 @@ namespace Shooter.Input
 
         public void OnAwake()
         {
-            var inputFilter = World.Filter.With<JumpingInputComponent>();
+            var inputFilter = World.Filter.With<SprintingInputComponent>();
             _inputEntity = inputFilter.FirstOrDefault();
         }
 
@@ -20,8 +21,9 @@ namespace Shooter.Input
             if (_inputEntity == null)
                 return;
 
-            ref var input = ref _inputEntity.GetComponent<JumpingInputComponent>();
-            input.IsJumpKeyPressedThisFrame = Keyboard.current.spaceKey.wasPressedThisFrame;
+            ref var input = ref _inputEntity.GetComponent<SprintingInputComponent>();
+            input.IsSprintKeyPressed = Keyboard.current.shiftKey.isPressed;
+            input.IsSprintedKeyReleasedThisFrame = Keyboard.current.shiftKey.wasReleasedThisFrame;
         }
         
         public void Dispose() { }

@@ -5,17 +5,23 @@ namespace Shooter.Input
 {
     public sealed class CrouchingInputReadingSystem : ISystem
     {
-        private Filter _filter;
+        private Entity _inputEntity;
 
         public World World { get; set; }
 
-        public void OnAwake() 
-            => _filter = World.Filter.With<CrouchingInputComponent>();
+        public void OnAwake()
+        {
+            var inputFilter = World.Filter.With<CrouchingInputComponent>();
+            _inputEntity = inputFilter.FirstOrDefault();
+        }
 
         public void OnUpdate(float deltaTime)
         {
-            foreach (var entity in _filter)
-                entity.GetComponent<CrouchingInputComponent>().IsCrouchKeyPressedThisFrame = Keyboard.current.leftCtrlKey.wasPressedThisFrame;
+            if (_inputEntity == null)
+                return;
+
+            ref var input = ref _inputEntity.GetComponent<CrouchingInputComponent>();
+            input.IsCrouchKeyPressedThisFrame = Keyboard.current.leftCtrlKey.wasPressedThisFrame;
         }
         
         public void Dispose() { }

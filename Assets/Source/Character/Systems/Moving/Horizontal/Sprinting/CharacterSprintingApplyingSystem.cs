@@ -1,5 +1,4 @@
 ﻿using Scellecs.Morpeh;
-using Shooter.Input;
 
 namespace Shooter.Character
 {
