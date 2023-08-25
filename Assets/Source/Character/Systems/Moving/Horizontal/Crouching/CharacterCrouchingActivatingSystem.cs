@@ -39,8 +39,8 @@ namespace Shooter.Character
             var grounded = _characterEntity.GetComponent<CharacterGroundedComponent>();
             var crouchingInput = _inputEntity.GetComponent<CrouchingInputComponent>();
             
-            var checkingRaycastPosition = _characterController.transform.position + new Vector3(0, _characterController.height / 2 - _characterController.radius, 0);
-            if (crouching.IsTransiting || !grounded.IsActive || !crouchingInput.IsCrouchKeyPressedThisFrame || (crouching.IsActive && UnityEngine.Physics.Raycast(checkingRaycastPosition, Vector3.up, 1f)))
+            var checkingRaycastPosition = _characterController.transform.position + new Vector3(0, _characterController.height / 2, 0);
+            if (crouching.IsTransiting || !grounded.IsActive || !crouchingInput.IsCrouchKeyPressedThisFrame || (crouching.IsActive && UnityEngine.Physics.Raycast(checkingRaycastPosition, Vector3.up, 1.8f)))
                 return;
 
             await _characterCrouchingStateSwitcher.SwitchFor(_characterEntity);
