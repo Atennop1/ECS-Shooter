@@ -1,4 +1,5 @@
 ﻿using Scellecs.Morpeh;
+using Shooter.Tools;
 
 namespace Shooter.Character
 {
@@ -8,7 +9,7 @@ namespace Shooter.Character
         private readonly float _crouchingSpeed;
 
         public CharacterCrouchingApplyingSystem(float crouchingSpeed) 
-            => _crouchingSpeed = crouchingSpeed;
+            => _crouchingSpeed = crouchingSpeed.ThrowExceptionIfLessOrEqualsZero();
 
         public World World { get; set; }
 
@@ -30,7 +31,7 @@ namespace Shooter.Character
             sprinting.CanSprint = sprinting.CanSprint && !crouching.IsActive;
             
             if (crouching.IsActive)
-                moving.Speed = _crouchingSpeed;
+                moving.CurrentSpeed = _crouchingSpeed;
         }
         
         public void Dispose() { }

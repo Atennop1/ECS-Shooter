@@ -1,18 +1,19 @@
 ﻿using Scellecs.Morpeh;
 using Shooter.Input;
+using Shooter.Tools;
 using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterMovingSystem : ISystem
+    public sealed class CharacterMovingActivatingSystem : ISystem
     {
-        private readonly CharacterController _characterController;
-
+        private readonly float _movingSpeed;
+        
         private Entity _characterEntity;
         private Entity _inputEntity;
 
-        public CharacterMovingSystem(CharacterController characterController) 
-            => _characterController = characterController;
+        public CharacterMovingActivatingSystem(float movingSpeed) 
+            => _movingSpeed = movingSpeed.ThrowExceptionIfLessOrEqualsZero();
 
         public World World { get; set; }
 
@@ -34,8 +35,7 @@ namespace Shooter.Character
             ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
             
             moving.IsWalking = input.Vector != Vector2.zero;
-            var addedVelocity = _characterController.transform.right * input.Vector.x + _characterController.transform.forward * input.Vector.y;
-            _characterController.Move(addedVelocity * moving.Speed * Time.deltaTime);
+            moving.CurrentSpeed = _movingSpeed;
         }
 
         public void Dispose() { }

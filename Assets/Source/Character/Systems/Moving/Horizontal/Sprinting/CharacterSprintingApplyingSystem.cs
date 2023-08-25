@@ -1,16 +1,15 @@
 ﻿using Scellecs.Morpeh;
+using Shooter.Tools;
 
 namespace Shooter.Character
 {
     public sealed class CharacterSprintingApplyingSystem : ISystem
     {
         private Entity _characterEntity;
-
         private readonly float _sprintingSpeed;
-        private float _walkingSpeed;
         
         public CharacterSprintingApplyingSystem(float sprintingSpeed)
-            => _sprintingSpeed = sprintingSpeed;
+            => _sprintingSpeed = sprintingSpeed.ThrowExceptionIfLessOrEqualsZero();
 
         public World World { get; set; }
 
@@ -18,9 +17,6 @@ namespace Shooter.Character
         {
             var characterFilter = World.Filter.With<CharacterMovingComponent>();
             _characterEntity = characterFilter.FirstOrDefault();
-            
-            if (_characterEntity != null)
-                _walkingSpeed = _characterEntity.GetComponent<CharacterMovingComponent>().Speed;
         }
 
         public void OnUpdate(float deltaTime)
@@ -31,10 +27,11 @@ namespace Shooter.Character
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
             ref var sprinting = ref _characterEntity.GetComponent<CharacterSprintingComponent>();
             
-            moving.Speed = sprinting.IsActive ? _sprintingSpeed : _walkingSpeed;
-
-            if (moving.IsWalking)
-                moving.IsWalking = !sprinting.IsActive;
+            if (!sprinting.IsActive)
+                return;
+            
+            moving.CurrentSpeed = _sprintingSpeed; 
+            moving.IsWalking = false;
         }
         
         public void Dispose()  { }

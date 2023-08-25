@@ -15,8 +15,6 @@ namespace Shooter.Character
 
         public void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            Debug.Log("CollisionStay");
-            
             var entity = _ecsWorld.CreateEntity();
             ref var createdStay = ref entity.AddComponent<CharacterOnCollisionStay>();
 

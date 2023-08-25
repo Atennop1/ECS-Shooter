@@ -5,6 +5,6 @@ namespace Shooter.Character
     public struct CharacterMovingComponent : IComponent
     {
         public bool IsWalking;
-        public float Speed;
+        public float CurrentSpeed;
     }
 }

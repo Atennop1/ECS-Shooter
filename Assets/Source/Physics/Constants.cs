@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public const float GravityAcceleration = -15;
+        public const float GravityAcceleration = -11;
     }
 }

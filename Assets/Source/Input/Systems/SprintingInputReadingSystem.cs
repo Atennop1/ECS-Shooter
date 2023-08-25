@@ -1,5 +1,4 @@
 ﻿using Scellecs.Morpeh;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Shooter.Input
