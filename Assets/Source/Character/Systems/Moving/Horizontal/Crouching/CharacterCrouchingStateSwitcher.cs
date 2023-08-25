@@ -42,8 +42,8 @@ namespace Shooter.Character
             _characterController.height = targetHeight;
             _characterController.center = targetCenter;
             
-            characterEntity.GetComponent<CharacterCrouchingComponent>().IsTransiting = false;
             characterEntity.GetComponent<CharacterSprintingComponent>().CanSprint = true;
+            characterEntity.GetComponent<CharacterCrouchingComponent>().IsTransiting = false;
             characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive = !characterEntity.GetComponent<CharacterCrouchingComponent>().IsActive;
         }
     }

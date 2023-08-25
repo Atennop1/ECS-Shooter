@@ -22,7 +22,7 @@ namespace Shooter.Character
 
         public void OnAwake()
         {
-            var filter = World.Filter.With<CharacterHeadMovingComponent>().With<CharacterMovingComponent>().With<CharacterJumpingComponent>();
+            var filter = World.Filter.With<CharacterHeadMovingComponent>().With<CharacterMovingComponent>().With<CharacterSprintingComponent>().With<CharacterGroundedComponent>().With<CharacterCrouchingComponent>();
             _characterEntity = filter.FirstOrDefault();
         }
 

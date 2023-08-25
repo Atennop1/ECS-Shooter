@@ -10,7 +10,7 @@ namespace Shooter.Character
 
         public void OnAwake()
         {
-            var filter = World.Filter.With<CharacterStaminaComponent>();
+            var filter = World.Filter.With<CharacterStaminaComponent>().With<CharacterSprintingComponent>();
             _characterEntity = filter.FirstOrDefault();
         }
         

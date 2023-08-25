@@ -23,7 +23,7 @@ namespace Shooter.Character
         
         public void OnAwake()
         {
-            var characterFilter = World.Filter.With<CharacterCrouchingComponent>().With<CharacterGroundedComponent>();
+            var characterFilter = World.Filter.With<CharacterCrouchingComponent>().With<CharacterGroundedComponent>().With<CharacterSprintingComponent>();
             var inputFilter = World.Filter.With<CrouchingInputComponent>();
             
             _characterEntity = characterFilter.FirstOrDefault();

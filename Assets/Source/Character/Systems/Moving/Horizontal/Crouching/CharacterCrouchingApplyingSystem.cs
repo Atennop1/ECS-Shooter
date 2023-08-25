@@ -15,7 +15,7 @@ namespace Shooter.Character
 
         public void OnAwake()
         {
-            var characterFilter = World.Filter.With<CharacterMovingComponent>().With<CharacterCrouchingComponent>();
+            var characterFilter = World.Filter.With<CharacterMovingComponent>().With<CharacterCrouchingComponent>().With<CharacterSprintingComponent>();
             _characterEntity = characterFilter.FirstOrDefault();
         }
         

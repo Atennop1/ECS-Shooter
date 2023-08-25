@@ -16,7 +16,7 @@ namespace Shooter.Character
         
         public void OnAwake()
         {
-            var filter = World.Filter.With<CharacterStaminaRegeneratingComponent>();
+            var filter = World.Filter.With<CharacterStaminaRegeneratingComponent>().With<CharacterStaminaComponent>();
             _characterEntity = filter.FirstOrDefault();
 
             if (_characterEntity != null)
