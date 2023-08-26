@@ -17,6 +17,8 @@ namespace Shooter.EntryPoint
         [SerializeField] private CharacterCrouchingComponentFactory _characterCrouchingFactory;
         [SerializeField] private CharacterSlidingComponentFactory _characterSlidingFactory;
         [SerializeField] private CharacterSprintingComponentFactory _characterSprintingFactory;
+        
+        [Space]
         [SerializeField] private CharacterFootstepsComponentFactory _characterFootstepsFactory;
         
         [Space]
@@ -28,13 +30,17 @@ namespace Shooter.EntryPoint
         [SerializeField] private CharacterHeadBobComponentFactory _characterHeadBobFactory;
         
         [Header("Systems")]
+        [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
+        [SerializeField] private CharacterFootstepsPlayingSystemFactory _characterFootstepsPlayingSystemFactory;
+        
+        [Space]
+        [SerializeField] private CharacterStaminaDisplayingSystemFactory _characterStaminaDisplayingSystemFactory;
+        
+        [Space]
         [SerializeField] private CharacterMovingActivatingSystemFactory _characterMovingActivatingSystemFactory;
         [SerializeField] private CharacterSprintingApplyingSystemFactory _characterSprintingApplyingSystemFactory;
         [SerializeField] private CharacterCrouchingActivatingSystemFactory _characterCrouchingActivatingSystemFactory;
         [SerializeField] private CharacterCrouchingApplyingSystemFactory _characterCrouchingApplyingSystemFactory;
-        [SerializeField] private CharacterStaminaDisplayingSystemFactory _characterStaminaDisplayingSystemFactory;
-        [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
-        [SerializeField] private CharacterFootstepsPlayingSystemFactory _characterFootstepsPlayingSystemFactory;
 
         private World _world;
         private IGameLoop _gameLoop;
