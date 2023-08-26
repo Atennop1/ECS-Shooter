@@ -17,6 +17,7 @@ namespace Shooter.EntryPoint
         [SerializeField] private CharacterCrouchingComponentFactory _characterCrouchingFactory;
         [SerializeField] private CharacterSlidingComponentFactory _characterSlidingFactory;
         [SerializeField] private CharacterSprintingComponentFactory _characterSprintingFactory;
+        [SerializeField] private CharacterFootstepsComponentFactory _characterFootstepsFactory;
         
         [Space]
         [SerializeField] private CharacterStaminaComponentFactory _characterStaminaFactory;
@@ -33,6 +34,7 @@ namespace Shooter.EntryPoint
         [SerializeField] private CharacterCrouchingApplyingSystemFactory _characterCrouchingApplyingSystemFactory;
         [SerializeField] private CharacterStaminaDisplayingSystemFactory _characterStaminaDisplayingSystemFactory;
         [SerializeField] private CharacterGroundingSystemFactory _characterGroundingSystemFactory;
+        [SerializeField] private CharacterFootstepsPlayingSystemFactory _characterFootstepsPlayingSystemFactory;
 
         private World _world;
         private IGameLoop _gameLoop;
@@ -55,6 +57,7 @@ namespace Shooter.EntryPoint
             _characterCrouchingFactory.CreateFor(entity);
             _characterSlidingFactory.CreateFor(entity);
             _characterSprintingFactory.CreateFor(entity);
+            _characterFootstepsFactory.CreateFor(entity);
             
             _characterStaminaFactory.CreateFor(entity);
             _characterStaminaRegeneratingFactory.CreateFor(entity);
@@ -75,6 +78,8 @@ namespace Shooter.EntryPoint
             _gameLoop.AddSystem(new CharacterMovingApplyingSystem(_characterController));
             
             _gameLoop.AddSystem(_characterGroundingSystemFactory.Create());
+            _gameLoop.AddSystem(_characterFootstepsPlayingSystemFactory.Create());
+            
             _gameLoop.AddSystem(new CharacterJumpingSystem());
             _gameLoop.AddSystem(new CharacterSlidingSystem(_characterController));
             
