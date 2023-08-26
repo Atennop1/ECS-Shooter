@@ -49,6 +49,7 @@ namespace Shooter.Character
             if (!hit.collider.gameObject.TryGetComponent(out IObjectWithFootsteps objectWithFootsteps))
                 return;
             
+            _footstepsAudioSource.pitch = Random.Range(0.9f, 1.1f);
             _footstepsAudioSource.PlayOneShot(objectWithFootsteps.FootstepsClips[Random.Range(0, objectWithFootsteps.FootstepsClips.Length - 1)]);
             _timer = crouching.IsActive ? footsteps.CrouchingStepTime : (sprinting.IsActive ? footsteps.SprintingStepTime : footsteps.WalkingStepTime);
         }
