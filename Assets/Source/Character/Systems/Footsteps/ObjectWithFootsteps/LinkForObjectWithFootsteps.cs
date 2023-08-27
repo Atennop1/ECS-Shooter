@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Shooter.Character
 {
-    public class LinkForObjectWIthFootsteps : MonoBehaviour, IObjectWithFootsteps
+    public class LinkForObjectWithFootsteps : SerializedMonoBehaviour, IObjectWithFootsteps
     {
         [SerializeField] private IObjectWithFootsteps _objectWithFootsteps;
 

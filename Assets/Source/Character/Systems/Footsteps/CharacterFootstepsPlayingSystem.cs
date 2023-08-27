@@ -43,7 +43,7 @@ namespace Shooter.Character
 
             _timer -= deltaTime;
             
-            if (_timer > 0 || UnityEngine.Physics.Raycast(_characterTransform.position, Vector3.down, out var hit, 3))
+            if (_timer > 0 || !UnityEngine.Physics.Raycast(_characterTransform.position, Vector3.down, out var hit, 3))
                 return;
             
             if (!hit.collider.gameObject.TryGetComponent(out IObjectWithFootsteps objectWithFootsteps))
