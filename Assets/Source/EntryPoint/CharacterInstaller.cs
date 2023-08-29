@@ -38,9 +38,8 @@ namespace Shooter.EntryPoint
         
         [Space]
         [SerializeField] private CharacterMovingActivatingSystemFactory _characterMovingActivatingSystemFactory;
-        [SerializeField] private CharacterSprintingApplyingSystemFactory _characterSprintingApplyingSystemFactory;
-        [SerializeField] private CharacterCrouchingActivatingSystemFactory _characterCrouchingActivatingSystemFactory;
-        [SerializeField] private CharacterCrouchingApplyingSystemFactory _characterCrouchingApplyingSystemFactory;
+        [SerializeField] private CharacterSprintingSystemFactory _characterSprintingSystemFactory;
+        [SerializeField] private CharacterCrouchingSystemFactory _characterCrouchingSystemFactory;
 
         private World _world;
         private IGameLoop _gameLoop;
@@ -76,11 +75,8 @@ namespace Shooter.EntryPoint
             _gameLoop.AddSystem(_characterStaminaDisplayingSystemFactory.Create());
             
             _gameLoop.AddSystem(_characterMovingActivatingSystemFactory.Create());
-            _gameLoop.AddSystem(new CharacterSprintingActivatingSystem());
-            _gameLoop.AddSystem(_characterSprintingApplyingSystemFactory.Create());
-
-            _gameLoop.AddSystem(_characterCrouchingActivatingSystemFactory.Create());
-            _gameLoop.AddSystem(_characterCrouchingApplyingSystemFactory.Create());
+            _gameLoop.AddSystem(_characterSprintingSystemFactory.Create());
+            _gameLoop.AddSystem(_characterCrouchingSystemFactory.Create());
             _gameLoop.AddSystem(new CharacterMovingApplyingSystem(_characterController));
             
             _gameLoop.AddSystem(_characterGroundingSystemFactory.Create());

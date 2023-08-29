@@ -1,12 +1,19 @@
 ﻿using Scellecs.Morpeh;
 using Shooter.Input;
+using Shooter.Tools;
+using UnityEngine;
 
 namespace Shooter.Character
 {
-    public sealed class CharacterSprintingActivatingSystem : ISystem
+    public sealed class CharacterSprintingSystem : ISystem
     {
+        private readonly float _sprintingSpeed;
+        
         private Entity _characterEntity;
         private Entity _inputEntity;
+
+        public CharacterSprintingSystem(float sprintingSpeed)
+            => _sprintingSpeed = sprintingSpeed.ThrowExceptionIfLessOrEqualsZero();
 
         public World World { get; set; }
 
@@ -34,6 +41,12 @@ namespace Shooter.Character
 
             if (input.IsSprintedKeyReleasedThisFrame || !sprinting.CanSprint || !moving.IsWalking) 
                 sprinting.IsActive = false;
+            
+            if (!sprinting.IsActive)
+                return;
+            
+            moving.CurrentSpeed = _sprintingSpeed; 
+            moving.IsWalking = false;
         }
         
         public void Dispose()  { }

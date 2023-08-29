@@ -385,7 +385,6 @@ Transform:
   m_Children:
   - {fileID: 1158980892}
   - {fileID: 1127301017}
-  - {fileID: 1412052354}
   - {fileID: 749300444}
   m_Father: {fileID: 435389026}
   m_RootOrder: 2
@@ -1305,7 +1304,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 289185612}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &749300445
 MonoBehaviour:
@@ -2933,7 +2932,7 @@ GameObject:
   - component: {fileID: 1127301017}
   - component: {fileID: 1127301018}
   m_Layer: 0
-  m_Name: CharacterCrouchingActivatingSystemFactory
+  m_Name: CharacterCrouchingSystemFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2975,8 +2974,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  _characterController: {fileID: 1249881129}
   _timeToCrouch: 0.2
+  _crouchingSpeed: 3
+  _characterController: {fileID: 1249881129}
 --- !u!1 &1158980891
 GameObject:
   m_ObjectHideFlags: 0
@@ -2988,7 +2988,7 @@ GameObject:
   - component: {fileID: 1158980892}
   - component: {fileID: 1158980893}
   m_Layer: 0
-  m_Name: CharacterSprintingApplyingSystemFactory
+  m_Name: CharacterSprintingSystemFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3563,60 +3563,6 @@ Transform:
   m_Father: {fileID: 1790905255}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1412052353
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1412052354}
-  - component: {fileID: 1412052355}
-  m_Layer: 0
-  m_Name: CharacterCrouchingApplyingSystemFactory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1412052354
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412052353}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 289185612}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1412052355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412052353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3c3d4ac00e4e9c89a4d9c78493a5ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  _crouchingSpeed: 3
 --- !u!1 &1428337279
 GameObject:
   m_ObjectHideFlags: 0
@@ -9521,9 +9467,8 @@ MonoBehaviour:
   _characterFootstepsPlayingSystemFactory: {fileID: 1349781264}
   _characterStaminaDisplayingSystemFactory: {fileID: 466815872}
   _characterMovingActivatingSystemFactory: {fileID: 749300445}
-  _characterSprintingApplyingSystemFactory: {fileID: 1158980893}
-  _characterCrouchingActivatingSystemFactory: {fileID: 1127301018}
-  _characterCrouchingApplyingSystemFactory: {fileID: 1412052355}
+  _characterSprintingSystemFactory: {fileID: 1158980893}
+  _characterCrouchingSystemFactory: {fileID: 1127301018}
 --- !u!1 &2087880322
 GameObject:
   m_ObjectHideFlags: 0

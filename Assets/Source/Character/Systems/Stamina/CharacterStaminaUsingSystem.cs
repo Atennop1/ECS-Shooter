@@ -22,7 +22,8 @@ namespace Shooter.Character
             ref var sprinting = ref _characterEntity.GetComponent<CharacterSprintingComponent>();
             ref var stamina = ref _characterEntity.GetComponent<CharacterStaminaComponent>();
             
-            sprinting.CanSprint = sprinting.CanSprint && stamina.CurrentValue > 0;
+            if (stamina.CurrentValue <= 0)
+                sprinting.CanSprint = false;
             
             if (!sprinting.IsActive)
                 return;

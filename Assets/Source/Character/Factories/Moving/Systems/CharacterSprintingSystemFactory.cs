@@ -2,11 +2,11 @@
 
 namespace Shooter.Character
 {
-    public sealed class CharacterSprintingApplyingSystemFactory : MonoBehaviour
+    public sealed class CharacterSprintingSystemFactory : MonoBehaviour
     {
         [SerializeField] private float _sprintingSpeed;
 
-        public CharacterSprintingApplyingSystem Create()
+        public CharacterSprintingSystem Create()
             => new(_sprintingSpeed);
     }
 }
