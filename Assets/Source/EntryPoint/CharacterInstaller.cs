@@ -88,7 +88,7 @@ namespace Shooter.EntryPoint
             _gameLoop.AddSystem(new CharacterGravitationSystem());
             _gameLoop.AddSystem(new CharacterVerticalVelocityApplyingSystem(_characterController));
             
-            _gameLoop.AddSystem(new CharacterRotatingSystem(_characterController.transform, _cameraTransform));
+            _gameLoop.AddSystem(new CharacterHeadMovingSystem(_characterController.transform, _cameraTransform));
             _gameLoop.AddSystem(new CharacterHeadbobSystem(_cameraTransform));
         }
     }
