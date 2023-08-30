@@ -41,6 +41,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Folder Include="Assets\Plugins\Sirenix\Demos" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <Folder Include="Assets\Plugins\TextMesh Pro\Sprites" />
@@ -59,14 +60,15 @@
      <Folder Include="Assets\Plugins\Sirenix\Assemblies\NoEditor" />
      <Folder Include="Assets\Plugins\Sirenix\Odin Inspector\Config" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <Folder Include="Assets\Plugins\Sirenix\Odin Inspector" />
      <Folder Include="Assets\Plugins\TextMesh Pro" />
      <Folder Include="Assets\Plugins\Sirenix\Odin Inspector\Config\Resources" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.xml" />
      <Folder Include="Assets\Plugins\Sirenix" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+     <Folder Include="Assets\Plugins\Sirenix\Assemblies" />
      <None Include="Assets\Plugins\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.xml" />
-     <Folder Include="Assets\Plugins\Sirenix\Odin Inspector" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_SDF.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
@@ -79,12 +81,10 @@
      <Folder Include="Assets\Plugins\TextMesh Pro\Fonts" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\link.xml" />
-     <Folder Include="Assets\Plugins\Sirenix\Demos" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.xml" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
      <Folder Include="Assets\Plugins\Sirenix\Assemblies\NoEmitAndNoEditor" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
-     <Folder Include="Assets\Plugins\Sirenix\Assemblies" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <Folder Include="Assets\Plugins\TextMesh Pro\Documentation" />

@@ -4,9 +4,9 @@ namespace Shooter.Character
 {
     public struct LinkForFootstepsPlayingComponent : IFootstepsPlayingComponent
     {
-        public IFootstepsPlayingComponent FootstepsPlayingComponent;
+        public FootstepsPlayingProvider FootstepsPlayingProvider;
 
         public AudioClip[] FootstepsClips 
-            => FootstepsPlayingComponent.FootstepsClips;
+            => FootstepsPlayingProvider.GetComponent<IFootstepsPlayingComponent>().FootstepsClips;
     }
 }
