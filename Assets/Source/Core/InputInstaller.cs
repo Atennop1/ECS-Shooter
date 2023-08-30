@@ -22,12 +22,12 @@ namespace Shooter.EntryPoint
         {
             var entity = _world.CreateEntity();
             
-            entity.AddComponent<MovementInputComponent>();
+            entity.AddComponent<MovingInputComponent>();
             entity.AddComponent<SprintingInputComponent>();
             entity.AddComponent<CrouchingInputComponent>();
             entity.AddComponent<JumpingInputComponent>();
             
-            _gameLoop.AddSystem(new MovementInputReadingSystem(new CharacterControls()));
+            _gameLoop.AddSystem(new MovingInputReadingSystem(new CharacterControls()));
             _gameLoop.AddSystem(new SprintingInputReadingSystem());
             _gameLoop.AddSystem(new CrouchingInputReadingSystem());
             _gameLoop.AddSystem(new JumpingInputReadingSystem());

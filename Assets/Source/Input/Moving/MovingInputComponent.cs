@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Shooter.Input
 {
-    public struct MovementInputComponent : IComponent
+    public struct MovingInputComponent : IComponent
     {
         public Vector2 Vector;
     }

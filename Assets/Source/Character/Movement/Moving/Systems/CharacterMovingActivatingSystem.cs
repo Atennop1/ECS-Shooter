@@ -20,7 +20,7 @@ namespace Shooter.Character
         public void OnAwake()
         {
             var characterFilter = World.Filter.With<CharacterMovingComponent>();
-            var movementInputFilter = World.Filter.With<MovementInputComponent>();
+            var movementInputFilter = World.Filter.With<MovingInputComponent>();
 
             _characterEntity = characterFilter.FirstOrDefault();
             _inputEntity = movementInputFilter.FirstOrDefault();
@@ -32,7 +32,7 @@ namespace Shooter.Character
                 return;
 
             ref var moving = ref _characterEntity.GetComponent<CharacterMovingComponent>();
-            ref var input = ref _inputEntity.GetComponent<MovementInputComponent>();
+            ref var input = ref _inputEntity.GetComponent<MovingInputComponent>();
             
             moving.IsWalking = input.Vector != Vector2.zero;
             moving.CurrentSpeed = _movingSpeed;

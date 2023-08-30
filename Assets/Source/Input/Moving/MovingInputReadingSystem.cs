@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Shooter.Input
 {
-    public sealed class MovementInputReadingSystem : ISystem
+    public sealed class MovingInputReadingSystem : ISystem
     {
         private readonly CharacterControls _characterControls;
 
-        public MovementInputReadingSystem(CharacterControls characterControls)
+        public MovingInputReadingSystem(CharacterControls characterControls)
             => _characterControls = characterControls ?? throw new ArgumentNullException(nameof(characterControls));
         
         public World World { get; set; }
@@ -19,14 +19,14 @@ namespace Shooter.Input
         public void OnAwake()
         {
             _characterControls.Enable();
-            var filter = World.Filter.With<MovementInputComponent>();
+            var filter = World.Filter.With<MovingInputComponent>();
 
             foreach (var entity in filter)
             {
                 _characterControls.Character.Movement.performed += context =>
                 {
-                    var movementInput = context.ReadValue<Vector2>();
-                    entity.GetComponent<MovementInputComponent>().Vector = movementInput;
+                    var movingInput = context.ReadValue<Vector2>();
+                    entity.GetComponent<MovingInputComponent>().Vector = movingInput;
                 };
             }
         }
