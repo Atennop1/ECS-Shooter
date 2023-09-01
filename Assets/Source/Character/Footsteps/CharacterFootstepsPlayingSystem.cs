@@ -1,5 +1,6 @@
 ﻿using System;
 using Scellecs.Morpeh;
+using Scellecs.Morpeh.Providers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -46,11 +47,13 @@ namespace Shooter.Character
             if (_timer > 0 || !UnityEngine.Physics.Raycast(_characterTransform.position, Vector3.down, out var hit, 3))
                 return;
             
-            if (!hit.collider.gameObject.TryGetComponent(out IFootstepsPlayingComponent objectWithFootsteps))
+            if (!hit.collider.gameObject.TryGetComponent(out LinkForFootstepsPlayingProvider footstepsPlayingProvider))
                 return;
             
             _footstepsAudioSource.pitch = Random.Range(0.9f, 1.1f);
-            _footstepsAudioSource.PlayOneShot(objectWithFootsteps.FootstepsClips[Random.Range(0, objectWithFootsteps.FootstepsClips.Length - 1)]);
+            var footstepsPlaying = footstepsPlayingProvider.Entity.GetComponent<LinkForFootstepsPlayingComponent>();
+            
+            _footstepsAudioSource.PlayOneShot(footstepsPlaying.FootstepsClips[Random.Range(0, footstepsPlaying.FootstepsClips.Length - 1)]);
             _timer = crouching.IsActive ? footsteps.CrouchingStepTime : (sprinting.IsActive ? footsteps.SprintingStepTime : footsteps.WalkingStepTime);
         }
         
