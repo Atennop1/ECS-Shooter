@@ -1,7 +1,6 @@
 ﻿using Scellecs.Morpeh;
 using Shooter.Input;
 using Shooter.Tools;
-using UnityEngine;
 
 namespace Shooter.Character
 {
