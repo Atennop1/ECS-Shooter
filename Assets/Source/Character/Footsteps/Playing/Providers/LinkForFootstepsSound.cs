@@ -6,5 +6,5 @@ namespace Shooter.Character
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public sealed class FootstepsPlayingProvider : MonoProvider<FootstepsPlayingComponent> { }
+    public sealed class LinkForFootstepsSound : MonoProvider<LinkForFootstepsSoundComponent> { }
 }

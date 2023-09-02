@@ -1,14 +1,10 @@
-﻿using Scellecs.Morpeh;
+﻿using Scellecs.Morpeh.Providers;
 using Unity.IL2CPP.CompilerServices;
-using UnityEngine;
 
-namespace Shooter.Input
+namespace Shooter.Character
 {
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public struct MovingInputComponent : IComponent
-    {
-        public Vector2 Vector;
-    }
+    public sealed class FootstepsSound : MonoProvider<FootstepsSoundComponent> { }
 }
