@@ -3,7 +3,7 @@ using Scellecs.Morpeh;
 using UnityEngine;
 using Zenject;
 
-namespace Shooter.GameLoop
+namespace Shooter.Core.GameLoop
 {
     public sealed class GameLoop : IGameLoop, IInitializable, ITickable, IFixedTickable, ILateTickable
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using Scellecs.Morpeh;
-using Shooter.GameLoop;
+using Shooter.Core.GameLoop;
 using Shooter.Input;
 using Zenject;
 
-namespace Shooter.EntryPoint
+namespace Shooter.Core
 {
     public sealed class InputInstaller : MonoInstaller
     {

@@ -1,7 +1,7 @@
 ﻿using Scellecs.Morpeh;
 using Zenject;
 
-namespace Shooter.EntryPoint
+namespace Shooter.Core
 {
     public sealed class EcsInstaller : MonoInstaller
     {

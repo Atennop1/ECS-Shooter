@@ -1,6 +1,6 @@
 ﻿using Scellecs.Morpeh;
 
-namespace Shooter.GameLoop
+namespace Shooter.Core.GameLoop
 {
     public interface IGameLoop
     {

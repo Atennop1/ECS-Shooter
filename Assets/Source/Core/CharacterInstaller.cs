@@ -1,11 +1,11 @@
 ﻿using System;
 using Scellecs.Morpeh;
 using Shooter.Character;
-using Shooter.GameLoop;
+using Shooter.Core.GameLoop;
 using UnityEngine;
 using Zenject;
 
-namespace Shooter.EntryPoint
+namespace Shooter.Core
 {
     public sealed class CharacterInstaller : MonoInstaller
     {
