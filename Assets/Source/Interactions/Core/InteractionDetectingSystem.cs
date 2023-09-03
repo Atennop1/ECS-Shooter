@@ -1,4 +1,6 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using JetBrains.Annotations;
+using Scellecs.Morpeh;
 using UnityEngine;
 
 namespace Shooter.Interactions
@@ -7,28 +9,34 @@ namespace Shooter.Interactions
     {
         private readonly Transform _characterHeadTransform;
         private readonly LayerMask _layerMask;
-        private Entity _interactingEntity;
-        
+        private Entity _entity;
+
+        public InteractionDetectingSystem(Transform characterHeadTransform, LayerMask layerMask)
+        {
+            _characterHeadTransform = characterHeadTransform ?? throw new ArgumentNullException(nameof(characterHeadTransform));
+            _layerMask = layerMask;
+        }
+
         public World World { get; set; }
 
         public void OnAwake()
         {
             var filter = World.Filter.With<InteractingComponent>();
-            _interactingEntity = filter.FirstOrDefault();
+            _entity = filter.FirstOrDefault();
         }
 
         public void OnUpdate(float deltaTime)
         {
-            if (_interactingEntity == null)
+            if (_entity == null)
                 return;
 
-            ref var interacting = ref _interactingEntity.GetComponent<InteractingComponent>();
+            ref var interacting = ref _entity.GetComponent<InteractingComponent>();
             
-            if (!UnityEngine.Physics.Raycast(_characterHeadTransform.position, _characterHeadTransform.forward, out var hit, interacting.InteractionRadius))
+            if (!UnityEngine.Physics.Raycast(_characterHeadTransform.position, _characterHeadTransform.forward, out var hit, interacting.InteractionRadius, _layerMask))
                 return;
             
             if (hit.collider.gameObject.TryGetComponent<Interactable>(out var interactable))
-                interacting.InteractableEntity = interactable.Entity;
+                interacting.CurrentInteractableEntity = interactable.Entity;
         }
         
         public void Dispose() { }

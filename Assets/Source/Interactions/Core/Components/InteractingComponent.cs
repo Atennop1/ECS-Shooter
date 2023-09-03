@@ -9,6 +9,6 @@ namespace Shooter.Interactions
     public struct InteractingComponent : IComponent
     {
         public float InteractionRadius;
-        public Entity InteractableEntity;
+        public Entity CurrentInteractableEntity;
     }
 }
