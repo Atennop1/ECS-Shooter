@@ -1,4 +1,5 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
 
 namespace Shooter.Interactions
@@ -8,7 +9,7 @@ namespace Shooter.Interactions
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct InteractingComponent : IComponent
     {
-        public float InteractionRadius;
-        public Entity CurrentInteractableEntity;
+        public float InteractingDistance;
+        [NonSerialized] public Entity SelectedInteractableEntity;
     }
 }

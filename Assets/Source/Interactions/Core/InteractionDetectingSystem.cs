@@ -32,11 +32,11 @@ namespace Shooter.Interactions
 
             ref var interacting = ref _entity.GetComponent<InteractingComponent>();
             
-            if (!UnityEngine.Physics.Raycast(_characterHeadTransform.position, _characterHeadTransform.forward, out var hit, interacting.InteractionRadius, _layerMask))
+            if (!UnityEngine.Physics.Raycast(_characterHeadTransform.position, _characterHeadTransform.forward, out var hit, interacting.InteractingDistance, _layerMask))
                 return;
             
             if (hit.collider.gameObject.TryGetComponent<Interactable>(out var interactable))
-                interacting.CurrentInteractableEntity = interactable.Entity;
+                interacting.SelectedInteractableEntity = interactable.Entity;
         }
         
         public void Dispose() { }

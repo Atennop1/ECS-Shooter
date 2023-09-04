@@ -28,7 +28,7 @@ namespace Shooter.Interactions
             ref var input = ref _inputEntity.GetComponent<InteractingInputComponent>();
 
             if (input.IsInteractingKeyPressedThisFrame)
-                interacting.CurrentInteractableEntity.AddComponent<InteractableActivatedComponent>();
+                interacting.SelectedInteractableEntity.AddComponent<InteractableActivatedComponent>();
         }
         
         public void Dispose() { }
