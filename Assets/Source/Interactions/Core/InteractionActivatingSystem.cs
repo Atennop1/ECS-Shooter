@@ -1,5 +1,6 @@
 ﻿using Scellecs.Morpeh;
 using Shooter.Input;
+using UnityEngine;
 
 namespace Shooter.Interactions
 {
@@ -27,7 +28,7 @@ namespace Shooter.Interactions
             ref var interacting = ref _interactingEntity.GetComponent<InteractingComponent>();
             ref var input = ref _inputEntity.GetComponent<InteractingInputComponent>();
 
-            if (input.IsInteractingKeyPressedThisFrame)
+            if (input.IsInteractingKeyPressedThisFrame && interacting.SelectedInteractableEntity != null)
                 interacting.SelectedInteractableEntity.AddComponent<InteractableActivatedComponent>();
         }
         

@@ -9,7 +9,7 @@ namespace Shooter.Interactions
     {
         private readonly Transform _characterHeadTransform;
         private readonly LayerMask _layerMask;
-        private Entity _entity;
+        private Filter _filter;
 
         public InteractionDetectingSystem(Transform characterHeadTransform, LayerMask layerMask)
         {
@@ -19,22 +19,24 @@ namespace Shooter.Interactions
 
         public World World { get; set; }
 
-        public void OnAwake()
-        {
-            var filter = World.Filter.With<InteractingComponent>();
-            _entity = filter.FirstOrDefault();
-        }
+        public void OnAwake() 
+            => _filter = World.Filter.With<InteractingComponent>();
 
         public void OnUpdate(float deltaTime)
         {
-            if (_entity == null)
+            var entity = _filter.FirstOrDefault();
+            Debug.Log(_filter.IsEmpty());
+            if (entity == null)
                 return;
 
-            ref var interacting = ref _entity.GetComponent<InteractingComponent>();
+            ref var interacting = ref entity.GetComponent<InteractingComponent>();
+            interacting.SelectedInteractableEntity = null;
             
+            Debug.Log("ray");
             if (!UnityEngine.Physics.Raycast(_characterHeadTransform.position, _characterHeadTransform.forward, out var hit, interacting.InteractingDistance, _layerMask))
                 return;
             
+            Debug.Log("hit");
             if (hit.collider.gameObject.TryGetComponent<Interactable>(out var interactable))
                 interacting.SelectedInteractableEntity = interactable.Entity;
         }
