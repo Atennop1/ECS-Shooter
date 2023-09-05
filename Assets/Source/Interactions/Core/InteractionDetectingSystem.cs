@@ -25,18 +25,15 @@ namespace Shooter.Interactions
         public void OnUpdate(float deltaTime)
         {
             var entity = _filter.FirstOrDefault();
-            Debug.Log(_filter.IsEmpty());
             if (entity == null)
                 return;
 
             ref var interacting = ref entity.GetComponent<InteractingComponent>();
             interacting.SelectedInteractableEntity = null;
             
-            Debug.Log("ray");
             if (!UnityEngine.Physics.Raycast(_characterHeadTransform.position, _characterHeadTransform.forward, out var hit, interacting.InteractingDistance, _layerMask))
                 return;
             
-            Debug.Log("hit");
             if (hit.collider.gameObject.TryGetComponent<Interactable>(out var interactable))
                 interacting.SelectedInteractableEntity = interactable.Entity;
         }

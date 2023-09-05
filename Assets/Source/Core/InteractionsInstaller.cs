@@ -8,6 +8,9 @@ namespace Shooter.Core
 {
     public sealed class InteractionsInstaller : MonoInstaller
     {
+        [SerializeField] private InteractionReadinessView _interactionReadinessView;
+        
+        [Space]
         [SerializeField] private Transform _characterHeadTransform;
         [SerializeField] private LayerMask _interactionsLayerMask;
         
@@ -21,6 +24,7 @@ namespace Shooter.Core
         {
             _gameLoop.AddSystem(new InteractionDetectingSystem(_characterHeadTransform, _interactionsLayerMask));
             _gameLoop.AddSystem(new InteractionActivatingSystem());
+            _gameLoop.AddSystem(new InteractionReadinessDisplayingSystem(_interactionReadinessView));
         }
     }
 }
