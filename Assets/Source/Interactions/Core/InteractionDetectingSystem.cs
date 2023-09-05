@@ -34,7 +34,7 @@ namespace Shooter.Interactions
             if (!UnityEngine.Physics.Raycast(_characterHeadTransform.position, _characterHeadTransform.forward, out var hit, interacting.InteractingDistance, _layerMask))
                 return;
             
-            if (hit.collider.gameObject.TryGetComponent<Interactable>(out var interactable))
+            if (hit.collider.gameObject.TryGetComponent<Interactable>(out var interactable) && interactable.Entity.GetComponent<InteractableComponent>().CanInteract)
                 interacting.SelectedInteractableEntity = interactable.Entity;
         }
         
