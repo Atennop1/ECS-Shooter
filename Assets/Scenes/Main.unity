@@ -6937,8 +6937,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1730108820}
   - component: {fileID: 1730108822}
-  - component: {fileID: 1730108824}
   - component: {fileID: 1730108825}
+  - component: {fileID: 1730108824}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
