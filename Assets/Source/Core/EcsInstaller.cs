@@ -9,9 +9,9 @@ namespace Shooter.Core
         
         public override void InstallBindings()
         {
-            var world = World.Create();
+            var world = World.Default;
             _gameLoop = new GameLoop.GameLoop(world);
-
+            
             Container.BindInstance(world).AsSingle();
             Container.BindInterfacesAndSelfTo<GameLoop.GameLoop>().FromInstance(_gameLoop).AsSingle();
         }

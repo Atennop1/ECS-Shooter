@@ -9,6 +9,6 @@ namespace Shooter.Interactions
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct InteractableComponent : IComponent
     {
-        [NonSerialized] public bool CanInteract;
+        [NonSerialized] public bool CantInteract;
     }
 }

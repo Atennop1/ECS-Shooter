@@ -1,5 +1,6 @@
 ﻿using System;
 using Scellecs.Morpeh;
+using UnityEngine;
 
 namespace Shooter.Interactions
 {
@@ -21,11 +22,14 @@ namespace Shooter.Interactions
 
         public void OnUpdate(float deltaTime)
         {
+            var filter = World.Filter.With<InteractingComponent>();
+            _entity = filter.FirstOrDefault();
+            
             if (_entity == null)
                 return;
 
             ref var interacting = ref _entity.GetComponent<InteractingComponent>();
-
+            
             if (interacting.SelectedInteractableEntity != null)
             {
                 _interactionReadinessView.DisplayReadiness(); 

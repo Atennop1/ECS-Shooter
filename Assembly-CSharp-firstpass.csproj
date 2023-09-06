@@ -44,6 +44,7 @@
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <Folder Include="Assets\Plugins\TextMesh Pro\Sprites" />
+     <Folder Include="Assets\Plugins\Sirenix\Odin Inspector\Config\Resources\Sirenix" />
      <Folder Include="Assets\Plugins\TextMesh Pro\Resources\Sprite Assets" />
      <None Include="Assets\Plugins\UniTask\package.json" />
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -61,6 +62,7 @@
      <None Include="Assets\Plugins\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <Folder Include="Assets\Plugins\Sirenix\Odin Inspector" />
      <Folder Include="Assets\Plugins\TextMesh Pro" />
+     <Folder Include="Assets\Plugins\Sirenix\Odin Inspector\Config\Resources" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.xml" />
      <Folder Include="Assets\Plugins\Sirenix\Assemblies\NoEmitAndNoEditor" />
      <Folder Include="Assets\Plugins\Sirenix" />

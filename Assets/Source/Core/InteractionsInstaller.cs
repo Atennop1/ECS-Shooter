@@ -25,6 +25,8 @@ namespace Shooter.Core
             _gameLoop.AddSystem(new InteractionDetectingSystem(_characterHeadTransform, _interactionsLayerMask));
             _gameLoop.AddSystem(new InteractionActivatingSystem());
             _gameLoop.AddSystem(new InteractionReadinessDisplayingSystem(_interactionReadinessView));
+            
+            _gameLoop.AddSystem(new LogInteractableActivatingSystem());
         }
     }
 }

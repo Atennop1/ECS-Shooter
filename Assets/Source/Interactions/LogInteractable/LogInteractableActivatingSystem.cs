@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Shooter.Interactions
 {
-    public sealed class LogInteractableActivating : ISystem
+    public sealed class LogInteractableActivatingSystem : ISystem
     {
         private Filter _filter;
         
@@ -20,7 +20,7 @@ namespace Shooter.Interactions
                 ref var interactable = ref entity.GetComponent<InteractableComponent>();
                 
                 Debug.Log(logInteractable.LogText);
-                interactable.CanInteract = false;
+                interactable.CantInteract = true;
                 entity.RemoveComponent<InteractableActivatedComponent>();
             }
         }
