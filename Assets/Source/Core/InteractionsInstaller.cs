@@ -26,7 +26,10 @@ namespace Shooter.Core
             _gameLoop.AddSystem(new InteractionActivatingSystem());
             _gameLoop.AddSystem(new InteractionReadinessDisplayingSystem(_interactionReadinessView));
             
-            _gameLoop.AddSystem(new LogInteractableActivatingSystem());
+            _gameLoop.AddSystem(new LogInteractableUsingSystem());
+            _gameLoop.AddSystem(new DisableGameObjectInteractableUsingSystem());
+            
+            _gameLoop.AddSystem(new InteractionDeactivatingSystem());
         }
     }
 }
