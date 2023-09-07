@@ -11,5 +11,6 @@ namespace Shooter.Interactions
     public struct InteractableComponent : IComponent
     {
         public bool CanInteract;
+        public string PromptMessage;
     }
 }

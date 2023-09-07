@@ -1,15 +1,19 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 namespace Shooter.Interactions
 {
     public sealed class InteractionReadinessView : MonoBehaviour
     {
-        [SerializeField] private GameObject _readinessTextGameObject;
+        [SerializeField] private TMP_Text _readinessText;
 
-        public void DisplayReadiness()
-            => _readinessTextGameObject.SetActive(true);
+        public void DisplayReadiness(InteractableComponent interactableComponent)
+        {
+            _readinessText.text = interactableComponent.PromptMessage;
+            _readinessText.gameObject.SetActive(true);
+        }
 
         public void DisplayUnreadiness()
-            => _readinessTextGameObject.SetActive(false);
+            => _readinessText.gameObject.SetActive(false);
     }
 }

@@ -32,7 +32,8 @@ namespace Shooter.Interactions
             
             if (interacting.SelectedInteractableEntity != null)
             {
-                _interactionReadinessView.DisplayReadiness(); 
+                ref var selectedInteractableComponent = ref interacting.SelectedInteractableEntity.GetComponent<InteractableComponent>();
+                _interactionReadinessView.DisplayReadiness(selectedInteractableComponent); 
                 return;
             }
             
