@@ -19,7 +19,7 @@ namespace Shooter.Interactions
                 ref var logInteractable = ref entity.GetComponent<LogInteractableComponent>();
                 ref var interactable = ref entity.GetComponent<InteractableComponent>();
                 
-                Debug.Log(logInteractable.LogText);
+                Debug.Log(logInteractable.Message);
                 interactable.CanInteract = false;
             }
         }

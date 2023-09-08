@@ -28,6 +28,7 @@ namespace Shooter.Core
             
             _gameLoop.AddSystem(new LogInteractableUsingSystem());
             _gameLoop.AddSystem(new DisableGameObjectInteractableUsingSystem());
+            _gameLoop.AddSystem(new IncreaseStaminaInteractableUsingSystem());
             
             _gameLoop.AddSystem(new InteractionDeactivatingSystem());
         }

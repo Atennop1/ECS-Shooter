@@ -1,6 +1,7 @@
 ﻿using System;
 using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
+using UnityEngine.Serialization;
 
 namespace Shooter.Interactions
 {
@@ -10,6 +11,6 @@ namespace Shooter.Interactions
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct LogInteractableComponent : IComponent
     {
-        public string LogText;
+        public string Message;
     }
 }
