@@ -2,7 +2,7 @@
 
 namespace Shooter.Interactions
 {
-    public sealed class InteractionDeactivatingSystem : ISystem
+    public sealed class InteractionDisposingSystem : ISystem
     {
         private Filter _filter;
         

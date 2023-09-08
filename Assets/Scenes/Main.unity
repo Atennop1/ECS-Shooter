@@ -1413,6 +1413,7 @@ GameObject:
   - component: {fileID: 737258565}
   - component: {fileID: 737258564}
   - component: {fileID: 737258563}
+  - component: {fileID: 737258568}
   m_Layer: 8
   m_Name: StaminaCube
   m_TagString: Untagged
@@ -1463,7 +1464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializedData:
     CanInteract: 1
-    PromptMessage: Press 'E' to interact with cube
+    PromptMessage: Press 'E' to collect stamina
 --- !u!65 &737258565
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1527,6 +1528,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737258561}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &737258568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737258561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a841092a2e499da6d57dbd24fb7bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &749300443
 GameObject:
   m_ObjectHideFlags: 0
@@ -3929,7 +3942,6 @@ GameObject:
   - component: {fileID: 1404281000}
   - component: {fileID: 1404281003}
   - component: {fileID: 1404281004}
-  - component: {fileID: 1404281005}
   m_Layer: 8
   m_Name: LogCube
   m_TagString: Untagged
@@ -4029,7 +4041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializedData:
     CanInteract: 1
-    PromptMessage: Press 'E' to interact with cube
+    PromptMessage: Press 'E' to make log
 --- !u!114 &1404281004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4043,21 +4055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
-    Message: 
---- !u!114 &1404281005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404280998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c09b4a50b4444568a132814ebee931cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializedData:
-    GameObjectToDisable: {fileID: 1404280998}
+    Message: I am cube!
 --- !u!1 &1405566222
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,10 +16,7 @@ namespace Shooter.Interactions
             foreach (var entity in _filter)
             {
                 ref var disableGameObjectInteractable = ref entity.GetComponent<DisableGameObjectInteractableComponent>();
-                ref var interactable = ref entity.GetComponent<InteractableComponent>();
-                
                 disableGameObjectInteractable.GameObjectToDisable.SetActive(false);
-                interactable.CanInteract = false;
             }
         }
         

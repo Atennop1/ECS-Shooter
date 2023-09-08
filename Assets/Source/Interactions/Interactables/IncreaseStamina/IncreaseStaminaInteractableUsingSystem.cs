@@ -25,10 +25,8 @@ namespace Shooter.Interactions
             foreach (var entity in _interactablesFilter)
             {
                 ref var increaseStaminaInteractable = ref entity.GetComponent<IncreaseStaminaInteractableComponent>();
-                ref var interactable = ref entity.GetComponent<InteractableComponent>();
                 ref var characterStamina = ref _characterEntity.GetComponent<CharacterStaminaComponent>();
 
-                interactable.CanInteract = false;
                 characterStamina.CurrentValue += increaseStaminaInteractable.AddingStaminaAmount;
 
                 if (characterStamina.CurrentValue > characterStamina.MaxValue)
