@@ -2,6 +2,7 @@
 using Scellecs.Morpeh;
 using Shooter.Core.GameLoop;
 using Shooter.Input;
+using Shooter.Input.Aim;
 using Zenject;
 
 namespace Shooter.Core
@@ -27,12 +28,14 @@ namespace Shooter.Core
             entity.AddComponent<CrouchingInputComponent>();
             entity.AddComponent<JumpingInputComponent>();
             entity.AddComponent<InteractingInputComponent>();
+            entity.AddComponent<AimInputComponent>();
             
             _gameLoop.AddSystem(new MovingInputReadingSystem(new CharacterControls()));
             _gameLoop.AddSystem(new SprintingInputReadingSystem());
             _gameLoop.AddSystem(new CrouchingInputReadingSystem());
             _gameLoop.AddSystem(new JumpingInputReadingSystem());
             _gameLoop.AddSystem(new InteractingInputReadingSystem());
+            _gameLoop.AddSystem(new AimInputReadingSystem());
         }
     }
 }
