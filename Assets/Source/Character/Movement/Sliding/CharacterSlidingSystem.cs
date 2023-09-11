@@ -1,16 +1,19 @@
 ﻿using System;
 using Scellecs.Morpeh;
 using UnityEngine;
+using Zenject;
 
 namespace Shooter.Character
 {
     public sealed class CharacterSlidingSystem : ISystem
     {
-        private readonly CharacterController _characterController;
         private readonly LayerMask _layerMask = LayerMask.GetMask($"Ground");
+        
+        private CharacterController _characterController;
         private Entity _characterEntity;
         
-        public CharacterSlidingSystem(CharacterController characterController) 
+        [Inject]
+        public void Construct(CharacterController characterController) 
             => _characterController = characterController ?? throw new ArgumentNullException(nameof(characterController));
 
         public World World { get; set; }

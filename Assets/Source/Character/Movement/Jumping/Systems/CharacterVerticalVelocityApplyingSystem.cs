@@ -1,15 +1,18 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using Scellecs.Morpeh;
 using UnityEngine;
+using Zenject;
 
 namespace Shooter.Character
 {
     public sealed class CharacterVerticalVelocityApplyingSystem : ISystem
     {
-        private readonly CharacterController _characterController;
+        private CharacterController _characterController;
         private Entity _characterEntity;
 
-        public CharacterVerticalVelocityApplyingSystem(CharacterController characterController)
-            => _characterController = characterController;
+        [Inject]
+        public void Construct(CharacterController characterController) 
+            => _characterController = characterController ?? throw new ArgumentNullException(nameof(characterController));
 
         public World World { get; set; }
         
