@@ -1,4 +1,5 @@
 ﻿using System;
+using Cinemachine;
 using Scellecs.Morpeh;
 using Shooter.Character;
 using Shooter.Core.GameLoop;
@@ -9,8 +10,8 @@ namespace Shooter.Core
 {
     public sealed class CharacterInstaller : MonoInstaller
     {
-        [SerializeField] private Transform _cameraTransform;
         [SerializeField] private CharacterController _characterController;
+        [SerializeField] private CinemachineVirtualCamera[] _cameras;
 
         [Header("Components")]
         [SerializeField] private CharacterJumpingComponentFactory _characterJumpingFactory;
@@ -88,8 +89,8 @@ namespace Shooter.Core
             _gameLoop.AddSystem(new CharacterGravitationSystem());
             _gameLoop.AddSystem(new CharacterVerticalVelocityApplyingSystem(_characterController));
             
-            _gameLoop.AddSystem(new CharacterHeadMovingSystem(_characterController.transform, _cameraTransform));
-            _gameLoop.AddSystem(new CharacterHeadbobSystem(_cameraTransform));
+            _gameLoop.AddSystem(new CharacterHeadMovingSystem(_characterController.transform));
+            _gameLoop.AddSystem(new CharacterHeadbobSystem(_cameras));
         }
     }
 }

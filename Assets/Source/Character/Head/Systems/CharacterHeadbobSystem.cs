@@ -1,21 +1,23 @@
 ﻿using System;
+using Cinemachine;
 using Scellecs.Morpeh;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Shooter.Character
 {
     public sealed class CharacterHeadbobSystem : ISystem 
     {
-        private readonly Transform _cameraTransform;
+        private readonly CinemachineVirtualCamera[] _cameras;
         private readonly float _defaultCameraPositionY;
         
         private float _timer;
         private Entity _characterEntity;
 
-        public CharacterHeadbobSystem(Transform cameraTransform)
+        public CharacterHeadbobSystem(CinemachineVirtualCamera[] cameras)
         {
-            _cameraTransform = cameraTransform ?? throw new ArgumentNullException(nameof(cameraTransform));
-            _defaultCameraPositionY = _cameraTransform.localPosition.y;
+            _cameras = cameras ?? throw new ArgumentNullException(nameof(cameras));
+            _defaultCameraPositionY = _cameras[0].GetCinemachineComponent<Cinemachine3rdPersonFollow>().ShoulderOffset.y;
         }
         
         public World World { get; set; }
@@ -46,10 +48,12 @@ namespace Shooter.Character
             _timer += Time.deltaTime * (crouching.IsActive ? headBob.CrouchingBobData.BobSpeed : (sprinting.IsActive ? sprintingBobData.BobSpeed : walkingBobData.BobSpeed));
             var strength = crouching.IsActive ? headBob.CrouchingBobData.BobStrength : (sprinting.IsActive ? sprintingBobData.BobStrength : walkingBobData.BobStrength);
 
-            _cameraTransform.localPosition = new Vector3(
-                _cameraTransform.localPosition.x,
-                _defaultCameraPositionY + Mathf.Sin(_timer) * strength,
-                _cameraTransform.localPosition.z);
+            _cameras.ForEach(camera =>
+            {
+                var follow = camera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+                var offset = follow.ShoulderOffset;
+                follow.ShoulderOffset = new Vector3(offset.x, _defaultCameraPositionY + Mathf.Sin(_timer) * strength, offset.z);
+            });
         }
 
         public void Dispose() { }

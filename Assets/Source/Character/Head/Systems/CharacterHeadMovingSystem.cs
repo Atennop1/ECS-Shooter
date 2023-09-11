@@ -8,17 +8,13 @@ namespace Shooter.Character
     public sealed class CharacterHeadMovingSystem : ISystem
     {
         private readonly Transform _characterTransform;
-        private readonly Transform _cameraTransform;
 
         private float _xRotation;
         private Entity _characterEntity;
 
-        public CharacterHeadMovingSystem(Transform characterTransform, Transform cameraTransform)
-        {
-            _characterTransform = characterTransform ?? throw new ArgumentNullException(nameof(characterTransform));
-            _cameraTransform = cameraTransform ?? throw new ArgumentNullException(nameof(cameraTransform));
-        }
-        
+        public CharacterHeadMovingSystem(Transform characterTransform) 
+            => _characterTransform = characterTransform ?? throw new ArgumentNullException(nameof(characterTransform));
+
         public World World { get; set; }
 
         public void OnAwake()
@@ -39,8 +35,6 @@ namespace Shooter.Character
 
             _xRotation -= rotatingDirection.y;
             _xRotation = Mathf.Clamp(_xRotation, -90, 90);
-
-            _cameraTransform.localRotation = Quaternion.Euler(_xRotation, 0, 0);
             _characterTransform.Rotate(Vector3.up * rotatingDirection.x);
         }
 
