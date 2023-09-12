@@ -2,19 +2,17 @@
 using Scellecs.Morpeh;
 using Shooter.Input;
 using UnityEngine;
-using Zenject;
 
 namespace Shooter.Character
 {
     public sealed class CharacterMovingApplyingSystem : ISystem
     {
-        private CharacterController _characterController;
+        private readonly CharacterController _characterController;
 
         private Entity _characterEntity;
         private Entity _inputEntity;
 
-        [Inject]
-        public void Construct(CharacterController characterController) 
+        public CharacterMovingApplyingSystem(CharacterController characterController) 
             => _characterController = characterController ?? throw new ArgumentNullException(nameof(characterController));
 
         public World World { get; set; }

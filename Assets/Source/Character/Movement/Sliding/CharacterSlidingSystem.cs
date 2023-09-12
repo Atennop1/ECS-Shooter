@@ -8,12 +8,11 @@ namespace Shooter.Character
     public sealed class CharacterSlidingSystem : ISystem
     {
         private readonly LayerMask _layerMask = LayerMask.GetMask($"Ground");
+        private readonly CharacterController _characterController;
         
-        private CharacterController _characterController;
         private Entity _characterEntity;
         
-        [Inject]
-        public void Construct(CharacterController characterController) 
+        public CharacterSlidingSystem(CharacterController characterController) 
             => _characterController = characterController ?? throw new ArgumentNullException(nameof(characterController));
 
         public World World { get; set; }

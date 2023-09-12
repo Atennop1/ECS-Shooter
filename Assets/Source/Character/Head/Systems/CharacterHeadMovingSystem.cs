@@ -2,19 +2,18 @@ using System;
 using Scellecs.Morpeh;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Zenject;
 
 namespace Shooter.Character
 {
     public sealed class CharacterHeadMovingSystem : ISystem
     {
-        private float _xRotation;
+        private readonly Transform _characterTransform;
+        
         private Entity _characterEntity;
-        private Transform _characterTransform;
+        private float _xRotation;
 
-        [Inject]
-        public void Construct(CharacterController characterController) 
-            => _characterTransform = characterController.transform ?? throw new ArgumentNullException(nameof(characterController));
+        public CharacterHeadMovingSystem(Transform characterControllerTransform) 
+            => _characterTransform = characterControllerTransform ?? throw new ArgumentNullException(nameof(characterControllerTransform));
 
         public World World { get; set; }
 

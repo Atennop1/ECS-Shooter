@@ -55,7 +55,6 @@ namespace Shooter.Core
         public override void InstallBindings()
         {
             var entity = _world.CreateEntity();
-            Container.BindInstance(_characterController).AsSingle();
 
             entity.AddComponent<CharacterMovingComponent>();
             entity.AddComponent<CharacterGroundedComponent>();
@@ -79,18 +78,18 @@ namespace Shooter.Core
             _gameLoop.AddSystem(_characterMovingActivatingSystemFactory.Create());
             _gameLoop.AddSystem(_characterSprintingSystemFactory.Create());
             _gameLoop.AddSystem(_characterCrouchingSystemFactory.Create());
-            _gameLoop.AddSystem(new CharacterMovingApplyingSystem());
+            _gameLoop.AddSystem(new CharacterMovingApplyingSystem(_characterController));
             
             _gameLoop.AddSystem(_characterGroundingSystemFactory.Create());
             _gameLoop.AddSystem(_characterFootstepsPlayingSystemFactory.Create());
             
             _gameLoop.AddSystem(new CharacterJumpingSystem());
-            _gameLoop.AddSystem(new CharacterSlidingSystem());
+            _gameLoop.AddSystem(new CharacterSlidingSystem(_characterController));
             
             _gameLoop.AddSystem(new CharacterGravitationSystem());
-            _gameLoop.AddSystem(new CharacterVerticalVelocityApplyingSystem());
+            _gameLoop.AddSystem(new CharacterVerticalVelocityApplyingSystem(_characterController));
             
-            _gameLoop.AddSystem(new CharacterHeadMovingSystem());
+            _gameLoop.AddSystem(new CharacterHeadMovingSystem(_characterController.transform));
             _gameLoop.AddSystem(new CharacterHeadbobSystem(_cameras));
         }
     }
