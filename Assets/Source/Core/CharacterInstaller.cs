@@ -89,7 +89,7 @@ namespace Shooter.Core
             _gameLoop.AddSystem(new CharacterGravitationSystem());
             _gameLoop.AddSystem(new CharacterVerticalVelocityApplyingSystem(_characterController));
             
-            _gameLoop.AddSystem(new CharacterHeadMovingSystem(_characterController.transform));
+            _gameLoop.AddSystem(new CharacterHeadMovingSystem(_characterController.transform, _cameras[0].transform));
             _gameLoop.AddSystem(new CharacterHeadbobSystem(_cameras));
         }
     }
